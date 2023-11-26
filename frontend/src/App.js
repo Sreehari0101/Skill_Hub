@@ -7,9 +7,7 @@ function App() {
   return (
     <NextUIProvider>
     <div className="App">
-     <h1 className="text-5xl">
-      Hello world!
-    </h1>
+     <Sidebar/>
     </div>
     </NextUIProvider>
   ); 

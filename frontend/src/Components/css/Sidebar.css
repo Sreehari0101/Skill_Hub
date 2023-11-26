@@ -1,0 +1,58 @@
+.Sidebar-container {
+  height: 100%;
+  width: auto;
+  background-color: #14121e;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  position: fixed;
+}
+
+.logo-container {
+  margin-bottom: 50px;
+}
+
+.logo-image {
+  height: 100px;
+  margin: 5px auto;
+}
+
+.logo-description {
+  color: #fff;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 2.15px;
+  width: 100%;
+}
+.nav-item {
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-weight: 100;
+  color: #fff;
+  font-family: Jost;
+  font-size: 20px;
+  font-style: normal;
+  text-align: justify;
+}
+
+.nav-item-icon {
+  margin-left: 0.5rem;
+  margin-right: 1rem;
+  width: 28px;
+  height: 27px;
+}
+
+.nav-item:hover {
+  background-color: #695dff;
+  color: white;
+}
