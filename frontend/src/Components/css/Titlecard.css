@@ -1,0 +1,16 @@
+.title-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 245px;
+  width: fit-content;
+  border-radius: 20px;
+  background: #d5e4f6;
+  color: #000;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 32px;
+  font-style:bold;
+  font-weight: bold;
+  padding: 5px;
+}

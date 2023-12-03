@@ -1,15 +1,17 @@
 import './App.css';
-import Sidebar from './Components/Sidebar';
+import {Routes, Route} from 'react-router-dom';
+import Chatroom from './pages/Chatroom';
+import Home from './pages/Home';
 import './index.css';
-import {NextUIProvider} from "@nextui-org/react";
 
 function App() {
   return (
-    <NextUIProvider>
     <div className="App">
-     <Sidebar/>
+    <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/student-discussions" element={<Chatroom/>} /> 
+      </Routes>
     </div>
-    </NextUIProvider>
   ); 
 }
 

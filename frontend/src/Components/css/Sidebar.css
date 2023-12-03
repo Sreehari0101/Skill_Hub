@@ -1,6 +1,6 @@
 .Sidebar-container {
   height: 100%;
-  width: auto;
+  width: 15%;
   background-color: #14121e;
   display: flex;
   flex-direction: column;
@@ -56,3 +56,4 @@
   background-color: #695dff;
   color: white;
 }
+
