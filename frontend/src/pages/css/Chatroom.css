@@ -12,6 +12,7 @@
 }
 
 .Content-top {
+  flex: 18%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,13 +20,15 @@
 }
 
 .title-content {
-  flex: 1;
+  flex: 60%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .profile-content {
-  flex-shrink: 0; /* To prevent the ProfileCard from growing */
+  flex: 40%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .Content-bottom {

@@ -1,14 +1,9 @@
 .profile-card {
-  min-width: 150px;
+  min-width: 172px;
   width: fit-content;
-  height: 50px;
+  height: 55px;
   border-radius: 46px;
   background: #14121e;
-  color: #000;
-  font-family: Montserrat;
-  font-size: 32px;
-  font-style: bold;
-  font-weight: bold;
   padding: 5px;
 }
 
@@ -19,13 +14,20 @@
 .profile-button-content {
   display: flex;
   height: 100%;
+  align-items: center;
+  justify-content: center;
 }
 .profile-user-name {
   display: flex;
-  flex: 60%;
+  flex: 65%;
+  color: #fff;
+  font-weight: 400;
+  font-size: 20px;
+  align-items: center;
+  justify-content: center;
 }
 .profile-icon-container {
-  flex: 40%;
+  flex: 35%;
   display: flex;
   align-items: center;
   justify-content: center;
