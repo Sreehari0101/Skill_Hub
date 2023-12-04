@@ -1,0 +1,16 @@
+.Job-feature-card h1 {
+  display: flex;
+  justify-content: center;
+  height: 25px;
+  align-items: center;
+  min-width: 120px;
+  width: fit-content;
+  border-radius: 10px;
+  background: #d5e4f6;
+  color: #000;
+  font-family: Montserrat;
+  font-size: 13px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: normal;
+}

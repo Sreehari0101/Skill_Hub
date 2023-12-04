@@ -18,6 +18,9 @@
   justify-content: center;
 }
 .profile-user-name {
+  font-family: Jost;
+  font-style: normal;
+  line-height: normal;
   display: flex;
   flex: 65%;
   color: #fff;

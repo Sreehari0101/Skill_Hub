@@ -37,10 +37,10 @@
   align-items: center;
   padding: 1rem;
   border-radius: 0.5rem;
-  font-weight: 100;
   color: #fff;
   font-family: Jost;
-  font-size: 20px;
+  font-weight: 500;
+  font-size: 18px;
   font-style: normal;
   text-align: justify;
 }

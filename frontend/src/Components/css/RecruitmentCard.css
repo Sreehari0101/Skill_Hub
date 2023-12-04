@@ -1,0 +1,83 @@
+.Recruitment-card {
+  width: 36vw;
+  height: 36vh;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 18px;
+}
+
+.Recruitment-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.Recruitment-card-top .Company-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Company-logo-container .Company-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+
+.Recruitment-card-top .Recruitment-date {
+  color: rgba(0, 0, 0, 0.42);
+  font-family: Montserrat;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.Recruitment-card-middle {
+  padding: 5px;
+}
+
+.Recruitment-card-middle .Job-features {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.Recruitment-card-middle h1 {
+  color: #000;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 8px;
+}
+.Recruitment-card-middle p {
+  color: #000;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 8px;
+}
+
+.Recruitment-card-bottom {
+  display: flex;
+  justify-content: flex-end;
+}
+.Recruitment-card-bottom .Button-content {
+  width: 150px;
+  height: 40px;
+  border-radius: 10px;
+  background: #000;
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
