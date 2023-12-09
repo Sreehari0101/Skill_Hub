@@ -1,6 +1,5 @@
 import React from "react";
 import "./css/Recruitments.css";
-import Sidebar from "../Components/Sidebar";
 import TitleCard from "../Components/TitleCard";
 import ProfileCard from "../Components/ProfileCard";
 import profile_icon from "./../assets/Profile_icon.jpg";
@@ -13,10 +12,6 @@ import companyIcon4 from "./../assets/Netflix_logo.jpg";
 function Recruitments() {
   return (
     <div className="Recruitments">
-      <div class="Sidebar">
-        <Sidebar />
-      </div>
-      <div className="Content">
         <div className="Content-top">
           <div className="title-content">
             <TitleCard titleName="Recruitments" />
@@ -70,7 +65,6 @@ function Recruitments() {
             jobDescription="Netflix is seeking a dynamic and experienced Project Manager to join it's innovative project management team. The successful candidate will play a crucial role in planning, executing, and delivering strategic initiatives"
           />
         </div>
-      </div>
     </div>
   );
 }

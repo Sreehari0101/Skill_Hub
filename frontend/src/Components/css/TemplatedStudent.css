@@ -1,0 +1,14 @@
+.Templated {
+  display: flex;
+}
+
+.Templated .Sidebar {
+  flex: 15%;
+  height: 100vh;
+}
+.Templated .ground {
+  flex: 85%;
+  display: flex;
+  
+
+}
