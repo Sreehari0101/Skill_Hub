@@ -1,6 +1,7 @@
 import React from "react";
 import "./css/Chatcard.css";
 import JoinChat_icon from "./../assets/JoinChat_icon.png";
+import { Link } from 'react-router-dom'
 
 function Chatcard({ imageSrc, altText, chatroomName,chatroomDescription,studentsJoined }) {
   return (
@@ -23,6 +24,7 @@ function Chatcard({ imageSrc, altText, chatroomName,chatroomDescription,students
             <p>JOINED</p>
           </div>
           <div className="Chat-card-body-join">
+          <Link to="/student-discussions-join">
             <button className="button">
               <div className="join-button-content">
                 <div className="icon_container">
@@ -35,6 +37,7 @@ function Chatcard({ imageSrc, altText, chatroomName,chatroomDescription,students
                 <div className="join-chat-text">JOIN CHAT</div>
               </div>
             </button>
+            </Link>
           </div>
         </div>
       </div>

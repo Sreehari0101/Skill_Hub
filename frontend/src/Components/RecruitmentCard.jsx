@@ -1,6 +1,7 @@
 import React from "react";
 import "./css/RecruitmentCard.css";
 import JobFeatureCard from "./JobFeatureCard";
+import { Link } from 'react-router-dom'
 
 function RecruitmentCard({companyIcon,recruitmentDate,companyName,jobPosition,jobfeature1,jobfeature2,jobfeature3,jobDescription}) {
   return (
@@ -25,9 +26,11 @@ function RecruitmentCard({companyIcon,recruitmentDate,companyName,jobPosition,jo
       </div>
 
       <div className="Recruitment-card-bottom">
+      <Link to="/student-recruitments-apply">
         <button className="Apply-button">
           <div className="Button-content">Apply Now</div>
         </button>
+      </Link>
       </div>
     </div>
   );

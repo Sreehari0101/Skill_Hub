@@ -34,7 +34,7 @@ function RecruitmentForm() {
         />
       </div>
       <div className="flex justify-end ">
-        <Button color="default" className="py-2 px-8 ">
+        <Button color="default" className="py-5 px-10 rounded-lg bg-black text-white">
           Submit
         </Button>
       </div>
