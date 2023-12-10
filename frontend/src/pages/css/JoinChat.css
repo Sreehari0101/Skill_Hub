@@ -1,10 +1,10 @@
-.Chat-bot {
+.Join-chat {
   flex: 85%;
   display: flex;
   flex-direction: column;
 }
 
-.Chat-bot .Content-top {
+.Join-chat .Content-top {
   flex: 18%;
   display: flex;
   justify-content: space-between;
@@ -12,19 +12,19 @@
   padding: 20px;
 }
 
-.Chat-bot .Content-top .title-content {
+.Join-chat .Content-top .title-content {
   flex: 60%;
   display: flex;
   justify-content: flex-end;
 }
 
-.Chat-bot .Content-top .profile-content {
+.Join-chat .Content-top .profile-content {
   flex: 40%;
   display: flex;
   justify-content: flex-end;
 }
 
-.Chat-bot .Content-bottom {
+.Join-chat .Content-bottom {
   flex: 82%;
   display: flex;
   align-items: center;
@@ -32,7 +32,8 @@
   flex-direction: column;
 }
 
-.Chat-bot .Content-bottom .message-display {
+.Join-chat .Content-bottom .message-display {
+  flex: 90%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -40,14 +41,15 @@
   padding-bottom: 60px;
 }
 
-.Chat-bot .Content-bottom .message-display .message-reply {
+.Join-chat .Content-bottom .message-display .message-reply {
   align-self: flex-start;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  gap: 10px;
   max-width: 48%;
   width: auto;
-  border-radius: 42px;
+  border-radius: 10px;
   background: #c8fdc7;
   box-shadow: -5px 4px 4px 0px rgba(0, 0, 0, 0.25);
   padding: 15px;
@@ -59,13 +61,16 @@
   line-height: normal;
 }
 
-.Chat-bot .Content-bottom .message-display .my-message {
+.Join-chat .Content-bottom .message-display .message-reply h1{
+   font-weight:600;
+  }
+.Join-chat .Content-bottom .message-display .my-message {
   align-self: flex-end;
   display: flex;
   align-items: center;
   max-width: 48%;
   width: auto;
-  border-radius: 42px;
+  border-radius: 10px;
   background: #c7fafd;
   box-shadow: 5px 4px 4px 0px rgba(0, 0, 0, 0.25);
   padding: 15px;
@@ -77,17 +82,22 @@
   line-height: normal;
 }
 
-.Chat-bot .Content-bottom .message-type {
+.Join-chat .Content-bottom .message-type {
   width: 80%;
   display: flex;
   position: fixed;
   bottom: 30px;
 }
 
-.Chat-bot .Content-bottom .message-type .message-type-area {
+.Join-chat .Content-bottom .message-type .message-type-area {
   flex: 92%;
 }
-.Chat-bot .Content-bottom .message-type .message-type-area .message-textbox .custom-textbox {
+.Join-chat
+  .Content-bottom
+  .message-type
+  .message-type-area
+  .message-textbox
+  .custom-textbox {
   width: 100%;
   border-radius: 26px;
   background: #dee3fb;
@@ -97,14 +107,18 @@
   outline: none;
 }
 
-.Chat-bot .Content-bottom .message-type .message-send-area{
+.Join-chat .Content-bottom .message-type .message-send-area {
   flex: 8%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.Chat-bot .Content-bottom .message-type .message-send-area .send-button-content{
+.Join-chat
+  .Content-bottom
+  .message-type
+  .message-send-area
+  .send-button-content {
   width: 52px;
   height: 52px;
   border-radius: 50px;
@@ -114,7 +128,12 @@
   justify-content: center;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
-.Chat-bot .Content-bottom .message-type .message-send-area .send-button-content .send-button-icon{
+.Join-chat
+  .Content-bottom
+  .message-type
+  .message-send-area
+  .send-button-content
+  .send-button-icon {
   width: 42px;
   height: 42px;
 }

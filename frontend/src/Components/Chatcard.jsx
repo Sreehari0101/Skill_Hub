@@ -32,7 +32,7 @@ function Chatcard({ imageSrc, altText, chatroomName,chatroomDescription,students
                     className="join-chat-icon"
                     src={JoinChat_icon}
                     alt="Icon"
-                  />{" "}
+                  />
                 </div>
                 <div className="join-chat-text">JOIN CHAT</div>
               </div>
