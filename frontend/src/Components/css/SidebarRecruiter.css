@@ -1,0 +1,58 @@
+.SidebarRecruiter-container {
+    height: 100%;
+    width: 15%;
+    background-color: #14121e;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    position: fixed;
+  }
+  
+  .SidebarRecruiter-container .top-container .logo-container {
+    margin-bottom: 50px;
+  }
+  
+  .SidebarRecruiter-container .top-container .logo-container .logo-image {
+    height: 100px;
+    margin: 5px auto;
+  }
+  
+  .SidebarRecruiter-container .logo-container .logo-description {
+    color: #fff;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 2.15px;
+    width: 100%;
+  }
+  .SidebarRecruiter-container .top-container .nav-item {
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    color: #fff;
+    font-family: Jost;
+    font-weight: 500;
+    font-size: 18px;
+    font-style: normal;
+    text-align: justify;
+  }
+  
+  .SidebarRecruiter-container .top-container .nav-item  .nav-item-icon {
+    margin-left: 0.5rem;
+    margin-right: 1rem;
+    width: 28px;
+    height: 27px;
+  }
+  
+  .SidebarRecruiter-container .top-container .nav-item:hover {
+    background-color: #695dff;
+    color: white;
+  }

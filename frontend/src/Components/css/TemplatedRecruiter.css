@@ -1,0 +1,12 @@
+.TemplatedRecruiter {
+  display: flex;
+}
+
+.TemplatedRecruiter .Sidebar {
+  flex: 15%;
+  height: 100vh;
+}
+.TemplatedRecruiter.ground {
+  flex: 85%;
+  display: flex;
+}

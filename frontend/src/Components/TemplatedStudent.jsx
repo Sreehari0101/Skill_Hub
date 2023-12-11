@@ -2,7 +2,7 @@ import React from 'react'
 import Sidebar from './Sidebar'
 import "./css/TemplatedStudent.css";
 
-function Templated({children,label}) {
+function TemplatedStudent({children,label}) {
   return (
     <div className='Templated'>
         <div className='Sidebar'>
@@ -15,4 +15,4 @@ function Templated({children,label}) {
   )
 }
 
-export default Templated
+export default TemplatedStudent
