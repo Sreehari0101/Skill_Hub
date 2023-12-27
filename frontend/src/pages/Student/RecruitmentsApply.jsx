@@ -1,9 +1,9 @@
 import React from 'react'
-import TitleCard from '../Components/TitleCard';
-import ProfileCard from '../Components/ProfileCard';
+import TitleCard from '../../Components/TitleCard';
+import ProfileCard from '../../Components/ProfileCard';
 import "./css/RecruitmentsApply.css";
-import profile_icon from "./../assets/Profile_icon.jpg";
-import RecruitmentForm from '../Components/RecruitmentForm';
+import profile_icon from "../../assets/Profile_icon.jpg";
+import RecruitmentForm from '../../Components/RecruitmentForm';
 
 function RecruitmentsApply() {
   return (

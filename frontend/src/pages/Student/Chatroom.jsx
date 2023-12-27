@@ -1,15 +1,15 @@
 import React from "react";
 import "./css/Chatroom.css";
-import Chatcard from "../Components/Chatcard";
-import Cover1 from "./../assets/Webdevelopment_Chatroom_image.avif";
-import Cover2 from "./../assets/Digital_marketing_Chatroom_image.avif";
-import Cover3 from "./../assets/Deeplearning_Chatroom_image.jpg";
-import Cover4 from "./../assets/Robotics_Chatroom_image.avif";
-import Cover5 from "./../assets/Data_analytics_Chatroom_image.avif";
-import Cover6 from "./../assets/Crypto_currency_Chatroom_image.jpg";
-import TitleCard from "../Components/TitleCard";
-import ProfileCard from "../Components/ProfileCard";
-import profile_icon from "./../assets/Profile_icon.jpg";
+import Chatcard from "../../Components/Chatcard";
+import Cover1 from "../../assets/Webdevelopment_Chatroom_image.avif";
+import Cover2 from "../../assets/Digital_marketing_Chatroom_image.avif";
+import Cover3 from "../../assets/Deeplearning_Chatroom_image.jpg";
+import Cover4 from "../../assets/Robotics_Chatroom_image.avif";
+import Cover5 from "../../assets/Data_analytics_Chatroom_image.avif";
+import Cover6 from "../../assets/Crypto_currency_Chatroom_image.jpg";
+import TitleCard from "../../Components/TitleCard";
+import ProfileCard from "../../Components/ProfileCard";
+import profile_icon from "../../assets/Profile_icon.jpg";
 
 function Chatroom() {
   return (

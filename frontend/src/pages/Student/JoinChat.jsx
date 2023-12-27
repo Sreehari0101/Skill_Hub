@@ -1,9 +1,9 @@
 import React from "react";
 import "./css/JoinChat.css";
-import TitleCard from "../Components/TitleCard";
-import ProfileCard from "../Components/ProfileCard";
-import profile_icon from "./../assets/Profile_icon.jpg";
-import sendIcon from "./../assets/send_symbol_icon.png";
+import TitleCard from "../../Components/TitleCard";
+import ProfileCard from "../../Components/ProfileCard";
+import profile_icon from "../../assets/Profile_icon.jpg";
+import sendIcon from "../../assets/send_symbol_icon.png";
 
 function JoinChat() {
   return (

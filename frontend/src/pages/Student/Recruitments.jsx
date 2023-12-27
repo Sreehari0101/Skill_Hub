@@ -1,13 +1,13 @@
 import React from "react";
 import "./css/Recruitments.css";
-import TitleCard from "../Components/TitleCard";
-import ProfileCard from "../Components/ProfileCard";
-import profile_icon from "./../assets/Profile_icon.jpg";
-import RecruitmentCard from "../Components/RecruitmentCard";
-import companyIcon1 from "./../assets/Meta_logo.jpg";
-import companyIcon2 from "./../assets/Spotify_logo.png";
-import companyIcon3 from "./../assets/Google_logo.jpg";
-import companyIcon4 from "./../assets/Netflix_logo.jpg";
+import TitleCard from "../../Components/TitleCard";
+import ProfileCard from "../../Components/ProfileCard";
+import profile_icon from "../../assets/Profile_icon.jpg";
+import RecruitmentCard from "../../Components/RecruitmentCard";
+import companyIcon1 from "../../assets/Meta_logo.jpg";
+import companyIcon2 from "../../assets/Spotify_logo.png";
+import companyIcon3 from "../../assets/Google_logo.jpg";
+import companyIcon4 from "../../assets/Netflix_logo.jpg";
 
 function Recruitments() {
   return (

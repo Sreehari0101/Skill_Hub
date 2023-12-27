@@ -1,10 +1,10 @@
 import React from "react";
 import "./css/Chatbot.css";
-import TitleCard from "../Components/TitleCard";
-import ProfileCard from "../Components/ProfileCard";
-import profile_icon from "./../assets/Profile_icon.jpg";
-import title_icon from "./../assets/chatbot_title_icon.png";
-import sendIcon from "./../assets/send_symbol_icon.png";
+import ProfileCard from "../../Components/ProfileCard";
+import profile_icon from "../../assets/Profile_icon.jpg";
+import title_icon from "../../assets/chatbot_title_icon.png";
+import sendIcon from "../../assets/send_symbol_icon.png";
+import TitleCard from "../../Components/TitleCard";
 
 function Chatbot() {
   return (

@@ -15,7 +15,7 @@ function SidebarRecruiter() {
 
       <div className="logo-container">   <img src={Logo} className="logo-image" alt="SkillHub-logo"/> <div class="logo-description">EMPOWERING FUTURES</div> </div>
       <Link to="/recruiter-dashboard"> <div className="nav-item"> <img src={LogoDashboard} className="nav-item-icon" alt="Dashboard-icon"/> Dashboard  </div> </Link>
-      <Link to="/recruiter-create"> <div className="nav-item"> <img src={LogoCreateJobs} className="nav-item-icon" alt="Create-jobs-icon" /> Create Openings</div></Link>
+      <Link to="/recruiter-create"> <div className="nav-item"> <img src={LogoCreateJobs} className="nav-item-icon" alt="Create-jobs-icon" />Post Recruitments</div></Link>
       <Link to="/recruiter-profile"> <div className="nav-item"> <img src={LogoCompanyProfile} className="nav-item-icon" alt="profile-icon" /> Company Profile</div></Link>
       </div>
 

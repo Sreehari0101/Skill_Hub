@@ -1,0 +1,46 @@
+.student-dashboard {
+  flex: 85%;
+  display: flex;
+  flex-direction: column;
+}
+
+.student-dashboard .Content-top {
+  flex: 18%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.student-dashboard .Content-top .title-content {
+  flex: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.student-dashboard .Content-top .profile-content {
+  flex: 20%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.student-dashboard .Content-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  flex: 82%;
+}
+.student-dashboard .Content-bottom .course-search {
+  width: 90%;
+}
+.student-dashboard .Content-bottom .course-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}

@@ -6,7 +6,7 @@
   flex: 15%;
   height: 100vh;
 }
-.TemplatedRecruiter.ground {
+.TemplatedRecruiter .ground {
   flex: 85%;
   display: flex;
 }

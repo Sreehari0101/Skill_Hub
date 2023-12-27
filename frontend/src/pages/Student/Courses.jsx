@@ -1,19 +1,19 @@
 import React from "react";
 import "./css/Courses.css";
 import { BiSearch } from "react-icons/bi";
-import TitleCard from "../Components/TitleCard";
-import ProfileCard from "../Components/ProfileCard";
-import profile_icon from "./../assets/Profile_icon.jpg";
-import Cover1 from "./../assets/Data_Analytics_Course_icon.jpg";
-import Cover2 from "./../assets/Crypto_Currency_Course_icon.png";
-import Cover3 from "./../assets/Artificial_Intelligence_Course_icon.webp";
-import Cover4 from "./../assets/Game_Development_Course_icon.jpg";
-import Cover5 from "./../assets/Digital_Marketing_Course_icon.jpg";
-import Cover6 from "./../assets/Cloud_Computing_Course_icon.avif";
+import TitleCard from "../../Components/TitleCard";
+import ProfileCard from "../../Components/ProfileCard";
+import profile_icon from "../../assets/Profile_icon.jpg";
+import Cover1 from "../../assets/Data_Analytics_Course_icon.jpg";
+import Cover2 from "../../assets/Crypto_Currency_Course_icon.png";
+import Cover3 from "../../assets/Artificial_Intelligence_Course_icon.webp";
+import Cover4 from "../../assets/Game_Development_Course_icon.jpg";
+import Cover5 from "../../assets/Digital_Marketing_Course_icon.jpg";
+import Cover6 from "../../assets/Cloud_Computing_Course_icon.avif";
 
 import { Input } from "@nextui-org/react";
 
-import CourseCard from "../Components/CourseCard";
+import CourseCard from "../../Components/CourseCard";
 
 function Courses() {
   return (
