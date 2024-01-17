@@ -10,16 +10,16 @@
   position: fixed;
 }
 
-.logo-container {
+.Sidebar-container .top-container .logo-container {
   margin-bottom: 50px;
 }
 
-.logo-image {
+.Sidebar-container .top-container .logo-container .logo-image {
   height: 100px;
   margin: 5px auto;
 }
 
-.logo-description {
+.Sidebar-container .top-container .logo-container .logo-description {
   color: #fff;
   text-align: center;
   font-family: Montserrat;

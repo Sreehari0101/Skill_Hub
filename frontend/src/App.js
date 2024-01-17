@@ -13,11 +13,14 @@ import RecruiterDashboard from './pages/Recruiter/RecruiterDashboard';
 import RecruiterCreate from './pages/Recruiter/RecruiterCreate';
 import RecruiterProfile from './pages/Recruiter/RecruiterProfile';
 import StudentDashboard from './pages/Student/StudentDashboard';
+import Home from './pages/Home';
 
 function App() {
   return (
     <div className="App">
     <Routes>
+        
+        <Route path="/" element={<Home/>} />
         <Route path="/student-dashboard" element={<TemplatedStudent> <StudentDashboard/> </TemplatedStudent>} />
         <Route path="/student-courses" element={<TemplatedStudent> <Courses/> </TemplatedStudent>} />
         <Route path="/student-discussions" element={<TemplatedStudent> <Chatroom/> </TemplatedStudent>} />
