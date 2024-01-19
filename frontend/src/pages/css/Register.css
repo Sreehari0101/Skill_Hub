@@ -1,0 +1,118 @@
+.register-page {
+  width: 100%;
+  height: 100%;
+  background: #14121e;
+  display: flex;
+  flex-direction: column;
+}
+
+.register-page .top {
+  display: flex;
+  flex: 20%;
+  justify-content: center;
+}
+
+.register-page .top .logo-container {
+  display: flex;
+  justify-content: center;
+  padding: 10px 10px;
+}
+
+.register-page .top .logo-container .logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 2.15px;
+}
+
+.register-page .top .logo-container .logo-section .logo-image {
+  width: 120px;
+  height: 110px;
+}
+
+
+.register-page .bottom {
+  flex: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-page .bottom .register-container {
+  display: flex;
+  border-radius: 66px;
+  background: #fff;
+  width: 80%;
+  height: 90%;
+}
+
+.register-page .bottom .register-container .register-content {
+  flex: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-page .bottom .register-container .register-content .register-form {
+  width: 60%;
+}
+
+.register-page .bottom .register-container .register-content h1 {
+  color: #000;
+  font-family: Montserrat;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding-bottom: 15px;
+}
+
+.register-page
+  .bottom
+  .register-container
+  .register-content
+  .register-form
+  .register-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.register-page
+  .bottom
+  .register-container
+  .register-content
+  .register-form
+  .register-button-container
+  .register-button {
+  padding: 5px 10px;
+  height: 40px;
+  border-radius: 20px;
+  background: #14121e;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+.register-page .bottom .register-container .register-image-container {
+  flex: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-page .bottom .register-container .register-image-container .register-image {
+  width: 80%;
+  height: 90%;
+}
