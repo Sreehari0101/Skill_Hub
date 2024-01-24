@@ -1,5 +1,4 @@
 import React from 'react'
-import '../App.css';
 import './css/SidebarRecruiter.css'
 import { Link } from 'react-router-dom'
 import Logo from './../assets/SkillHub_Sidebar_logo.png'

@@ -16,11 +16,15 @@ import StudentDashboard from './pages/Student/StudentDashboard';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import MentorDashboard from './pages/Mentor/MentorDashboard';
+import MentorCreate from './pages/Mentor/MentorCreate';
+import MentorProfile from './pages/Mentor/MentorProfile';
+import TemplatedMentor from './Components/TemplatedMentor';
 
 
 function App() {
   return (
-    <div className="App">
+    <div className="App overflow-x-hidden">
     <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login/>} />
@@ -35,7 +39,9 @@ function App() {
         <Route path="/recruiter-dashboard" element={<TemplatedRecruiter> <RecruiterDashboard/> </TemplatedRecruiter>} />
         <Route path="/recruiter-create" element={<TemplatedRecruiter> <RecruiterCreate/> </TemplatedRecruiter>} />
         <Route path="/recruiter-profile" element={<TemplatedRecruiter> <RecruiterProfile/> </TemplatedRecruiter>} />
-
+        <Route path="/mentor-dashboard" element={<TemplatedMentor> <MentorDashboard/> </TemplatedMentor>} />
+        <Route path="/mentor-create" element={<TemplatedMentor> <MentorCreate/> </TemplatedMentor>} />
+        <Route path="/mentor-profile" element={<TemplatedMentor> <MentorProfile/> </TemplatedMentor>} />
       </Routes>
     </div>
   ); 
