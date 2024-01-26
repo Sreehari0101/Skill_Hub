@@ -1,0 +1,77 @@
+.recruiter-dashboard {
+    flex: 85%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .recruiter-dashboard .Content-top {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .recruiter-dashboard .Content-top .title-content {
+    flex: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .recruiter-dashboard .Content-top .profile-content {
+    flex: 20%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .recruiter-dashboard .Content-middle {
+    flex: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .recruiter-dashboard .Content-middle .welcome-box-container {
+    flex: 65%;
+    border-radius: 28px;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .recruiter-dashboard .Content-middle .dashboard-image-container {
+    flex: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+  
+  .recruiter-dashboard .Content-bottom {
+    flex: 40%;
+    padding-top: 25px;
+  }
+  
+  .recruiter-dashboard .Content-bottom .mycourses-heading {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+  }
+  
+  .recruiter-dashboard .Content-bottom .myrecruitments-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    color: #000;
+    text-align: start;
+    font-family: Montserrat;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    padding: 25px;
+  }

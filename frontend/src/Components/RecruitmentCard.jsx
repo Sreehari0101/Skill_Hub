@@ -6,15 +6,15 @@ import { Link } from 'react-router-dom'
 function RecruitmentCard({companyIcon,recruitmentDate,companyName,jobPosition,jobfeature1,jobfeature2,jobfeature3,jobDescription}) {
   return (
     <div className="Recruitment-card">
-      <div className="Recruitment-card-top">
+      <div className="top">
         <div className="Company-logo-container">
           <img className="Company-icon" src={companyIcon} alt="Icon" />
         </div>
         <div className="Recruitment-date">{recruitmentDate}</div>
       </div>
 
-      <div className="Recruitment-card-middle">
-        <h1>{companyName} - {jobPosition}</h1>
+      <div className="middle">
+        <h1 className="headings">{companyName} - {jobPosition}</h1>
         <div className="Job-features">
           <JobFeatureCard feature={jobfeature1} />
           <JobFeatureCard feature= {jobfeature2} />
@@ -25,7 +25,7 @@ function RecruitmentCard({companyIcon,recruitmentDate,companyName,jobPosition,jo
         </p>
       </div>
 
-      <div className="Recruitment-card-bottom">
+      <div className="bottom">
       <Link to="/student-recruitments-apply">
         <button className="Apply-button">
           <div className="Button-content">Apply Now</div>

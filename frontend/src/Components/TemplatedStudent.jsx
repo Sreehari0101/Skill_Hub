@@ -4,7 +4,7 @@ import "./css/TemplatedStudent.css";
 
 function TemplatedStudent({children,label}) {
   return (
-    <div className='Templated'>
+    <div className='TemplatedStudent'>
         <div className='Sidebar'>
             <Sidebar label = {label} />
         </div>

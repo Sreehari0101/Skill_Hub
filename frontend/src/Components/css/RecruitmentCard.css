@@ -7,25 +7,25 @@
   padding: 18px;
 }
 
-.Recruitment-card-top {
+.Recruitment-card .top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
 }
 
-.Recruitment-card-top .Company-logo-container {
+.Recruitment-card .top .Company-logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.Company-logo-container .Company-icon {
+.Recruitment-card .top .Company-logo-container .Company-icon {
   width: 50px;
   height: 50px;
   border-radius: 50px;
 }
 
-.Recruitment-card-top .Recruitment-date {
+.Recruitment-card .top .Recruitment-date {
   color: rgba(0, 0, 0, 0.42);
   font-family: Montserrat;
   font-size: 13px;
@@ -33,26 +33,26 @@
   font-weight: 600;
 }
 
-.Recruitment-card-middle {
+.Recruitment-card .middle {
   padding: 5px;
 }
 
-.Recruitment-card-middle .Job-features {
+.Recruitment-card .middle .Job-features {
   display: flex;
   gap: 12px;
   margin-bottom: 8px;
 }
 
-.Recruitment-card-middle h1 {
+.Recruitment-card .middle .headings {
   color: #000;
   font-family: Montserrat;
-  font-size: 20px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   margin-bottom: 8px;
 }
-.Recruitment-card-middle p {
+.Recruitment-card .middle p {
   color: #000;
   font-family: Inter;
   font-size: 12px;
@@ -62,11 +62,11 @@
   margin-bottom: 8px;
 }
 
-.Recruitment-card-bottom {
+.Recruitment-card .bottom {
   display: flex;
   justify-content: flex-end;
 }
-.Recruitment-card-bottom .Button-content {
+.Recruitment-card .bottom .Button-content {
   width: 150px;
   height: 40px;
   border-radius: 10px;

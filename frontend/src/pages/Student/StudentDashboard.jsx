@@ -2,6 +2,7 @@ import React from "react";
 import "./css/StudentDashboard.css";
 import { BiSearch } from "react-icons/bi";
 import ProfileCard from "../../Components/ProfileCard";
+import WelcomeBox from "../../Components/WelcomeBox";
 import profile_icon from "../../assets/Profile_icon.jpg";
 import { Input } from "@nextui-org/react";
 import TitleCard from "../../Components/TitleCard";
@@ -31,10 +32,12 @@ function StudentDashboard() {
       </div>
 
       <div className="Content-middle">
-        <div className="welcome-box">
-          <img className="welcome-image" src={welcomeImage} alt="welcome" />
-          <p className="date-text">January 20, Saturday</p>
-          <h1 className="welcome-text">Welcome back, Richu Das!</h1>
+        <div className="welcome-box-container">
+          <WelcomeBox
+          welcomeImage = {welcomeImage}
+          date = "January 20, Saturday"
+          welcomeText = "Welcome back, Richu Das!"
+          />
         </div>
         <div className="dashboard-image-container">
           <img
