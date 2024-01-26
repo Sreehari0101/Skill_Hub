@@ -1,6 +1,6 @@
 import React from "react";
 import "./css/Home.css";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import homeImage from "../assets/Home_Image.png";
 import {
   Dropdown,
@@ -13,6 +13,23 @@ import {
 import logo1 from "../assets/SkillHub_Homepage_logo.png";
 
 function Home() {
+  const navigate = useNavigate();
+  const handleDropdownAction = (key) => {
+    // You can perform additional actions if needed before navigating
+    switch (key) {
+      case "student":
+        navigate("/student-dashboard");
+        break;
+      case "mentor":
+        navigate("/mentor-dashboard");
+        break;
+      case "recruiter":
+        navigate("/recruiter-dashboard");
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <div className="landing-page">
       <div className="top">
@@ -53,10 +70,10 @@ function Home() {
                 Sign In
               </Button>
             </DropdownTrigger>
-            <DropdownMenu aria-label="Static Actions">
-              <DropdownItem key="new">Student</DropdownItem>
-              <DropdownItem key="copy">Mentor</DropdownItem>
-              <DropdownItem key="edit">Recruiter</DropdownItem>
+            <DropdownMenu aria-label="Static Actions" onAction={(key) => handleDropdownAction(key)}>
+             <DropdownItem key="student" >Student</DropdownItem>
+              <DropdownItem key="mentor">Mentor</DropdownItem>
+              <DropdownItem key="recruiter">Recruiter</DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>

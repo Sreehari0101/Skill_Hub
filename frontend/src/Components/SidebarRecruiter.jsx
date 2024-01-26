@@ -20,7 +20,7 @@ function SidebarRecruiter() {
 
       <div className="bottom-container">
       
-      <Link to="/student-logout"> <div className="nav-item"> <img src={LogoLogout} className="nav-item-icon" alt="Logout-icon" /> Logout</div></Link>
+      <Link to="/"> <div className="nav-item"> <img src={LogoLogout} className="nav-item-icon" alt="Logout-icon" /> Logout</div></Link>
       </div>
       
     </div>

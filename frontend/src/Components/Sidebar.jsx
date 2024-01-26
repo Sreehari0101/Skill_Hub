@@ -26,7 +26,7 @@ function Sidebar() {
 
       <div className="bottom-container">
       <Link to="/student-chatbot"> <div className="nav-item"> <img src={LogoChatbot} className="nav-item-icon" alt="Chatbot-icon" /> Chatbot</div></Link>
-      <Link to="/student-logout"> <div className="nav-item"> <img src={LogoLogout} className="nav-item-icon" alt="Logout-icon" /> Logout</div></Link>
+      <Link to="/"> <div className="nav-item"> <img src={LogoLogout} className="nav-item-icon" alt="Logout-icon" /> Logout</div></Link>
       </div>
       
     </div>
