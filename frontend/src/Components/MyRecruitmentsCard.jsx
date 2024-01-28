@@ -36,7 +36,7 @@ function MyRecruitmentsCard({
 
       <div className="bottom">
         <div className="view-container">
-        <Link to="/recruitments-view"><button className="view-button">View</button> </Link>
+        <Link to="/recruiter-recruitments-view"><button className="view-button">View</button> </Link>
         </div>
         <div className="delete-container">
         <button className="delete-button">Delete</button>

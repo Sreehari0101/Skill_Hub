@@ -10,7 +10,7 @@ function RecruitmentCard({companyIcon,recruitmentDate,companyName,jobPosition,jo
         <div className="Company-logo-container">
           <img className="Company-icon" src={companyIcon} alt="Icon" />
         </div>
-        <div className="Recruitment-date">{recruitmentDate}</div>
+        <div className="Recruitment-date">Deadline : {recruitmentDate}</div>
       </div>
 
       <div className="middle">

@@ -20,6 +20,7 @@ import MentorDashboard from './pages/Mentor/MentorDashboard';
 import MentorCreate from './pages/Mentor/MentorCreate';
 import MentorProfile from './pages/Mentor/MentorProfile';
 import TemplatedMentor from './Components/TemplatedMentor';
+import RecruitmentsView from './pages/Recruiter/RecruitmentsView';
 
 
 function App() {
@@ -39,9 +40,11 @@ function App() {
         <Route path="/recruiter-dashboard" element={<TemplatedRecruiter> <RecruiterDashboard/> </TemplatedRecruiter>} />
         <Route path="/recruiter-create" element={<TemplatedRecruiter> <RecruiterCreate/> </TemplatedRecruiter>} />
         <Route path="/recruiter-profile" element={<TemplatedRecruiter> <RecruiterProfile/> </TemplatedRecruiter>} />
+        <Route path="/recruiter-recruitments-view" element={<TemplatedRecruiter> <RecruitmentsView/> </TemplatedRecruiter>} />
         <Route path="/mentor-dashboard" element={<TemplatedMentor> <MentorDashboard/> </TemplatedMentor>} />
         <Route path="/mentor-create" element={<TemplatedMentor> <MentorCreate/> </TemplatedMentor>} />
         <Route path="/mentor-profile" element={<TemplatedMentor> <MentorProfile/> </TemplatedMentor>} />
+
       </Routes>
     </div>
   ); 
