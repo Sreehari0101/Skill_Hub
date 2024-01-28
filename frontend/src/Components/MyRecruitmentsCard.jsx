@@ -35,11 +35,12 @@ function MyRecruitmentsCard({
       </div>
 
       <div className="bottom">
-        <Link to="/student-recruitments-apply">
-          <button className="Apply-button">
-            <div className="Button-content">Apply Now</div>
-          </button>
-        </Link>
+        <div className="view-container">
+        <Link to="/recruitments-view"><button className="view-button">View</button> </Link>
+        </div>
+        <div className="delete-container">
+        <button className="delete-button">Delete</button>
+        </div>
       </div>
     </div>
   );
