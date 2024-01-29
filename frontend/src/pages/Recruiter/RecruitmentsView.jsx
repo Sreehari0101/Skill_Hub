@@ -115,7 +115,7 @@ function RecruitmentsView() {
             </TableRow>
 
             <TableRow key="8">
-              <TableCell>Frank Miller</TableCell>
+              <TableCell>Frank Miller</TableCell>cle
               <TableCell>4321098765</TableCell>
               <TableCell>frank.miller@example.com</TableCell>
               <TableCell>India</TableCell>
