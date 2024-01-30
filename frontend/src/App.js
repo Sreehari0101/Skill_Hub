@@ -21,6 +21,7 @@ import MentorCreate from './pages/Mentor/MentorCreate';
 import MentorProfile from './pages/Mentor/MentorProfile';
 import TemplatedMentor from './Components/TemplatedMentor';
 import RecruitmentsView from './pages/Recruiter/RecruitmentsView';
+import CourseDetails from './pages/Student/CourseDetails';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/student-courses" element={<TemplatedStudent> <Courses/> </TemplatedStudent>} />
         <Route path="/student-discussions" element={<TemplatedStudent> <Chatroom/> </TemplatedStudent>} />
         <Route path="/student-discussions-join" element={<TemplatedStudent> <JoinChat/> </TemplatedStudent>} />
+        <Route path="/student-course-details" element={<TemplatedStudent> <CourseDetails/> </TemplatedStudent>} />
         <Route path="/student-recruitments" element={<TemplatedStudent> <Recruitments/> </TemplatedStudent>} />
         <Route path="/student-recruitments-apply" element={<TemplatedStudent> <RecruitmentsApply/> </TemplatedStudent>} />
         <Route path="/student-chatbot" element={<TemplatedStudent> <Chatbot/> </TemplatedStudent>} />
