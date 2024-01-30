@@ -11,6 +11,7 @@ import Cover4 from "../../assets/Game_Development_Course_icon.jpg";
 import Cover5 from "../../assets/Digital_Marketing_Course_icon.jpg";
 import Cover6 from "../../assets/Cloud_Computing_Course_icon.avif";
 
+
 import { Input } from "@nextui-org/react";
 
 import CourseCard from "../../Components/CourseCard";

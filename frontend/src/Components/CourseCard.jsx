@@ -1,10 +1,12 @@
 import React from "react";
 import "./css/CourseCard.css";
 import Rating_icon from "./../assets/Rating_star_icon.png";
+import { Link } from 'react-router-dom'
 
 function CourseCard({courseCover,courseName,courseOwner,courseRating,courseMembers}) {
   return (
     <div className="Course-card">
+      <Link to="/student-course-details">
       <div className="Course-icon-container">
         <img className="Course-icon" src={courseCover} alt="Icon" />
       </div>
@@ -21,6 +23,7 @@ function CourseCard({courseCover,courseName,courseOwner,courseRating,courseMembe
           </div>
         </div>
       </div>
+      </Link>
     </div>
   );
 }
