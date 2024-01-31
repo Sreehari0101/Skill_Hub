@@ -6,6 +6,8 @@ import "./css/CourseDetails.css";
 import profile_icon from "../../assets/Profile_icon.jpg";
 import Cover1 from "../../assets/Data_Analytics_Course_icon.jpg";
 import CourseOverviewCard from "../../Components/CourseOverviewCard";
+import CourseContent from "../../Components/CourseContent";
+import RatingCard from "../../Components/RatingCard";
 
 function CourseDetails() {
   return (
@@ -28,7 +30,11 @@ function CourseDetails() {
           courseMembers="10K"
           courseBio="The Data Analyst Course offers a comprehensive bootcamp, equipping learners with skills in data analysis. Covering tools, techniques, and real-world applications for a successful career in data analysis."
         />
-      <CourseOverviewCard />
+        <CourseOverviewCard />
+
+        <CourseContent />
+        
+        <RatingCard />
       </div>
     </div>
   );

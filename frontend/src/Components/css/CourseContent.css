@@ -1,0 +1,10 @@
+.Course-content {
+  width: 90%;
+  padding: 25px;
+}
+
+.Course-content h1 {
+  font-family: Montserrat;
+  font-size: 30px;
+  font-weight: 700;
+}
