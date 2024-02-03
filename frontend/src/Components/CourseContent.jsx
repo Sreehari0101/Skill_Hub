@@ -6,7 +6,6 @@ import {
   Tab,
   Card,
   CardBody,
-  CardHeader,
   Accordion,
   AccordionItem,
 } from "@nextui-org/react";

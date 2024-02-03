@@ -1,7 +1,9 @@
 import './App.css';
 import TemplatedStudent from './Components/TemplatedStudent';
 import TemplatedRecruiter from './Components/TemplatedRecruiter';
-import {Routes, Route} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom'
+import ProtectedRoute from "./utils/ProtectedRoute"
+import { AuthProvider } from './context/AuthContext'
 import Courses from './pages/Student/Courses';
 import Chatroom from './pages/Student/Chatroom';
 import JoinChat from './pages/Student/JoinChat';
@@ -24,14 +26,16 @@ import RecruitmentsView from './pages/Recruiter/RecruitmentsView';
 import CourseDetails from './pages/Student/CourseDetails';
 
 
+
 function App() {
   return (
     <div className="App overflow-x-hidden">
-    <Routes>
-        <Route path="/" element={<Home/>} />
+        <AuthProvider>
+       <Routes>
+        <Route path="/" element= {<ProtectedRoute> <Home/> </ProtectedRoute>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
-        <Route path="/student-dashboard" element={<TemplatedStudent> <StudentDashboard/> </TemplatedStudent>} />
+        <Route path="/student-dashboard" element={ <TemplatedStudent> <StudentDashboard/> </TemplatedStudent> } />
         <Route path="/student-courses" element={<TemplatedStudent> <Courses/> </TemplatedStudent>} />
         <Route path="/student-discussions" element={<TemplatedStudent> <Chatroom/> </TemplatedStudent>} />
         <Route path="/student-discussions-join" element={<TemplatedStudent> <JoinChat/> </TemplatedStudent>} />
@@ -46,8 +50,8 @@ function App() {
         <Route path="/mentor-dashboard" element={<TemplatedMentor> <MentorDashboard/> </TemplatedMentor>} />
         <Route path="/mentor-create" element={<TemplatedMentor> <MentorCreate/> </TemplatedMentor>} />
         <Route path="/mentor-profile" element={<TemplatedMentor> <MentorProfile/> </TemplatedMentor>} />
-
       </Routes>
+      </AuthProvider>
     </div>
   ); 
 }
