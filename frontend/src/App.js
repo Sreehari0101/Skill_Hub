@@ -25,24 +25,24 @@ import TemplatedMentor from './Components/TemplatedMentor';
 import RecruitmentsView from './pages/Recruiter/RecruitmentsView';
 import CourseDetails from './pages/Student/CourseDetails';
 
-
-
 function App() {
   return (
     <div className="App overflow-x-hidden">
-        <AuthProvider>
+      <AuthProvider>
        <Routes>
-        <Route path="/" element= {<ProtectedRoute> <Home/> </ProtectedRoute>} />
+        <Route path="/" element= {<Home/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
-        <Route path="/student-dashboard" element={ <TemplatedStudent> <StudentDashboard/> </TemplatedStudent> } />
-        <Route path="/student-courses" element={<TemplatedStudent> <Courses/> </TemplatedStudent>} />
-        <Route path="/student-discussions" element={<TemplatedStudent> <Chatroom/> </TemplatedStudent>} />
-        <Route path="/student-discussions-join" element={<TemplatedStudent> <JoinChat/> </TemplatedStudent>} />
-        <Route path="/student-course-details" element={<TemplatedStudent> <CourseDetails/> </TemplatedStudent>} />
-        <Route path="/student-recruitments" element={<TemplatedStudent> <Recruitments/> </TemplatedStudent>} />
-        <Route path="/student-recruitments-apply" element={<TemplatedStudent> <RecruitmentsApply/> </TemplatedStudent>} />
-        <Route path="/student-chatbot" element={<TemplatedStudent> <Chatbot/> </TemplatedStudent>} />
+
+        <Route path="/student-dashboard" element={<ProtectedRoute> <TemplatedStudent> <StudentDashboard/> </TemplatedStudent> </ProtectedRoute>  } />
+        <Route path="/student-courses" element={<ProtectedRoute> <TemplatedStudent> <Courses/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-discussions" element={<ProtectedRoute> <TemplatedStudent> <Chatroom/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-discussions-join" element={<ProtectedRoute> <TemplatedStudent> <JoinChat/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-course-details" element={<ProtectedRoute> <TemplatedStudent> <CourseDetails/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-recruitments" element={<ProtectedRoute> <TemplatedStudent> <Recruitments/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-recruitments-apply" element={<ProtectedRoute> <TemplatedStudent> <RecruitmentsApply/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-chatbot" element={<ProtectedRoute> <TemplatedStudent> <Chatbot/> </TemplatedStudent> </ProtectedRoute>} />
+
         <Route path="/recruiter-dashboard" element={<TemplatedRecruiter> <RecruiterDashboard/> </TemplatedRecruiter>} />
         <Route path="/recruiter-create" element={<TemplatedRecruiter> <RecruiterCreate/> </TemplatedRecruiter>} />
         <Route path="/recruiter-profile" element={<TemplatedRecruiter> <RecruiterProfile/> </TemplatedRecruiter>} />

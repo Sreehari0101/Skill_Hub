@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import '../App.css';
 import './css/Sidebar.css'
 import { Link } from 'react-router-dom'
@@ -9,10 +9,19 @@ import LogoRecruitments from './../assets/Recruitments_icon.png'
 import LogoDiscussions from './../assets/Discussions_icon.png'
 import LogoChatbot from './../assets/Chatbot_icon.png'
 import LogoLogout from './../assets/Logout_icon.png'
+import { jwtDecode } from 'jwt-decode'
+import AuthContext from "../context/AuthContext"
 
 
 
-function Sidebar() {
+const SidebarStudent = () => {
+  const {user, logoutUser} = useContext(AuthContext)
+  const token = localStorage.getItem("authTokens")
+
+  if (user){
+    const decoded = jwtDecode(token)
+    let user_id = decoded.user_id
+  }
   return (
     <div className="Sidebar-container">
       <div className="top-container"> 
@@ -26,11 +35,11 @@ function Sidebar() {
 
       <div className="bottom-container">
       <Link to="/student-chatbot"> <div className="nav-item"> <img src={LogoChatbot} className="nav-item-icon" alt="Chatbot-icon" /> Chatbot</div></Link>
-      <Link to="/"> <div className="nav-item"> <img src={LogoLogout} className="nav-item-icon" alt="Logout-icon" /> Logout</div></Link>
+      <Link onClick={logoutUser}> <div className="nav-item"> <img src={LogoLogout} className="nav-item-icon" alt="Logout-icon" /> Logout</div></Link>
       </div>
       
     </div>
   )
 }
 
-export default Sidebar 
+export default SidebarStudent 

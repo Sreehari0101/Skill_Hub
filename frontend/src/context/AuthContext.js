@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
             setAuthTokens(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data));
-            navigate("/")
+            navigate("/student-dashboard")
             swal.fire({
                 title: "Login Success",
                 icon: "success",
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }) => {
         if (response.status == 201){
             navigate('/login')
             swal.fire({
-                title: "Registration Success",
+                title: "Registration Success, Please Login",
                 icon: "success",
                 toast: true,
                 timer: 6000,
@@ -107,7 +107,7 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem("authTokens")
-        navigate('/login')
+        navigate('/')
         swal.fire({
             title: "You have been logged out",
             icon: "success",
