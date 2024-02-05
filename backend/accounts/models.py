@@ -2,7 +2,6 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractUser
 
-
 class User(AbstractUser):
     username = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
@@ -10,23 +9,49 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
+    USER_TYPE_CHOICES = [
+        ('student', 'Student'),
+        ('mentor', 'Mentor'),
+        ('recruiter', 'Recruiter'),
+    ]
 
-    def profile(self):
-        profile = Profile.objects.get(user=self)
+    user_type = models.CharField(
+        max_length=10,
+        choices=USER_TYPE_CHOICES,
+        default='student',
+    )
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    def get_profile(self):
+        return getattr(self, f'{self.user_type.lower()}profile', None)
+
+def create_user_profiles(sender, instance, created, **kwargs):
+    if created:
+        user_type = instance.user_type
+
+        if user_type == 'student':
+            StudentProfile.objects.get_or_create(user=instance)
+        elif user_type == 'mentor':
+            MentorProfile.objects.get_or_create(user=instance)
+        elif user_type == 'recruiter':
+            RecruiterProfile.objects.get_or_create(user=instance)
+
+post_save.connect(create_user_profiles, sender=User)
+
+class StudentProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=1000)
     bio = models.CharField(max_length=100)
-    verified = models.BooleanField(default=False)
+    verified = models.BooleanField(default=True)
 
 
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
+class MentorProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    full_name = models.CharField(max_length=1000)
+    bio = models.CharField(max_length=100)
+    verified = models.BooleanField(default=True)
 
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-post_save.connect(create_user_profile, sender=User)
-post_save.connect(save_user_profile, sender=User)
+class RecruiterProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    full_name = models.CharField(max_length=1000)
+    bio = models.CharField(max_length=100)
+    verified = models.BooleanField(default=True)

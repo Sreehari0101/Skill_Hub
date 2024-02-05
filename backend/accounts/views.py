@@ -28,9 +28,9 @@ def protectedView(request):
 @api_view(['GET'])
 def view_all_routes(request):
     data = [
-        'api/token/refresh/',
-        'api/register/',
-        'api/token/'
+        'accounts/token/refresh/',
+        'accounts/register/',
+        'accounts/token/'
     ]
 
     return Response(data)

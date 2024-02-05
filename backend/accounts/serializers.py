@@ -1,55 +1,53 @@
-from rest_framework_simplejwt.tokens import Token
-from .models import User
-from django.contrib.auth.password_validation import validate_password
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
+from rest_framework_simplejwt.tokens import Token
+from django.contrib.auth.password_validation import validate_password
+from .models import User, StudentProfile, MentorProfile, RecruiterProfile
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.validators import UniqueValidator
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
+        fields = ['id', 'username', 'email', 'user_type']
 
 class MyTOPS(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
 
-        token['full_name'] = user.profile.full_name
+        profile = user.get_profile()
+        token['full_name'] = profile.full_name
         token['username'] = user.username
         token['email'] = user.email
-        token['bio'] = user.profile.bio
+        token['bio'] = profile.bio
 
         return token
-    
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
     full_name = serializers.CharField(write_only=True, required=True)
+    user_type = serializers.ChoiceField(choices=User.USER_TYPE_CHOICES)
 
     class Meta:
         model = User
-        fields = ['full_name', 'email', 'username', 'password', 'password2']
+        fields = ['full_name', 'email', 'username', 'password', 'password2', 'user_type']
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
-            raise serializers.ValidationError(
-                {'password':"Password Fields Didn't Match"}
-            )
+            raise serializers.ValidationError({'password': "Password Fields Didn't Match"})
         return attrs
-    
+
     def create(self, validated_data):
+        user_type = validated_data.pop('user_type', 'student')
+        email = validated_data.get('email')
+
         user = User.objects.create(
             username=validated_data['username'],
-            email=validated_data['email']
+            email=email,
+            user_type=user_type,
         )
         user.set_password(validated_data['password'])
-
         user.save()
 
-        if "full_name" in validated_data:
-            user.profile.full_name = validated_data['full_name']
-            user.profile.save()
-
-        return user
+        return user  
