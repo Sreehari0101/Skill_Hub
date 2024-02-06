@@ -14,12 +14,11 @@ class MyTOPS(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
-
         profile = user.get_profile()
         token['full_name'] = profile.full_name
         token['username'] = user.username
         token['email'] = user.email
-        token['bio'] = profile.bio
+        token['user_type'] = user.user_type
 
         return token
 

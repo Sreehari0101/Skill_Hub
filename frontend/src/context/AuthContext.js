@@ -40,7 +40,27 @@ export const AuthProvider = ({ children }) => {
             setAuthTokens(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data));
-            navigate("/student-dashboard")
+            const userData = jwtDecode(data.access);
+            console.log(userData);
+            const usertype = userData.user_type;
+            if (usertype === "student") {
+                navigate("/student-dashboard");
+            } else if (usertype === "mentor") {
+                navigate("/mentor-dashboard");
+            } else if (usertype === "recruiter") {
+                navigate("/recruiter-dashboard");
+            } else {
+                swal.fire({
+                    title: "Invalid",
+                    icon: "error",
+                    toast: true,
+                    timer: 6000,
+                    position: 'top-right',
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
+            }
+            
             swal.fire({
                 title: "Login Success",
                 icon: "success",
@@ -63,16 +83,17 @@ export const AuthProvider = ({ children }) => {
                 showConfirmButton: false
             })
         }
+
     }
 
-    const registerUser = async (full_name, email, username, password, password2) => {
+    const registerUser = async (full_name, email, username, password, password2, usertype) => {
         let url = "http://127.0.0.1:8000/accounts/register/"
         const response = await fetch(url,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({full_name,email, username, password, password2})
+            body: JSON.stringify({ full_name, email, username, password, password2, user_type: usertype })
         })
         const data = await response.json()
 

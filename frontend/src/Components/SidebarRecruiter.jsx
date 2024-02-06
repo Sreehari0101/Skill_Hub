@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import './css/SidebarRecruiter.css'
 import { Link } from 'react-router-dom'
 import Logo from './../assets/SkillHub_Sidebar_logo.png'
@@ -6,8 +6,17 @@ import LogoDashboard from './../assets/Dashboard_icon.png'
 import LogoCreateJobs from './../assets/Create_Openings_icon.png'
 import LogoCompanyProfile from './../assets/Company_Profile_icon.png'
 import LogoLogout from './../assets/Logout_icon.png'
+import { jwtDecode } from 'jwt-decode'
+import AuthContext from "../context/AuthContext"
 
-function SidebarRecruiter() {
+const SidebarRecruiter = () => {
+  const {user, logoutUser} = useContext(AuthContext)
+  const token = localStorage.getItem("authTokens")
+
+  if (user){
+    const decoded = jwtDecode(token)
+    let user_id = decoded.user_id
+  }
   return (
     <div className="SidebarRecruiter-container">
       <div className="top-container"> 
@@ -20,7 +29,7 @@ function SidebarRecruiter() {
 
       <div className="bottom-container">
       
-      <Link to="/"> <div className="nav-item"> <img src={LogoLogout} className="nav-item-icon" alt="Logout-icon" /> Logout</div></Link>
+      <Link onClick={logoutUser}> <div className="nav-item"> <img src={LogoLogout} className="nav-item-icon" alt="Logout-icon" /> Logout</div></Link>
       </div>
       
     </div>

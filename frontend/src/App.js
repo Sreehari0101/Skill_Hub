@@ -43,13 +43,14 @@ function App() {
         <Route path="/student-recruitments-apply" element={<ProtectedRoute> <TemplatedStudent> <RecruitmentsApply/> </TemplatedStudent> </ProtectedRoute>} />
         <Route path="/student-chatbot" element={<ProtectedRoute> <TemplatedStudent> <Chatbot/> </TemplatedStudent> </ProtectedRoute>} />
 
-        <Route path="/recruiter-dashboard" element={<TemplatedRecruiter> <RecruiterDashboard/> </TemplatedRecruiter>} />
-        <Route path="/recruiter-create" element={<TemplatedRecruiter> <RecruiterCreate/> </TemplatedRecruiter>} />
-        <Route path="/recruiter-profile" element={<TemplatedRecruiter> <RecruiterProfile/> </TemplatedRecruiter>} />
-        <Route path="/recruiter-recruitments-view" element={<TemplatedRecruiter> <RecruitmentsView/> </TemplatedRecruiter>} />
-        <Route path="/mentor-dashboard" element={<TemplatedMentor> <MentorDashboard/> </TemplatedMentor>} />
-        <Route path="/mentor-create" element={<TemplatedMentor> <MentorCreate/> </TemplatedMentor>} />
-        <Route path="/mentor-profile" element={<TemplatedMentor> <MentorProfile/> </TemplatedMentor>} />
+        <Route path="/recruiter-dashboard" element={<ProtectedRoute> <TemplatedRecruiter> <RecruiterDashboard/> </TemplatedRecruiter> </ProtectedRoute>} />
+        <Route path="/recruiter-create" element={<ProtectedRoute> <TemplatedRecruiter> <RecruiterCreate/> </TemplatedRecruiter> </ProtectedRoute>} />
+        <Route path="/recruiter-profile" element={<ProtectedRoute> <TemplatedRecruiter> <RecruiterProfile/> </TemplatedRecruiter> </ProtectedRoute>} />
+        <Route path="/recruiter-recruitments-view" element={<ProtectedRoute> <TemplatedRecruiter> <RecruitmentsView/> </TemplatedRecruiter> </ProtectedRoute>} />
+
+        <Route path="/mentor-dashboard" element={<ProtectedRoute> <TemplatedMentor> <MentorDashboard/> </TemplatedMentor> </ProtectedRoute>} />
+        <Route path="/mentor-create" element={<ProtectedRoute> <TemplatedMentor> <MentorCreate/> </TemplatedMentor> </ProtectedRoute>} />
+        <Route path="/mentor-profile" element={<ProtectedRoute> <TemplatedMentor> <MentorProfile/> </TemplatedMentor>  </ProtectedRoute> } />
       </Routes>
       </AuthProvider>
     </div>

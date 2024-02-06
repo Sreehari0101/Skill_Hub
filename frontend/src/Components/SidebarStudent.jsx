@@ -12,8 +12,6 @@ import LogoLogout from './../assets/Logout_icon.png'
 import { jwtDecode } from 'jwt-decode'
 import AuthContext from "../context/AuthContext"
 
-
-
 const SidebarStudent = () => {
   const {user, logoutUser} = useContext(AuthContext)
   const token = localStorage.getItem("authTokens")

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import './css/SidebarMentor.css'
 import { Link } from 'react-router-dom'
 import Logo from './../assets/SkillHub_Sidebar_logo.png'
@@ -6,9 +6,18 @@ import LogoDashboard from './../assets/Dashboard_icon.png'
 import LogoCreateCourse from './../assets/Create_Course_icon.png'
 import LogoMentorProfile from './../assets/Mentor_Profile_icon.png'
 import LogoLogout from './../assets/Logout_icon.png'
+import { jwtDecode } from 'jwt-decode'
+import AuthContext from "../context/AuthContext"
 
 
-function SidebarMentor() {
+const SidebarMentor = () => {
+  const {user, logoutUser} = useContext(AuthContext)
+  const token = localStorage.getItem("authTokens")
+
+  if (user){
+    const decoded = jwtDecode(token)
+    let user_id = decoded.user_id
+  }
   return (
     <div className="SidebarMentor-container">
     <div className="top-container"> 
@@ -21,7 +30,7 @@ function SidebarMentor() {
 
     <div className="bottom-container">
     
-    <Link to="/"> <div className="nav-item"> <img src={LogoLogout} className="nav-item-icon" alt="Logout-icon" /> Logout</div></Link>
+    <Link onClick={logoutUser}> <div className="nav-item"> <img src={LogoLogout} className="nav-item-icon" alt="Logout-icon" /> Logout</div></Link>
     </div>
     
   </div>

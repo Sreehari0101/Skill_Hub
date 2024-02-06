@@ -10,6 +10,7 @@
   display: flex;
   flex: 20%;
   justify-content: center;
+
 }
 
 .register-page .top .logo-container {
@@ -43,6 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 15px;
 }
 
 .register-page .bottom .register-container {
@@ -50,7 +52,7 @@
   border-radius: 66px;
   background: #fff;
   width: 80%;
-  height: 90%;
+  height: 100%;
 }
 
 .register-page .bottom .register-container .register-content {
