@@ -24,6 +24,7 @@ import MentorProfile from './pages/Mentor/MentorProfile';
 import TemplatedMentor from './Components/TemplatedMentor';
 import RecruitmentsView from './pages/Recruiter/RecruitmentsView';
 import CourseDetails from './pages/Student/CourseDetails';
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
   return (
@@ -34,23 +35,24 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
 
-        <Route path="/student-dashboard" element={<ProtectedRoute> <TemplatedStudent> <StudentDashboard/> </TemplatedStudent> </ProtectedRoute>  } />
-        <Route path="/student-courses" element={<ProtectedRoute> <TemplatedStudent> <Courses/> </TemplatedStudent> </ProtectedRoute>} />
-        <Route path="/student-discussions" element={<ProtectedRoute> <TemplatedStudent> <Chatroom/> </TemplatedStudent> </ProtectedRoute>} />
-        <Route path="/student-discussions-join" element={<ProtectedRoute> <TemplatedStudent> <JoinChat/> </TemplatedStudent> </ProtectedRoute>} />
-        <Route path="/student-course-details" element={<ProtectedRoute> <TemplatedStudent> <CourseDetails/> </TemplatedStudent> </ProtectedRoute>} />
-        <Route path="/student-recruitments" element={<ProtectedRoute> <TemplatedStudent> <Recruitments/> </TemplatedStudent> </ProtectedRoute>} />
-        <Route path="/student-recruitments-apply" element={<ProtectedRoute> <TemplatedStudent> <RecruitmentsApply/> </TemplatedStudent> </ProtectedRoute>} />
-        <Route path="/student-chatbot" element={<ProtectedRoute> <TemplatedStudent> <Chatbot/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-dashboard" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <StudentDashboard/> </TemplatedStudent> </ProtectedRoute>  } />
+        <Route path="/student-courses" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <Courses/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-discussions" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <Chatroom/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-discussions-join" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <JoinChat/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-course-details" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <CourseDetails/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-recruitments" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <Recruitments/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-recruitments-apply" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <RecruitmentsApply/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-chatbot" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <Chatbot/> </TemplatedStudent> </ProtectedRoute>} />
 
-        <Route path="/recruiter-dashboard" element={<ProtectedRoute> <TemplatedRecruiter> <RecruiterDashboard/> </TemplatedRecruiter> </ProtectedRoute>} />
-        <Route path="/recruiter-create" element={<ProtectedRoute> <TemplatedRecruiter> <RecruiterCreate/> </TemplatedRecruiter> </ProtectedRoute>} />
-        <Route path="/recruiter-profile" element={<ProtectedRoute> <TemplatedRecruiter> <RecruiterProfile/> </TemplatedRecruiter> </ProtectedRoute>} />
-        <Route path="/recruiter-recruitments-view" element={<ProtectedRoute> <TemplatedRecruiter> <RecruitmentsView/> </TemplatedRecruiter> </ProtectedRoute>} />
+        <Route path="/recruiter-dashboard" element={<ProtectedRoute allowedRoles={["recruiter"]}> <TemplatedRecruiter> <RecruiterDashboard/> </TemplatedRecruiter> </ProtectedRoute>} />
+        <Route path="/recruiter-create" element={<ProtectedRoute allowedRoles={["recruiter"]}> <TemplatedRecruiter> <RecruiterCreate/> </TemplatedRecruiter> </ProtectedRoute>} />
+        <Route path="/recruiter-profile" element={<ProtectedRoute allowedRoles={["recruiter"]}> <TemplatedRecruiter> <RecruiterProfile/> </TemplatedRecruiter> </ProtectedRoute>} />
+        <Route path="/recruiter-recruitments-view" element={<ProtectedRoute allowedRoles={["recruiter"]}> <TemplatedRecruiter> <RecruitmentsView/> </TemplatedRecruiter> </ProtectedRoute>} />
 
-        <Route path="/mentor-dashboard" element={<ProtectedRoute> <TemplatedMentor> <MentorDashboard/> </TemplatedMentor> </ProtectedRoute>} />
-        <Route path="/mentor-create" element={<ProtectedRoute> <TemplatedMentor> <MentorCreate/> </TemplatedMentor> </ProtectedRoute>} />
-        <Route path="/mentor-profile" element={<ProtectedRoute> <TemplatedMentor> <MentorProfile/> </TemplatedMentor>  </ProtectedRoute> } />
+        <Route path="/mentor-dashboard" element={<ProtectedRoute allowedRoles={["mentor"]}> <TemplatedMentor> <MentorDashboard/> </TemplatedMentor> </ProtectedRoute>} />
+        <Route path="/mentor-create" element={<ProtectedRoute allowedRoles={["mentor"]}> <TemplatedMentor> <MentorCreate/> </TemplatedMentor> </ProtectedRoute>} />
+        <Route path="/mentor-profile" element={<ProtectedRoute allowedRoles={["mentor"]}> <TemplatedMentor> <MentorProfile/> </TemplatedMentor>  </ProtectedRoute> } />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
       </AuthProvider>
     </div>
