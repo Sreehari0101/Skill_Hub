@@ -26,7 +26,6 @@ export const AuthProvider = ({ children }) => {
   });
   const [loading, setLoading] = useState(!authTokens); // Initially loading if no authTokens
 
-
   const navigate = useNavigate();
 
   const loginUser = async (email, password) => {
@@ -59,7 +58,7 @@ export const AuthProvider = ({ children }) => {
           title: "Invalid",
           icon: "error",
           toast: true,
-          timer: 6000,
+          timer: 3000,
           position: "top-right",
           timerProgressBar: true,
           showConfirmButton: false,
@@ -70,7 +69,7 @@ export const AuthProvider = ({ children }) => {
         title: "Login Success",
         icon: "success",
         toast: true,
-        timer: 6000,
+        timer: 3000,
         position: "top-right",
         timerProgressBar: true,
         showConfirmButton: false,
@@ -82,7 +81,7 @@ export const AuthProvider = ({ children }) => {
         title: "Email - Password does not exist",
         icon: "error",
         toast: true,
-        timer: 6000,
+        timer: 3000,
         position: "top-right",
         timerProgressBar: true,
         showConfirmButton: false,
@@ -115,13 +114,33 @@ export const AuthProvider = ({ children }) => {
     });
     const data = await response.json();
 
-    if (response.status == 201) {
+    if (response.status === 201) {
       navigate("/login");
       swal.fire({
         title: "Registration Success, Please Login",
         icon: "success",
         toast: true,
-        timer: 6000,
+        timer: 2000,
+        position: "top-right",
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+    } else if (password !== password2) {
+      swal.fire({
+        title: "Passwords does not match",
+        icon: "error",
+        toast: true,
+        timer: 2000,
+        position: "top-right",
+        timerProgressBar: true,
+        showConfirmButton: false,
+      });
+    } else if (password.length < 8) {
+      swal.fire({
+        title: "Password is to short - Must be atleast 8 characters",
+        icon: "error",
+        toast: true,
+        timer: 2000,
         position: "top-right",
         timerProgressBar: true,
         showConfirmButton: false,
@@ -134,7 +153,7 @@ export const AuthProvider = ({ children }) => {
         title: "There was a server error",
         icon: "error",
         toast: true,
-        timer: 6000,
+        timer: 2000,
         position: "top-right",
         timerProgressBar: true,
         showConfirmButton: false,
@@ -151,7 +170,7 @@ export const AuthProvider = ({ children }) => {
       title: "You have been logged out",
       icon: "success",
       toast: true,
-      timer: 6000,
+      timer: 2000,
       position: "top-right",
       timerProgressBar: true,
       showConfirmButton: false,
@@ -170,8 +189,6 @@ export const AuthProvider = ({ children }) => {
     setUserType,
   };
 
-  
-
   useEffect(() => {
     const initializeUser = async () => {
       if (authTokens) {
@@ -181,7 +198,7 @@ export const AuthProvider = ({ children }) => {
       }
       setLoading(false);
     };
-  
+
     initializeUser();
   }, [authTokens]);
   return (

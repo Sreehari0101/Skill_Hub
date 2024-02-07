@@ -22,13 +22,10 @@ function PrivateRoute({ children, allowedRoles }) {
     return <Navigate to="/login" replace />;
   }
 
-  // Check if user_type is allowed access based on `allowedRoles` prop
   if (allowedRoles && !allowedRoles.includes(user_type)) {
-    // Redirect to unauthorized page if not allowed
     return <Navigate to="/unauthorized" replace />;
   }
 
-  // Render protected route if authenticated and authorized
   return children;
 }
 
