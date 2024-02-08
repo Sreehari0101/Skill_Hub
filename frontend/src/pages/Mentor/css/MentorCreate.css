@@ -1,0 +1,37 @@
+.Mentor-create {
+  flex: 85%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Mentor-create .Content-top {
+  flex: 18%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.Mentor-create .Content-top .title-content {
+  flex: 60%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Mentor-create .Content-top .profile-content {
+  flex: 40%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Mentor-create .Content-bottom {
+  flex: 82%;
+  width: 100%;
+  padding: 20px 50px;
+}
+
+.Mentor-create .Content-bottom h1 {
+  font-family: Montserrat;
+  font-size: 25px;
+  font-weight: 700;
+}

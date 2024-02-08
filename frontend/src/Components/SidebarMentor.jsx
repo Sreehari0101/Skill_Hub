@@ -22,7 +22,7 @@ const SidebarMentor = () => {
     <div className="SidebarMentor-container">
     <div className="top-container"> 
 
-    <div className="logo-container">   <img src={Logo} className="logo-image" alt="SkillHub-logo"/> <div class="logo-description">EMPOWERING FUTURES</div> </div>
+    <Link to ="/"><div className="logo-container">   <img src={Logo} className="logo-image" alt="SkillHub-logo"/> <div class="logo-description">EMPOWERING FUTURES</div> </div> </Link>
     <Link to="/mentor-dashboard"> <div className="nav-item"> <img src={LogoDashboard} className="nav-item-icon" alt="Dashboard-icon"/> Dashboard  </div> </Link>
     <Link to="/mentor-create"> <div className="nav-item"> <img src={LogoCreateCourse} className="nav-item-icon" alt="Create-jobs-icon" />Create Course</div></Link>
     <Link to="/mentor-profile"> <div className="nav-item"> <img src={LogoMentorProfile} className="nav-item-icon" alt="profile-icon" /> Mentor Profile</div></Link>

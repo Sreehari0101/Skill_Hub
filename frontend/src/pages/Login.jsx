@@ -13,7 +13,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(e.target)
 
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -27,10 +26,12 @@ const Login = () => {
     <div className="login-page">
       <div className="top">
         <div className="logo-container">
+          <Link to="/">
           <div className="logo-section">
             <img src={Logo} className="logo-image" alt="SkillHub-logo" />
             <div class="logo-description">EMPOWERING FUTURES</div>
           </div>
+          </Link>
         </div>
         <div className="register-direct">
           <Link to="/register">
