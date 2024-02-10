@@ -26,11 +26,20 @@ function RecruitmentCard({companyIcon,recruitmentDate,companyName,jobPosition,jo
       </div>
 
       <div className="bottom">
-      <Link to="/student-recruitments-apply">
+      <Link to="/student-recruitments-view">
         <button className="Apply-button">
-          <div className="Button-content">Apply Now</div>
+          <div className="Button1-content">View Details</div>
         </button>
       </Link>
+
+
+      <Link to="/student-recruitments-apply">
+        <button className="Apply-button">
+          <div className="Button2-content">Apply Now</div>
+        </button>
+      </Link>
+
+
       </div>
     </div>
   );

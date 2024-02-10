@@ -64,9 +64,25 @@
 
 .Recruitment-card .bottom {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
-.Recruitment-card .bottom .Button-content {
+
+.Recruitment-card .bottom .Button1-content {
+  width: 149px;
+  height: 39px;
+  border-radius: 10px;
+  border: 1px solid #090909;
+  color: #000;
+  background: #fff;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Recruitment-card .bottom .Button2-content {
   width: 150px;
   height: 40px;
   border-radius: 10px;
@@ -74,9 +90,7 @@
   color: #fff;
   font-family: Montserrat;
   font-size: 14px;
-  font-style: normal;
   font-weight: 600;
-  line-height: normal;
   display: flex;
   align-items: center;
   justify-content: center;
