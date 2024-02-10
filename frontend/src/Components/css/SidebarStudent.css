@@ -30,7 +30,7 @@
   letter-spacing: 2.15px;
   width: 100%;
 }
-.nav-item {
+.Sidebar-container .nav-item {
   width: 100%;
   cursor: pointer;
   display: flex;
@@ -41,18 +41,22 @@
   font-family: Jost;
   font-weight: 500;
   font-size: 18px;
-  font-style: normal;
   text-align: justify;
+ 
 }
 
-.nav-item-icon {
+.Sidebar-container .nav-item .nav-item-icon {
   margin-left: 0.5rem;
   margin-right: 1rem;
   width: 28px;
   height: 27px;
 }
 
-.nav-item:hover {
+.Sidebar-container .nav-item:hover {
+  background-color: black;
+}
+
+#active {
   background-color: #695dff;
   color: white;
 }
