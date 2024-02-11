@@ -28,7 +28,6 @@
   flex: 82%;
   display: flex;
   align-items: center;
-  padding: 40px;
   flex-direction: column;
 }
 
@@ -37,6 +36,7 @@
   display: flex;
   flex-direction: column;
   align-self: flex-end;
+  padding: 40px;
   padding-bottom: 60px;
 }
 
@@ -48,15 +48,14 @@
   max-width: 48%;
   width: auto;
   border-radius: 42px;
-  background: #c8fdc7;
+  background: #c7fafd;
   box-shadow: -5px 4px 4px 0px rgba(0, 0, 0, 0.25);
   padding: 15px;
   color: #000;
   font-family: Jost;
   font-size: 18px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  margin-bottom: 10px;
 }
 
 .Chat-bot .Content-bottom .message-display .my-message {
@@ -66,28 +65,34 @@
   max-width: 48%;
   width: auto;
   border-radius: 42px;
-  background: #c7fafd;
+  background: #c8fdc7;
   box-shadow: 5px 4px 4px 0px rgba(0, 0, 0, 0.25);
   padding: 15px;
   color: #000;
   font-family: Jost;
   font-size: 18px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  margin-bottom: 10px;
 }
 
 .Chat-bot .Content-bottom .message-type {
   width: 80%;
   display: flex;
   position: fixed;
-  bottom: 30px;
+  bottom: 0px;
+  background-color: white;
+  padding-bottom: 30px;
 }
 
 .Chat-bot .Content-bottom .message-type .message-type-area {
   flex: 92%;
 }
-.Chat-bot .Content-bottom .message-type .message-type-area .message-textbox .custom-textbox {
+.Chat-bot
+  .Content-bottom
+  .message-type
+  .message-type-area
+  .message-textbox
+  .custom-textbox {
   width: 100%;
   border-radius: 26px;
   background: #dee3fb;
@@ -97,14 +102,18 @@
   outline: none;
 }
 
-.Chat-bot .Content-bottom .message-type .message-send-area{
+.Chat-bot .Content-bottom .message-type .message-send-area {
   flex: 8%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.Chat-bot .Content-bottom .message-type .message-send-area .send-button-content{
+.Chat-bot
+  .Content-bottom
+  .message-type
+  .message-send-area
+  .send-button-content {
   width: 52px;
   height: 52px;
   border-radius: 50px;
@@ -114,7 +123,12 @@
   justify-content: center;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
-.Chat-bot .Content-bottom .message-type .message-send-area .send-button-content .send-button-icon{
+.Chat-bot
+  .Content-bottom
+  .message-type
+  .message-send-area
+  .send-button-content
+  .send-button-icon {
   width: 42px;
   height: 42px;
 }
