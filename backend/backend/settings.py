@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
      'accounts',
      'chatbot',
+     'recruiter',
 ]
 
 MIDDLEWARE = [
