@@ -1,11 +1,10 @@
-import React, { useState, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import "./css/RecruiterProfile.css";
 import { Input } from "@nextui-org/react";
 import { Textarea } from "@nextui-org/react";
 import { Avatar } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { CameraIcon } from "../../Components/CameraIcon";
-import companyIcon from "../../assets/Netflix_logo.jpg";
 import AuthContext from "../../context/AuthContext";
 
 function RecruiterProfile() {
@@ -16,13 +15,43 @@ function RecruiterProfile() {
   const [companyWebsite, setCompanyWebsite] = useState("");
   const [companyEmail, setCompanyEmail] = useState("");
 
+  useEffect(() => {
+    const fetchCompanyProfile = async () => {
+      if (authTokens) {
+        const token = authTokens.access;
+        const response = await fetch(
+          "http://localhost:8000/recruiter/company-profile/",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setCompanyName(data[0].name || "");
+          setCompanyDescription(data[0].description || "");
+          setCompanyWebsite(data[0].website || "");
+          setCompanyEmail(data[0].email || "");
+          setLogoFile(data[0].logo);
+        } else {
+          console.error("Error fetching data:", response.statusText);
+        }
+      }
+    };
+
+    fetchCompanyProfile();
+  }, [authTokens]);
   const fileInputRef = useRef(null);
 
   const handleLogoChange = (event) => {
     const selectedFile = event.target.files[0];
 
     if (selectedFile) {
-      setLogoFile(selectedFile);
+      setLogoFile(URL.createObjectURL(selectedFile));
     }
   };
 
@@ -37,11 +66,11 @@ function RecruiterProfile() {
       if (logoFile) {
         formData.append("logo", logoFile);
       }
-      formData.append("name", companyName); 
+      formData.append("name", companyName);
       formData.append("description", companyDescription);
       formData.append("website", companyWebsite);
       formData.append("email", companyEmail);
-  
+
       console.log("Request Data:", Object.fromEntries(formData));
       const requestOptions = {
         method: "POST",
@@ -52,7 +81,10 @@ function RecruiterProfile() {
       };
 
       try {
-        const response = await fetch("http://localhost:8000/recruiter/company-profile/", requestOptions);
+        const response = await fetch(
+          "http://localhost:8000/recruiter/company-profile/",
+          requestOptions
+        );
 
         if (response.ok) {
           console.log("Data saved successfully!");
@@ -76,11 +108,10 @@ function RecruiterProfile() {
       />
 
       <Avatar
-        src={logoFile ? URL.createObjectURL(logoFile) : companyIcon}
+        src={logoFile}
         size="sm"
         className="w-40 h-40 text-large mx-auto mb-3"
       />
-
       <Button
         className="bg-black text-white"
         endContent={<CameraIcon />}
@@ -117,9 +148,9 @@ function RecruiterProfile() {
           label="Company Email"
           className="mb-5"
           value={companyEmail}
+          placeholder={companyEmail}
           onChange={(e) => setCompanyEmail(e.target.value)}
         />
-
         <div className="flex justify-end">
           <Button
             className="py-5 px-10 rounded-lg bg-black text-white"
