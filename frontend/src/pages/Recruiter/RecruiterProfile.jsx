@@ -10,6 +10,7 @@ import AuthContext from "../../context/AuthContext";
 function RecruiterProfile() {
   const { authTokens } = useContext(AuthContext);
   const [logoFile, setLogoFile] = useState(null);
+  const [logoURL, setLogoURL] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [companyDescription, setCompanyDescription] = useState("");
   const [companyWebsite, setCompanyWebsite] = useState("");
@@ -36,7 +37,7 @@ function RecruiterProfile() {
           setCompanyDescription(data[0].description || "");
           setCompanyWebsite(data[0].website || "");
           setCompanyEmail(data[0].email || "");
-          setLogoFile(data[0].logo);
+          setLogoURL(data[0].logo);
         } else {
           console.error("Error fetching data:", response.statusText);
         }
@@ -51,7 +52,7 @@ function RecruiterProfile() {
     const selectedFile = event.target.files[0];
 
     if (selectedFile) {
-      setLogoFile(URL.createObjectURL(selectedFile));
+      setLogoFile(selectedFile);
     }
   };
 
@@ -63,8 +64,10 @@ function RecruiterProfile() {
     if (authTokens) {
       const token = authTokens.access;
       const formData = new FormData();
-      if (logoFile) {
+      if (logoFile !== null) {
         formData.append("logo", logoFile);
+      } else {
+        formData.append("logo", ""); 
       }
       formData.append("name", companyName);
       formData.append("description", companyDescription);
@@ -108,7 +111,7 @@ function RecruiterProfile() {
       />
 
       <Avatar
-        src={logoFile}
+        src={logoFile ? URL.createObjectURL(logoFile) : logoURL}
         size="sm"
         className="w-40 h-40 text-large mx-auto mb-3"
       />
@@ -127,6 +130,7 @@ function RecruiterProfile() {
           className="mb-5"
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
+          disabled
         />
         <Textarea
           label="Company Description"

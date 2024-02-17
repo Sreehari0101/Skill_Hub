@@ -24,7 +24,13 @@ class CompanyProfileAPIView(ListCreateAPIView):
 
             if existing_profile:
                 # If CompanyProfile exists, update it
-                serializer.update(existing_profile, serializer.validated_data)
+                serializer.instance = existing_profile
+                serializer.is_valid(raise_exception=True)
+                # Check if logo is provided in the request
+                if 'logo' not in self.request.FILES:
+                    print("reached")
+                    serializer.validated_data['logo'] = existing_profile.logo
+                serializer.save()
             else:
                 # If CompanyProfile doesn't exist, create it
                 serializer.save(user=self.request.user)
@@ -32,7 +38,8 @@ class CompanyProfileAPIView(ListCreateAPIView):
         except Exception as e:
             print("Error processing CompanyProfileAPIView:", str(e))
             return Response({"error": "Internal Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
+        
+        
     def list(self, request, *args, **kwargs):
         # Override list method to get the CompanyProfile for the current user
         queryset = CompanyProfile.objects.filter(user=self.request.user)
