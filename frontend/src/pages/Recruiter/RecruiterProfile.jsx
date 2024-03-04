@@ -31,13 +31,16 @@ function RecruiterProfile() {
         );
 
         if (response.ok) {
+
           const data = await response.json();
+          if (data && data.length > 0) {
           console.log(data);
           setCompanyName(data[0].name || "");
           setCompanyDescription(data[0].description || "");
           setCompanyWebsite(data[0].website || "");
           setCompanyEmail(data[0].email || "");
           setLogoURL(data[0].logo);
+          }
         } else {
           console.error("Error fetching data:", response.statusText);
         }
@@ -67,7 +70,7 @@ function RecruiterProfile() {
       if (logoFile !== null) {
         formData.append("logo", logoFile);
       } else {
-        formData.append("logo", ""); 
+        formData.append("logo", "");
       }
       formData.append("name", companyName);
       formData.append("description", companyDescription);
@@ -130,7 +133,6 @@ function RecruiterProfile() {
           className="mb-5"
           value={companyName}
           onChange={(e) => setCompanyName(e.target.value)}
-          disabled
         />
         <Textarea
           label="Company Description"

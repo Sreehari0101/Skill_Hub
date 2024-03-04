@@ -10,7 +10,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'name', 'description', 'website', 'email', 'logo']
 
     def create(self, validated_data):
-        print("Inside create method of serializer")  # Add this print statement
+        print("Inside create method of serializer") 
         logo = validated_data.pop('logo', None)
         
         try:
@@ -20,8 +20,7 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
                 instance.save()
             return instance
         except Exception as e:
-            print("Error in create method of serializer:", str(e))  # Add this print statement
-            raise  # Reraise the exception after printing
+            print("Error in create method of serializer:", str(e)) 
 class JobSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     company_profile = CompanyProfileSerializer()
