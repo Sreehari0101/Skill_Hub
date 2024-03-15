@@ -39,6 +39,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user_type = validated_data.pop('user_type', 'student')
+        full_name = validated_data.pop('full_name')  # Get full_name from validated data
         email = validated_data.get('email')
 
         user = User.objects.create(
@@ -49,4 +50,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
 
-        return user  
+        # Update user's full_name
+        profile = user.get_profile()
+        profile.full_name = full_name
+        profile.save()
+        
+        return user

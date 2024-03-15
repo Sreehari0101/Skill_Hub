@@ -27,15 +27,17 @@ class User(AbstractUser):
 def create_user_profiles(sender, instance, created, **kwargs):
     if created:
         user_type = instance.user_type
+        full_name = instance.username 
 
         if user_type == 'student':
-            StudentProfile.objects.get_or_create(user=instance)
+            StudentProfile.objects.get_or_create(user=instance, full_name=full_name)
         elif user_type == 'mentor':
-            MentorProfile.objects.get_or_create(user=instance)
+            MentorProfile.objects.get_or_create(user=instance, full_name=full_name)
         elif user_type == 'recruiter':
-            RecruiterProfile.objects.get_or_create(user=instance)
+            RecruiterProfile.objects.get_or_create(user=instance, full_name=full_name)
 
 post_save.connect(create_user_profiles, sender=User)
+
 
 class StudentProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)

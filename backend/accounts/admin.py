@@ -6,16 +6,16 @@ class UserAdmin(admin.ModelAdmin):
     list_editable = ['user_type']
 
 class StudentProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'full_name', 'verified']
-    list_editable = ['verified']
+    list_display = ['user', 'full_name','bio','verified']
+    list_editable = ['verified','full_name']
 
 class MentorProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'full_name', 'verified']
-    list_editable = ['verified']
+    list_display = ['user', 'full_name','bio','verified']
+    list_editable = ['verified',"full_name"]
 
 class RecruiterProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'full_name', 'verified']
-    list_editable = ['verified']
+    list_display = ['user', 'full_name','bio','verified']
+    list_editable = ['verified',"full_name"]
 
 admin.site.register(User, UserAdmin)
 admin.site.register(StudentProfile, StudentProfileAdmin)

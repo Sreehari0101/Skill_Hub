@@ -3,7 +3,6 @@ import "./css/RecruiterDashboard.css";
 import { BiSearch } from "react-icons/bi";
 import ProfileCard from "../../Components/ProfileCard";
 import WelcomeBox from "../../Components/WelcomeBox";
-import profile_icon from "../../assets/HR_Profile_Photo.jpg";
 import { Input } from "@nextui-org/react";
 import TitleCard from "../../Components/TitleCard";
 import welcomeImage from "../../assets/Dashboard_Welcome.png";
@@ -29,7 +28,7 @@ function RecruiterDashboard() {
         </div>
 
         <div className="profile-content">
-          <ProfileCard userName="Antony Das" userIcon={profile_icon} />
+          <ProfileCard/> 
         </div>
       </div>
 
@@ -37,8 +36,6 @@ function RecruiterDashboard() {
         <div className="welcome-box-container">
           <WelcomeBox
             welcomeImage={welcomeImage}
-            date="January 20, Saturday"
-            welcomeText="Welcome back, Antony Das!"
           />
         </div>
         <div className="dashboard-image-container">

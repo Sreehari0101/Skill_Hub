@@ -3,7 +3,6 @@ import "./css/MentorDashboard.css";
 import { BiSearch } from "react-icons/bi";
 import ProfileCard from "../../Components/ProfileCard";
 import WelcomeBox from "../../Components/WelcomeBox";
-import profile_icon from "../../assets/Mentor_Profile_photo.jpg";
 import { Input } from "@nextui-org/react";
 import TitleCard from "../../Components/TitleCard";
 import welcomeImage from "../../assets/Dashboard_Welcome.png";
@@ -27,7 +26,7 @@ function MentorDashboard() {
         </div>
 
         <div className="profile-content">
-          <ProfileCard userName="Leo Das" userIcon={profile_icon} />
+          <ProfileCard />
         </div>
       </div>
 
@@ -35,8 +34,6 @@ function MentorDashboard() {
         <div className="welcome-box-container">
           <WelcomeBox
             welcomeImage={welcomeImage}
-            date="January 20, Saturday"
-            welcomeText="Welcome back, Leo Das!"
           />
         </div>
         <div className="dashboard-image-container">

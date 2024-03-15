@@ -22,7 +22,7 @@ function PrivateRoute({ children, allowedRoles }) {
   if (allowedRoles && !allowedRoles.includes(user_type)) {
     return <Navigate to="/unauthorized" replace />;
   }
-
+  console.log(user)
   return children;
 }
 
