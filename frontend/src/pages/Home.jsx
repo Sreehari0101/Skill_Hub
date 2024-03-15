@@ -45,7 +45,7 @@ function Home() {
           </Link>
           <Link to="/">
             {" "}
-            <div className="nav-items"> About Us </div>{" "}
+            <div className="nav-items"> About </div>{" "}
           </Link>
           <Link to="/">
             {" "}

@@ -4,7 +4,7 @@ import "./css/WelcomeBox.css";
 
 function WelcomeBox({ welcomeImage }) {
   const { user } = useContext(AuthContext);
-  const [userFullname, setUserFullname] = useState('');
+  const [userFullname, setUserFullname] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -12,10 +12,10 @@ function WelcomeBox({ welcomeImage }) {
     }
   }, [user]);
   const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
+  const formattedDate = currentDate.toLocaleString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
   });
 
   return (
