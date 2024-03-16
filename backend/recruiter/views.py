@@ -9,7 +9,6 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
 from .models import CompanyProfile
-from .serializers import CompanyProfileSerializer
 
 class CompanyProfileAPIView(ListCreateAPIView):
     queryset = CompanyProfile.objects.all()

@@ -56,3 +56,64 @@ class RegistrationSerializer(serializers.ModelSerializer):
         profile.save()
         
         return user
+    
+class StudentProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = StudentProfile
+        fields = ['id', 'user', 'full_name','username','email','profile_photo']
+
+    def create(self, validated_data):
+        print("Inside create method of serializer") 
+        profile_photo = validated_data.pop('profile_photo', None)
+        
+        try:
+            instance = super().create(validated_data)
+            if profile_photo:
+                instance.profile_photo = profile_photo
+                instance.save()
+            return instance
+        except Exception as e:
+            print("Error in create method of serializer:", str(e)) 
+
+
+class MentorProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = MentorProfile
+        fields = ['id', 'user', 'full_name','username','email','profile_photo']
+
+    def create(self, validated_data):
+        print("Inside create method of serializer") 
+        profile_photo = validated_data.pop('profile_photo', None)
+        
+        try:
+            instance = super().create(validated_data)
+            if profile_photo:
+                instance.profile_photo = profile_photo
+                instance.save()
+            return instance
+        except Exception as e:
+            print("Error in create method of serializer:", str(e)) 
+
+class RecruiterProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = RecruiterProfile
+        fields = ['id', 'user', 'full_name','username','email','profile_photo']
+
+    def create(self, validated_data):
+        print("Inside create method of serializer") 
+        profile_photo = validated_data.pop('profile_photo', None)
+        
+        try:
+            instance = super().create(validated_data)
+            if profile_photo:
+                instance.profile_photo = profile_photo
+                instance.save()
+            return instance
+        except Exception as e:
+            print("Error in create method of serializer:", str(e)) 

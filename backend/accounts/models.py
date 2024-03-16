@@ -42,18 +42,21 @@ post_save.connect(create_user_profiles, sender=User)
 class StudentProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=1000)
-    bio = models.CharField(max_length=100)
-    verified = models.BooleanField(default=True)
+    username = models.CharField(max_length=150,default='',null=True)
+    email = models.EmailField(default='',null=True)
+    profile_photo = models.ImageField(upload_to='profile_photos', null=True, blank=True)
 
 
 class MentorProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=1000)
-    bio = models.CharField(max_length=100)
-    verified = models.BooleanField(default=True)
+    username = models.CharField(max_length=150,default='',null=True)
+    email = models.EmailField(default='',null=True)
+    profile_photo = models.ImageField(upload_to='profile_photos', null=True, blank=True)
 
 class RecruiterProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=1000)
-    bio = models.CharField(max_length=100)
-    verified = models.BooleanField(default=True)
+    username = models.CharField(max_length=150,default='',null=True)
+    email = models.EmailField(default='',null=True)
+    profile_photo = models.ImageField(upload_to='profile_photos', null=True, blank=True)
