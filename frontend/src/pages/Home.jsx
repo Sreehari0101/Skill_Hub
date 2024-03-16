@@ -45,7 +45,7 @@ function Home() {
           </Link>
           <Link to="/">
             {" "}
-            <div className="nav-items"> About </div>{" "}
+            <div className="nav-items"> About Us </div>{" "}
           </Link>
           <Link to="/">
             {" "}
@@ -83,9 +83,7 @@ function Home() {
           <h1 className="Home-heading">Elevate Your Potential</h1>
           <h1 className="Home-heading">With SkillHub</h1>
           <h4 className="Home-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-            sodales mi non arcu vulputate, eu consectetur ligula semper.
-            Vestibulum id ipsum convallis, euismod risus quis, posuere sapien.
+          Welcome to SkillHub, where knowledge meets opportunity in the digital realm! 
           </h4>
           <button>
             <div className="button-container">
