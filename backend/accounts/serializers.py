@@ -62,7 +62,7 @@ class StudentProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudentProfile
-        fields = ['id', 'user', 'full_name','username','email','profile_photo']
+        fields = ['id', 'user','profile_photo']
 
     def create(self, validated_data):
         print("Inside create method of serializer") 
@@ -83,7 +83,7 @@ class MentorProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MentorProfile
-        fields = ['id', 'user', 'full_name','username','email','profile_photo']
+        fields = ['id', 'user','profile_photo']
 
     def create(self, validated_data):
         print("Inside create method of serializer") 
@@ -103,7 +103,7 @@ class RecruiterProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RecruiterProfile
-        fields = ['id', 'user', 'full_name','username','email','profile_photo']
+        fields = ['id', 'user', 'profile_photo']
 
     def create(self, validated_data):
         print("Inside create method of serializer") 

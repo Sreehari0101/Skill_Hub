@@ -11,7 +11,7 @@ import { Input, Avatar } from "@nextui-org/react";
 import { CameraIcon } from "./CameraIcon";
 
 function ProfileCard() {
-  const { authTokens, user_type } = useContext(AuthContext);
+  const { authTokens, user_type, user } = useContext(AuthContext);
   const [userFullname, setUserFullname] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -22,7 +22,9 @@ function ProfileCard() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       if (authTokens) {
-        console.log(user_type)
+        setUserFullname(user.full_name);
+        setUserName(user.username);
+        setUserEmail(user.email);
         let endpoint = "";
         switch (user_type) {
           case "student":
@@ -52,9 +54,6 @@ function ProfileCard() {
           const data = await response.json();
           if (data && data.length > 0) {
             console.log(data);
-            setUserFullname(data[0].full_name || "");
-            setUserName(data[0].username || "");
-            setUserEmail(data[0].email || "");
             setProfileURL(data[0].profile_photo);
           }
         } else {
@@ -64,7 +63,7 @@ function ProfileCard() {
     };
 
     fetchUserProfile();
-  }, [authTokens, user_type, profileEndpoint]);
+  }, [authTokens, user_type, profileEndpoint , user]);
   const fileInputRef = useRef(null);
 
   const handleProfileChange = (event) => {
@@ -88,9 +87,6 @@ function ProfileCard() {
       } else {
         formData.append("profile_photo", "");
       }
-      formData.append("full_name", userFullname);
-      formData.append("username", userName);
-      formData.append("email", userEmail);
 
       console.log("Request Data:", Object.fromEntries(formData));
       const requestOptions = {
@@ -102,11 +98,8 @@ function ProfileCard() {
       };
 
       try {
-        console.log(profileEndpoint)
-        const response = await fetch(
-          profileEndpoint,
-          requestOptions
-        );
+        console.log(profileEndpoint);
+        const response = await fetch(profileEndpoint, requestOptions);
 
         if (response.ok) {
           console.log("Data saved successfully!");
@@ -127,7 +120,13 @@ function ProfileCard() {
             <div className="profile-button-content">
               <div className="profile-user-name">{userFullname}</div>
               <div className="profile-icon-container">
-                <img className="profile-icon"  src={profileFile ? URL.createObjectURL(profileFile) : profileURL} alt="Icon" />
+                <img
+                  className="profile-icon"
+                  src={
+                    profileFile ? URL.createObjectURL(profileFile) : profileURL
+                  }
+                  alt="Icon"
+                />
               </div>
             </div>
           </button>
@@ -160,8 +159,7 @@ function ProfileCard() {
               placeholder={userFullname}
               size="md"
               className="mb-5"
-              value={userFullname}
-              onChange={(e) => setUserFullname(e.target.value)}
+              disabled
             />
             <Input
               type="text"
@@ -169,8 +167,7 @@ function ProfileCard() {
               size="md"
               placeholder={userName}
               className="mb-5"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              disabled
             />
             <Input
               type="text"
@@ -178,11 +175,14 @@ function ProfileCard() {
               size="md"
               className="mb-5"
               placeholder={userEmail}
-              value={userEmail}
-              onChange={(e) => setUserEmail(e.target.value)}
+              disabled
             />
             <div className="flex justify-end ">
-              <Button size="sm" className="rounded-lg bg-black text-white" onClick={handleSaveClick}>
+              <Button
+                size="sm"
+                className="rounded-lg bg-black text-white"
+                onClick={handleSaveClick}
+              >
                 Save
               </Button>
             </div>

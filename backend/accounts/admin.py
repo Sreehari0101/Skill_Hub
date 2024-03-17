@@ -6,16 +6,16 @@ class UserAdmin(admin.ModelAdmin):
     list_editable = ['user_type']
 
 class StudentProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'full_name','username','email','profile_photo']
-    list_editable = ['full_name','username','email','profile_photo']
+    list_display = ['user', 'full_name', 'profile_photo']
+    list_editable = ['profile_photo']
 
 class MentorProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'full_name','username','email','profile_photo']
-    list_editable = ['full_name','username','email','profile_photo']
+    list_display = ['user', 'full_name','profile_photo']
+    list_editable = ['profile_photo']
     
 class RecruiterProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'full_name','username','email','profile_photo']
-    list_editable = ['full_name','username','email','profile_photo']
+    list_display = ['user', 'full_name','profile_photo']
+    list_editable = ['profile_photo']
 
 admin.site.register(User, UserAdmin)
 admin.site.register(StudentProfile, StudentProfileAdmin)
