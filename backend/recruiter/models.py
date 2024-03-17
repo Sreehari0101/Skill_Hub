@@ -3,7 +3,7 @@ from accounts.models import User
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='company_profile')
-    logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
+    logo = models.ImageField(upload_to='company_logos/', blank=True, default="profile_photos/Default_icon.jpg")
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     website = models.CharField(max_length=255)

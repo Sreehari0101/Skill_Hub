@@ -84,9 +84,9 @@ function ProfileCard() {
       const token = authTokens.access;
       const formData = new FormData();
       if (profileFile !== null) {
-        formData.append("profile", profileFile);
+        formData.append("profile_photo", profileFile);
       } else {
-        formData.append("profile", "");
+        formData.append("profile_photo", "");
       }
       formData.append("full_name", userFullname);
       formData.append("username", userName);

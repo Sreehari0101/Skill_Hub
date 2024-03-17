@@ -44,7 +44,7 @@ class StudentProfile(models.Model):
     full_name = models.CharField(max_length=1000)
     username = models.CharField(max_length=150,default='',null=True)
     email = models.EmailField(default='',null=True)
-    profile_photo = models.ImageField(upload_to='profile_photos', null=True, blank=True)
+    profile_photo = models.ImageField(upload_to='profile_photos', null=True, default="profile_photos/Default_icon.jpg")
 
 
 class MentorProfile(models.Model):
@@ -52,11 +52,11 @@ class MentorProfile(models.Model):
     full_name = models.CharField(max_length=1000)
     username = models.CharField(max_length=150,default='',null=True)
     email = models.EmailField(default='',null=True)
-    profile_photo = models.ImageField(upload_to='profile_photos', null=True, blank=True)
+    profile_photo = models.ImageField(upload_to='profile_photos', null=True, default="profile_photos/Default_icon.jpg")
 
 class RecruiterProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=1000)
     username = models.CharField(max_length=150,default='',null=True)
     email = models.EmailField(default='',null=True)
-    profile_photo = models.ImageField(upload_to='profile_photos', null=True, blank=True)
+    profile_photo = models.ImageField(upload_to='profile_photos', null=True, default="profile_photos/Default_icon.jpg")
