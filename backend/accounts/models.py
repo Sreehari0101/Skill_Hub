@@ -49,6 +49,11 @@ class MentorProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     full_name = models.CharField(max_length=1000, null=True)
     profile_photo = models.ImageField(upload_to='profile_photos', null=True, default="profile_photos/Default_icon.jpg")
+    tag_line = models.CharField(max_length=255, blank=True)
+    bio = models.TextField(blank=True)
+    education = models.TextField(blank=True)
+    subjects = models.CharField(max_length=255, blank=True)
+    experience = models.TextField(blank=True)
 
 class RecruiterProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)

@@ -83,7 +83,7 @@ class MentorProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MentorProfile
-        fields = ['id', 'user','profile_photo']
+        fields = ['id', 'user','profile_photo', 'full_name','tag_line', 'bio', 'education', 'subjects', 'experience']
 
     def create(self, validated_data):
         print("Inside create method of serializer") 
