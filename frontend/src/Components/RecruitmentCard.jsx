@@ -4,11 +4,12 @@ import JobFeatureCard from "./JobFeatureCard";
 import { Link } from 'react-router-dom'
 
 function RecruitmentCard({companyIcon,recruitmentDate,companyName,jobPosition,jobfeature1,jobfeature2,jobfeature3,jobDescription}) {
+  const BASE_URL = "http://localhost:8000";
   return (
     <div className="Recruitment-card">
       <div className="top">
         <div className="Company-logo-container">
-          <img className="Company-icon" src={companyIcon} alt="Icon" />
+          <img className="Company-icon" src={`${BASE_URL}${companyIcon}`} alt="Icon" />
         </div>
         <div className="Recruitment-date">Deadline : {recruitmentDate}</div>
       </div>

@@ -67,11 +67,18 @@ class JobListCreateAPIView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Job.objects.filter(company_profile__user=self.request.user)
+        user = self.request.user
+        user_type = user.user_type
+
+        if user_type == 'recruiter':
+            return Job.objects.filter(company_profile__user=user)
+        else:
+            return Job.objects.all()
 
     def perform_create(self, serializer):
         company_profile = self.request.user.company_profile
         serializer.save(company_profile=company_profile)
+
 
 class JobDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Job.objects.all()
