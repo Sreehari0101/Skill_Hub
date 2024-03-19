@@ -15,7 +15,7 @@ class MentorProfileAdmin(admin.ModelAdmin):
     
 class RecruiterProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'full_name','profile_photo']
-    list_editable = ['profile_photo']
+    list_editable = ['profile_photo','full_name']
 
 admin.site.register(User, UserAdmin)
 admin.site.register(StudentProfile, StudentProfileAdmin)

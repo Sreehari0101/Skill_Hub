@@ -21,9 +21,11 @@ class CompanyProfileSerializer(serializers.ModelSerializer):
             return instance
         except Exception as e:
             print("Error in create method of serializer:", str(e)) 
+
+
 class JobSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-    company_profile = CompanyProfileSerializer()
+    user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+    company_profile = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Job
@@ -33,8 +35,6 @@ class JobSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
-        company_profile_data = validated_data.pop('company_profile')
-        company_profile = CompanyProfile.objects.create(**company_profile_data)
-
-        job = Job.objects.create(user=self.context['request'].user, company_profile=company_profile, **validated_data)
+        user = self.context['request'].user
+        job = Job.objects.create(user=user, **validated_data)
         return job

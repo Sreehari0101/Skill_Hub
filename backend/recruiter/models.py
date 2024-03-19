@@ -18,7 +18,7 @@ class Job(models.Model):
     work_place = models.CharField(max_length=20, choices=[('Remote', 'Remote'), ('On-Site', 'On-Site')])
     round_details = models.TextField()
     salary_package = models.CharField(max_length=255)
-    last_date_of_application = models.DateField()
+    last_date_of_application = models.CharField(max_length=255)
 
     def __str__(self):
         return self.title

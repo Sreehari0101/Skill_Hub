@@ -30,7 +30,7 @@ const Register = () => {
       selectedRole,
     };
     console.log("User Data:", userData);
-    registerUser(full_name, email, username, password, password2,  selectedRole);
+    registerUser(full_name, email, username, password, password2, selectedRole);
   };
 
   const [isVisible, setIsVisible] = React.useState(false);
