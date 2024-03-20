@@ -40,6 +40,9 @@ class JobSerializer(serializers.ModelSerializer):
         return job
 
 class JobApplicationSerializer(serializers.ModelSerializer):
+    applicant = serializers.PrimaryKeyRelatedField(read_only=True)
+    job = serializers.PrimaryKeyRelatedField(queryset=Job.objects.all())  
+    
     class Meta:
         model = JobApplication
         fields = '__all__'

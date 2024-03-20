@@ -85,8 +85,18 @@ class JobDetailAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = JobSerializer
     permission_classes = [IsAuthenticated]
 
-class JobApplicationListCreateAPIView(ListCreateAPIView):
-    queryset = JobApplication.objects.all()
-    serializer_class = JobApplicationSerializer
+class JobApplicationCreateAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
+    def perform_create(self, serializer):
+        job_id = self.request.data.get('job')
+        job = Job.objects.filter(id=job_id).first() 
+        if not job:
+            raise serializers.ValidationError({'error': 'Invalid job id'})
+        serializer.save(applicant=self.request.user, job=job)
+
+    def post(self, request, *args, **kwargs):
+        serializer = JobApplicationSerializer(data=request.data)
+        if serializer.is_valid():
+            self.perform_create(serializer)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)

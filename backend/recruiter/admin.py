@@ -14,5 +14,5 @@ class JobAdmin(admin.ModelAdmin):
 
 @admin.register(JobApplication)
 class JobApplicationAdmin(admin.ModelAdmin):
-    list_display = ['full_name', 'job', 'applicant', 'email', 'contact_number', 'country', 'state']
+    list_display = ['full_name', 'job', 'applicant', 'email', 'contact_number', 'country', 'state','resume_cv','skill_hub_certificate']
     search_fields = ['full_name', 'job__title', 'applicant__username']
