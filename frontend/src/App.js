@@ -41,7 +41,7 @@ function App() {
         <Route path="/student-discussions-join" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <JoinChat/> </TemplatedStudent> </ProtectedRoute>} />
         <Route path="/student-course-details" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <CourseDetails/> </TemplatedStudent> </ProtectedRoute>} />
         <Route path="/student-recruitments" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <Recruitments/> </TemplatedStudent> </ProtectedRoute>} />
-        <Route path="/student-recruitments-apply" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <RecruitmentsApply/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-recruitments-apply/:jobId" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <RecruitmentsApply/> </TemplatedStudent> </ProtectedRoute>} />
         <Route path="/student-chatbot" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <Chatbot/> </TemplatedStudent> </ProtectedRoute>} />
 
         <Route path="/recruiter-dashboard" element={<ProtectedRoute allowedRoles={["recruiter"]}> <TemplatedRecruiter> <RecruiterDashboard/> </TemplatedRecruiter> </ProtectedRoute>} />

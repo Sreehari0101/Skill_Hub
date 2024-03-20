@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
-from .models import CompanyProfile, Job
-from .serializers import CompanyProfileSerializer, JobSerializer
+from .models import CompanyProfile, Job, JobApplication
+from .serializers import CompanyProfileSerializer, JobSerializer, JobApplicationSerializer
 from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -83,5 +83,10 @@ class JobListCreateAPIView(ListCreateAPIView):
 class JobDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
+    permission_classes = [IsAuthenticated]
+
+class JobApplicationListCreateAPIView(ListCreateAPIView):
+    queryset = JobApplication.objects.all()
+    serializer_class = JobApplicationSerializer
     permission_classes = [IsAuthenticated]
 

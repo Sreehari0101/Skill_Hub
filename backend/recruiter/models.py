@@ -22,3 +22,18 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
+    
+class JobApplication(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applications')
+    applicant = models.ForeignKey(User, on_delete=models.CASCADE, related_name='job_applications')
+    full_name = models.CharField(max_length=255)
+    contact_number = models.CharField(max_length=15)
+    email = models.EmailField()
+    country = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    address = models.TextField()
+    resume_cv = models.FileField(upload_to='resumes/')
+    skill_hub_certificate = models.FileField(upload_to='certificates/')
+
+    def __str__(self):
+        return f"{self.full_name} - {self.job.title}"

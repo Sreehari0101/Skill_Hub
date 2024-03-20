@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from accounts.serializers import UserSerializer
-from .models import CompanyProfile, Job
+from .models import CompanyProfile, Job, JobApplication
 
 class CompanyProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
@@ -38,3 +38,8 @@ class JobSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         job = Job.objects.create(user=user, **validated_data)
         return job
+
+class JobApplicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JobApplication
+        fields = '__all__'

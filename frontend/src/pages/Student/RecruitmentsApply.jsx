@@ -4,8 +4,10 @@ import ProfileCard from '../../Components/ProfileCard';
 import "./css/RecruitmentsApply.css";
 import profile_icon from "../../assets/Profile_icon.jpg";
 import RecruitmentForm from '../../Components/RecruitmentForm';
+import { useParams } from 'react-router-dom'; 
 
 function RecruitmentsApply() {
+  const { jobId } = useParams();
   return (
     <div className="Recruitments-apply">
       <div className="Content-top">
@@ -18,7 +20,7 @@ function RecruitmentsApply() {
         </div>
       </div>
       <div className="Content-bottom"> 
-      < RecruitmentForm />
+      < RecruitmentForm jobId={jobId} />
       </div>
     </div>
   );

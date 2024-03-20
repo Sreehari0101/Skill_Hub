@@ -2,7 +2,7 @@ import React from "react";
 import { Input } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 
-function RecruitmentForm() {
+function RecruitmentForm({jobId}) {
   return (
     <div className="Recruitment-Form wid w-3/4">
       <div className="flex w-full flex-wrap md:flex-nowrap gap-12 mb-8">

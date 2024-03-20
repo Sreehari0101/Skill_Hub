@@ -3,7 +3,7 @@ import "./css/RecruitmentCard.css";
 import JobFeatureCard from "./JobFeatureCard";
 import { Link } from 'react-router-dom'
 
-function RecruitmentCard({companyIcon,recruitmentDate,companyName,jobPosition,jobfeature1,jobfeature2,jobfeature3,jobDescription}) {
+function RecruitmentCard({jobId,companyIcon,recruitmentDate,companyName,jobPosition,jobfeature1,jobfeature2,jobfeature3,jobDescription}) {
   const BASE_URL = "http://localhost:8000";
   return (
     <div className="Recruitment-card">
@@ -34,7 +34,7 @@ function RecruitmentCard({companyIcon,recruitmentDate,companyName,jobPosition,jo
       </Link>
 
 
-      <Link to="/student-recruitments-apply">
+      <Link to={`/student-recruitments-apply/${jobId}`}>
         <button className="Apply-button">
           <div className="Button2-content">Apply Now</div>
         </button>
