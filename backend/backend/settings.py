@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'corsheaders',
      'accounts',
      'chatbot',
+     'mentor',
      'recruiter',
 ]
 

@@ -47,7 +47,7 @@ function MyRecruitmentsCard({
 
       <div className="bottom">
         <div className="view-container">
-          <Link to="/recruiter-recruitments-view">
+          <Link to={`/recruiter-recruitments-view/${jobId}`}>
             <button className="view-button">View</button>
           </Link>
         </div>

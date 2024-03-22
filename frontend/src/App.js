@@ -21,6 +21,7 @@ import Register from './pages/Register';
 import MentorDashboard from './pages/Mentor/MentorDashboard';
 import MentorCreate from './pages/Mentor/MentorCreate';
 import MentorProfile from './pages/Mentor/MentorProfile';
+import MentorUpload from './pages/Mentor/MentorUpload';
 import TemplatedMentor from './Components/TemplatedMentor';
 import RecruitmentsView from './pages/Recruiter/RecruitmentsView';
 import CourseDetails from './pages/Student/CourseDetails';
@@ -47,10 +48,11 @@ function App() {
         <Route path="/recruiter-dashboard" element={<ProtectedRoute allowedRoles={["recruiter"]}> <TemplatedRecruiter> <RecruiterDashboard/> </TemplatedRecruiter> </ProtectedRoute>} />
         <Route path="/recruiter-create" element={<ProtectedRoute allowedRoles={["recruiter"]}> <TemplatedRecruiter> <RecruiterCreate/> </TemplatedRecruiter> </ProtectedRoute>} />
         <Route path="/recruiter-profile" element={<ProtectedRoute allowedRoles={["recruiter"]}> <TemplatedRecruiter> <RecruiterProfile/> </TemplatedRecruiter> </ProtectedRoute>} />
-        <Route path="/recruiter-recruitments-view" element={<ProtectedRoute allowedRoles={["recruiter"]}> <TemplatedRecruiter> <RecruitmentsView/> </TemplatedRecruiter> </ProtectedRoute>} />
+        <Route path="/recruiter-recruitments-view/:jobId" element={<ProtectedRoute allowedRoles={["recruiter"]}> <TemplatedRecruiter> <RecruitmentsView/> </TemplatedRecruiter> </ProtectedRoute>} />
 
         <Route path="/mentor-dashboard" element={<ProtectedRoute allowedRoles={["mentor"]}> <TemplatedMentor> <MentorDashboard/> </TemplatedMentor> </ProtectedRoute>} />
         <Route path="/mentor-create" element={<ProtectedRoute allowedRoles={["mentor"]}> <TemplatedMentor> <MentorCreate/> </TemplatedMentor> </ProtectedRoute>} />
+        <Route path="/mentor-upload/:courseId" element={<ProtectedRoute allowedRoles={["mentor"]}> <TemplatedMentor> <MentorUpload/> </TemplatedMentor> </ProtectedRoute>} />
         <Route path="/mentor-profile" element={<ProtectedRoute allowedRoles={["mentor"]}> <TemplatedMentor> <MentorProfile/> </TemplatedMentor>  </ProtectedRoute> } />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>

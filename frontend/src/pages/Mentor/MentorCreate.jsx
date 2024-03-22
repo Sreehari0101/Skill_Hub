@@ -4,7 +4,6 @@ import TitleCard from '../../Components/TitleCard';
 import ProfileCard from '../../Components/ProfileCard';
 import profile_icon from "../../assets/Mentor_Profile_photo.jpg";
 import CourseForm from '../../Components/CourseForm';
-import Dropzone from '../../Components/Dropzone';
 function MentorCreate() {
   return (
     <div className="Mentor-create">
@@ -20,8 +19,6 @@ function MentorCreate() {
       <div className="Content-bottom">
       <h1>Couse Information</h1>
      <CourseForm />
-     <h1>Course Content</h1>
-        <Dropzone />
       </div>
       </div>
   );

@@ -100,3 +100,14 @@ class JobApplicationCreateAPIView(APIView):
         if serializer.is_valid():
             self.perform_create(serializer)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+class JobApplicationListCreateAPIView(ListCreateAPIView):
+    queryset = JobApplication.objects.all()
+    serializer_class = JobApplicationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        job_id = self.kwargs.get('job_id')
+        if job_id:
+            return JobApplication.objects.filter(job_id=job_id)
+        return super().get_queryset()
