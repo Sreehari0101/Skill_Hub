@@ -2,7 +2,7 @@ import React from 'react'
 import "./css/MentorUpload.css";
 import TitleCard from '../../Components/TitleCard';
 import ProfileCard from '../../Components/ProfileCard';
-import Dropzone from '../../Components/Dropzone';
+import UploadWidget from '../../Components/UploadWidget';
 function MentorUpload() {
   return (
     <div className="Mentor-upload">
@@ -17,7 +17,7 @@ function MentorUpload() {
       </div>
       <div className="Content-bottom">
       <h1>Course Content</h1>
-     <Dropzone />
+     <UploadWidget />
       </div>
       </div>
   );
