@@ -7,6 +7,9 @@ class Course(models.Model):
     description = models.TextField()
     cover_photo = models.ImageField(upload_to='course_covers/',null=True)
 
+    def __str__(self):
+        return self.title
+
 class Chapter(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='chapters')
     title = models.CharField(max_length=100)

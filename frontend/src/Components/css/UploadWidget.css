@@ -1,0 +1,72 @@
+.upload-widget .upload-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-widget .upload-button {
+  width: 14%;
+  background: #a687e9;
+  border-radius: 10px;
+  padding: 10px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-widget .upload-button .icon_container {
+  flex: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-widget .upload-button .icon_container .upload-video-icon {
+  width: 25px;
+  height: 25px;
+}
+
+.upload-video-text {
+  flex: 75%;
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.add-more-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.add-more-button {
+  width: 12%;
+  background: #14121e;
+  border-radius: 10px;
+  padding: 10px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-more-button .icon_container {
+  flex: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-more-button .icon_container .add-more-icon {
+  width: 25px;
+  height: 25px;
+}
+
+.add-more-text {
+  flex: 75%;
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+}
