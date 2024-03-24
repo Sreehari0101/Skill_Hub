@@ -4,7 +4,7 @@ from .models import Course, Chapter
 class ChapterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chapter
-        fields = ['id', 'title', 'video_url']
+        fields = ['id','course', 'title', 'video_url']
 
 class CourseSerializer(serializers.ModelSerializer):
     chapters = ChapterSerializer(many=True, required=False) 

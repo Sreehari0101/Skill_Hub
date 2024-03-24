@@ -6,11 +6,11 @@ import Add_more from "./../assets/Add_more.png";
 import { useParams } from "react-router-dom";
 
 const UploadWidget = () => {
-  const { courseId } = useParams(); // Extract the course ID from the URL
+  const { courseId } = useParams(); 
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   const [chapters, setChapters] = useState([
-    { chapterName: "", uploadedUrl: "" },
+    { title: "", video_url: "" },
   ]);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const UploadWidget = () => {
         if (!error && result && result.event === "success") {
           const { secure_url } = result.info;
           const updatedChapters = [...chapters];
-          updatedChapters[updatedChapters.length - 1].uploadedUrl = secure_url;
+          updatedChapters[updatedChapters.length - 1].video_url = secure_url;
           setChapters(updatedChapters);
           console.log("Uploaded URL:", secure_url);
         }
@@ -39,24 +39,25 @@ const UploadWidget = () => {
   const handleChapterNameChange = (e, index) => {
     const { value } = e.target;
     const updatedChapters = [...chapters];
-    updatedChapters[index].chapterName = value;
+    updatedChapters[index].title = value;
     setChapters(updatedChapters);
   };
 
   const handleAddChapter = () => {
-    setChapters([...chapters, { chapterName: "", uploadedUrl: "" }]);
+    setChapters([...chapters, { title: "", video_url: "" }]);
   };
 
   const saveChapters = async () => {
     try {
+      console.log(chapters)
       const response = await fetch(
-        `http://localhost:8000/your-backend-chapters-endpoint/${courseId}/`,
+        `http://localhost:8000/mentor/chapters/${courseId}/`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(chapters),
+          body: JSON.stringify({ chapters }),
         }
       );
       if (response.ok) {
@@ -77,7 +78,7 @@ const UploadWidget = () => {
             <Input
               type="text"
               label="Chapter Name"
-              value={chapter.chapterName}
+              value={chapter.title}
               onChange={(e) => handleChapterNameChange(e, index)}
             />
           </div>
@@ -93,10 +94,10 @@ const UploadWidget = () => {
               <div className="upload-video-text">Upload video</div>
             </button>
           </div>
-          {chapter.uploadedUrl && (
+          {chapter.video_url && (
             <div>
               <video width="350" height="500" controls>
-                <source src={chapter.uploadedUrl} type="video/mp4" />
+                <source src={chapter.video_url} type="video/mp4" />
               </video>
             </div>
           )}

@@ -11,6 +11,6 @@ class Course(models.Model):
         return self.title
 
 class Chapter(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='chapters')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='chapters',null= True)
     title = models.CharField(max_length=100)
     video_url = models.URLField(null=True)
