@@ -3,10 +3,10 @@ import "./css/CourseCard.css";
 import Rating_icon from "./../assets/Rating_star_icon.png";
 import { Link } from 'react-router-dom'
 
-function CourseCard({courseCover,courseName,courseOwner,courseRating,courseMembers}) {
+function CourseCard({courseId,courseCover,courseName,courseOwner,courseRating,courseMembers}) {
   return (
     <div className="Course-card">
-      <Link to="/student-course-details">
+      <Link to={`/student-course-details/${courseId}`}>
       <div className="Course-icon-container">
         <img className="Course-icon" src={courseCover} alt="Icon" />
       </div>

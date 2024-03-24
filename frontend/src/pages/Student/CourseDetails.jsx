@@ -1,15 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import CourseDetailCard from "../../Components/CourseDetailCard";
 import TitleCard from "../../Components/TitleCard";
 import ProfileCard from "../../Components/ProfileCard";
 import "./css/CourseDetails.css";
 import profile_icon from "../../assets/Profile_icon.jpg";
-import Cover1 from "../../assets/Data_Analytics_Course_icon.jpg";
 import CourseOverviewCard from "../../Components/CourseOverviewCard";
 import CourseContent from "../../Components/CourseContent";
 import RatingCard from "../../Components/RatingCard";
 
 function CourseDetails() {
+  const { courseId } = useParams();
+  const [courseDetails, setCourseDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCourseDetails = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/mentor/chapters-list/${courseId}/`
+        );
+        console.log(response.data)
+        setCourseDetails(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching course details:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchCourseDetails();
+  }, [courseId]);
+
   return (
     <div className="Course-details">
       <div className="Content-top">
@@ -21,21 +44,23 @@ function CourseDetails() {
           <ProfileCard userName="Richu Das" userIcon={profile_icon} />
         </div>
       </div>
-      <div className="Content-bottom">
-        <CourseDetailCard
-          courseCover={Cover1}
-          courseName="The Data Analyst Course: Complete Data Analyst Bootcamp"
-          courseOwner="Sundas Khalid"
-          courseRating={4.5}
-          courseMembers="10K"
-          courseBio="The Data Analyst Course offers a comprehensive bootcamp, equipping learners with skills in data analysis. Covering tools, techniques, and real-world applications for a successful career in data analysis."
-        />
-        <CourseOverviewCard />
+      {!loading && courseDetails && (
+        <div className="Content-bottom">
+          <CourseDetailCard
+            courseCover={courseDetails.course.cover_photo}
+            courseName={courseDetails.course.title}
+            courseOwner={courseDetails.course.mentor}
+            courseRating={4.5}
+            courseMembers="10K" 
+            courseBio={courseDetails.course.description}
+          />
+          <CourseOverviewCard />
 
-        <CourseContent />
-        
-        <RatingCard />
-      </div>
+          <CourseContent chapters={courseDetails.chapters} />
+
+          <RatingCard />
+        </div>
+      )}
     </div>
   );
 }

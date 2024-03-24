@@ -27,7 +27,6 @@
 .Courses .Content-bottom {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   padding-top: 20px;
   padding-bottom: 20px;
@@ -37,6 +36,7 @@
   width: 90%;
 }
 .Courses .Content-bottom .course-list {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

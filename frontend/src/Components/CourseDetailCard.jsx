@@ -3,6 +3,7 @@ import "./css/CourseDetailCard.css";
 import Rating_icon from "./../assets/Rating_star_icon.png";
 
 function CourseDetailCard({courseCover,courseName,courseOwner,courseRating,courseMembers,courseBio}) {
+  const BASE_URL = "http://localhost:8000";
   return (
     <div className="Course-box">
       <div className="Course-description">
@@ -24,7 +25,7 @@ function CourseDetailCard({courseCover,courseName,courseOwner,courseRating,cours
         </button>
       </div>
       <div className="Course-image-container">
-        <img src={courseCover} className="Course-image" alt="Course logo" />
+        <img src={`${BASE_URL}${courseCover}`} className="Course-image" alt="Course logo" />
       </div>
     </div>
   );

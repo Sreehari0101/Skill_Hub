@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Input, Button } from "@nextui-org/react";
 import "./css/UploadWidget.css";
 import Upload_icon from "./../assets/Upload_icon.png";
@@ -9,9 +9,7 @@ const UploadWidget = () => {
   const { courseId } = useParams(); 
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
-  const [chapters, setChapters] = useState([
-    { title: "", video_url: "" },
-  ]);
+  const [chapters, setChapters] = useState([{ title: "", video_url: "" }]);
 
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
@@ -94,13 +92,6 @@ const UploadWidget = () => {
               <div className="upload-video-text">Upload video</div>
             </button>
           </div>
-          {chapter.video_url && (
-            <div>
-              <video width="350" height="500" controls>
-                <source src={chapter.video_url} type="video/mp4" />
-              </video>
-            </div>
-          )}
         </div>
       ))}
       <div className="add-more-container">

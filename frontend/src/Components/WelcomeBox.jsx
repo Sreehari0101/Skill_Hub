@@ -22,7 +22,7 @@ function WelcomeBox({ welcomeImage }) {
     <div className="welcome-box">
       <img className="welcome-image" src={welcomeImage} alt="welcome" />
       <p className="date-text">{formattedDate}</p>
-      <h1 className="welcome-text">Wecome back, {userFullname}</h1>
+      <h1 className="welcome-text">Welcome back, {userFullname}</h1>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 from rest_framework import generics, status, serializers
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from .models import Course, Chapter
 from .serializers import CourseSerializer, ChapterSerializer
 
@@ -20,9 +21,19 @@ class CourseListCreateAPIView(generics.CreateAPIView):
             status=status.HTTP_201_CREATED,
             headers=headers
         )
-class CourseRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Course.objects.all()
+class CourseListAPIView(generics.ListCreateAPIView):
     serializer_class = CourseSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        user_type = user.user_type
+
+        if user_type == 'mentor':
+            return Course.objects.filter(mentor=user)
+        else:
+            return Course.objects.all()
+
 
 class ChapterCreateAPIView(generics.CreateAPIView):
     queryset = Chapter.objects.all()
@@ -38,15 +49,27 @@ class ChapterCreateAPIView(generics.CreateAPIView):
         chapters_data = request.data.get('chapters', [])
         serialized_chapters = []
         
-        # Iterate over each chapter data
         for chapter_data in chapters_data:
-            # Populate the course field with the retrieved course object
             chapter_data['course'] = course_id
-            
-            # Serialize and save the chapter
             serializer = self.get_serializer(data=chapter_data)
             serializer.is_valid(raise_exception=True)
             serialized_chapters.append(serializer.save())
-        
-        # Return the serialized data of the created chapters
         return Response(ChapterSerializer(serialized_chapters, many=True).data, status=status.HTTP_201_CREATED)
+    
+    
+class ChapterListAPIView(generics.ListAPIView):
+    serializer_class = ChapterSerializer
+
+    def get_queryset(self):
+        course_id = self.kwargs.get('courseId')
+        return Chapter.objects.filter(course_id=course_id)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        course_id = self.kwargs.get('courseId')
+        course = Course.objects.filter(id=course_id).first()
+        if not course:
+            return Response({'error': 'Course does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        course_serializer = CourseSerializer(course)
+        chapter_serializer = self.get_serializer(queryset, many=True)
+        return Response({'course': course_serializer.data, 'chapters': chapter_serializer.data}, status=status.HTTP_200_OK)
