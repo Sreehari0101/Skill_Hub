@@ -1,0 +1,139 @@
+.Join-chat {
+  flex: 85%;
+  display: flex;
+  flex-direction: column;
+}
+
+.Join-chat .Content-top {
+  flex: 18%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.Join-chat .Content-top .title-content {
+  flex: 60%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Join-chat .Content-top .profile-content {
+  flex: 40%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Join-chat .Content-bottom {
+  flex: 82%;
+  display: flex;
+  align-items: center;
+  padding: 40px;
+  flex-direction: column;
+}
+
+.Join-chat .Content-bottom .message-display {
+  flex: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  padding-bottom: 60px;
+}
+
+.Join-chat .Content-bottom .message-display .message-reply {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  max-width: 48%;
+  width: auto;
+  border-radius: 10px;
+  background: #c8fdc7;
+  box-shadow: -5px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 15px;
+  color: #000;
+  font-family: Jost;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.Join-chat .Content-bottom .message-display .message-reply h1{
+   font-weight:600;
+  }
+.Join-chat .Content-bottom .message-display .my-message {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  max-width: 48%;
+  width: auto;
+  border-radius: 10px;
+  background: #c7fafd;
+  box-shadow: 5px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 15px;
+  color: #000;
+  font-family: Jost;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.Join-chat .Content-bottom .message-type {
+  width: 90%;
+  display: flex;
+  position: fixed;
+  bottom: 30px;
+}
+
+.Join-chat .Content-bottom .message-type .message-type-area {
+  flex: 92%;
+}
+.Join-chat
+  .Content-bottom
+  .message-type
+  .message-type-area
+  .message-textbox
+  .custom-textbox {
+  width: 100%;
+  border-radius: 26px;
+  background: #dee3fb;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  padding: 15px;
+  border: none;
+  outline: none;
+}
+
+.Join-chat .Content-bottom .message-type .message-send-area {
+  flex: 8%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Join-chat
+  .Content-bottom
+  .message-type
+  .message-send-area
+  .send-button-content {
+  width: 52px;
+  height: 52px;
+  border-radius: 50px;
+  background-color: rgba(197, 251, 178, 0.53);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+.Join-chat
+  .Content-bottom
+  .message-type
+  .message-send-area
+  .send-button-content
+  .send-button-icon {
+  width: 42px;
+  height: 42px;
+}

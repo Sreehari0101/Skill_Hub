@@ -114,7 +114,7 @@ function ProfileCard() {
 
   return (
     <div className="profile-card">
-      <Popover showArrow placement="bottom">
+      <Popover showArrow placement="bottom" radius="none">
         <PopoverTrigger>
           <button className="button">
             <div className="profile-button-content">

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./css/MentorDashboard.css";
+import axios from "axios";
+import AuthContext from "../../context/AuthContext";
 import { BiSearch } from "react-icons/bi";
 import ProfileCard from "../../Components/ProfileCard";
 import WelcomeBox from "../../Components/WelcomeBox";
@@ -7,12 +9,31 @@ import { Input } from "@nextui-org/react";
 import TitleCard from "../../Components/TitleCard";
 import welcomeImage from "../../assets/Dashboard_Welcome.png";
 import dashboardImage from "../../assets/Dashboard_Image.png";
-import CourseCard from "../../Components/CourseCard";
-import Cover1 from "../../assets/Data_Analytics_Course_icon.jpg";
-import Cover2 from "../../assets/Crypto_Currency_Course_icon.png";
-import Cover3 from "../../assets/Artificial_Intelligence_Course_icon.webp";
+import MentorCourseCard from "../../Components/MentorCourseCard";
 
 function MentorDashboard() {
+  const { authTokens } = useContext(AuthContext);
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/mentor/courses-list/",
+          {
+            headers: {
+              Authorization: `Bearer ${authTokens.access}`,
+            },
+          }
+        );
+        setCourses(response.data);
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
+
+    fetchCourses();
+  }, [authTokens]);
   return (
     <div class="mentor-dashboard">
       <div className="Content-top">
@@ -32,9 +53,7 @@ function MentorDashboard() {
 
       <div className="Content-middle">
         <div className="welcome-box-container">
-          <WelcomeBox
-            welcomeImage={welcomeImage}
-          />
+          <WelcomeBox welcomeImage={welcomeImage} />
         </div>
         <div className="dashboard-image-container">
           <img
@@ -49,27 +68,16 @@ function MentorDashboard() {
           <TitleCard titleName="My Courses" />
         </div>
         <div className="mycourses-list">
-          <CourseCard
-            courseCover={Cover1}
-            courseName="The Data Analyst Course: Complete Data Analyst Bootcamp"
-            courseOwner="Sundas Khalid"
-            courseRating={4.5}
-            courseMembers="10K"
-          />
-          <CourseCard
-            courseCover={Cover2}
-            courseName="Cryptocurrency Investment Course 2023: Fund your Retirement!"
-            courseOwner="Satashi Nakomoto"
-            courseRating={4.4}
-            courseMembers="8K"
-          />
-          <CourseCard
-            courseCover={Cover3}
-            courseName="The Complete Artificial Intelligence (AI) for Professionals"
-            courseOwner="Ryan G. Sling"
-            courseRating={4.3}
-            courseMembers="12K"
-          />
+          {courses.map((course) => (
+            <MentorCourseCard
+              courseId={course.id}
+              courseCover={course.cover_photo}
+              courseName={course.title}
+              courseOwner={course.mentor}
+              courseRating={4.5}
+              courseMembers="10K"
+            />
+          ))}
         </div>
       </div>
     </div>
