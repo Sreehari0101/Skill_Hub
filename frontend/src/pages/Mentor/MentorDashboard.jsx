@@ -73,7 +73,7 @@ function MentorDashboard() {
               courseId={course.id}
               courseCover={course.cover_photo}
               courseName={course.title}
-              courseOwner={course.mentor}
+              courseOwner={course.mentor_full_name}
               courseRating={4.5}
               courseMembers="10K"
             />

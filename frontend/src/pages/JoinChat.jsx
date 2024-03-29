@@ -14,7 +14,7 @@ function JoinChat() {
         </div>
 
         <div className="profile-content">
-          <ProfileCard userName="Richu Das" userIcon={profile_icon} />
+          <ProfileCard />
         </div>
       </div>
       <div className="Content-bottom">

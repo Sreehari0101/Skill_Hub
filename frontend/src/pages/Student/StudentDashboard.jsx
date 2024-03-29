@@ -1,18 +1,40 @@
-import React from "react";
+import React, { useState, useEffect, useContext} from "react";
 import "./css/StudentDashboard.css";
 import { BiSearch } from "react-icons/bi";
+import { Input } from "@nextui-org/react";
 import ProfileCard from "../../Components/ProfileCard";
 import WelcomeBox from "../../Components/WelcomeBox";
-import { Input } from "@nextui-org/react";
 import TitleCard from "../../Components/TitleCard";
+import MyCourseCard from "../../Components/MyCourseCard";
 import welcomeImage from "../../assets/Dashboard_Welcome.png";
 import dashboardImage from "../../assets/Dashboard_Image.png";
-import MyCourseCard from "../../Components/MyCourseCard";
-import Cover1 from "../../assets/Data_Analytics_Course_icon.jpg";
-import Cover2 from "../../assets/Crypto_Currency_Course_icon.png";
-import Cover3 from "../../assets/Artificial_Intelligence_Course_icon.webp";
+import axios from "axios";
+import AuthContext from "../../context/AuthContext";
 
 function StudentDashboard() {
+  const { authTokens } = useContext(AuthContext);
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchEnrolledCourses = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/mentor/course-enroll-list/",
+          {
+            headers: {
+              Authorization: `Bearer ${authTokens.access}`,
+            },
+          }
+        );
+        console.log(response.data);
+        setEnrolledCourses(response.data);
+      } catch (error) {
+        console.error("Error fetching enrolled courses:", error);
+      }
+    };
+
+    fetchEnrolledCourses();
+  }, [authTokens]);
   return (
     <div class="student-dashboard">
       <div className="Content-top">
@@ -49,26 +71,15 @@ function StudentDashboard() {
           <TitleCard titleName="My Courses" />
         </div>
         <div className="mycourses-list">
-          <MyCourseCard
-            courseCover={Cover1}
-            courseName="The Data Analyst Course: Complete Data Analyst Bootcamp"
-            courseOwner="Sundas Khalid"
-            courseProgress={42}
-          />
-
-          <MyCourseCard
-            courseCover={Cover2}
-            courseName="Cryptocurrency Investment Course 2023: Fund your Retirement!"
-            courseOwner="Satashi Nakomoto"
-            courseProgress={65}
-          />
-
-          <MyCourseCard
-            courseCover={Cover3}
-            courseName="The Complete Artificial Intelligence (AI) for Professionals"
-            courseOwner="Jade Raymond"
-            courseProgress={80}
-          />
+        {enrolledCourses.map((course) => (
+            <MyCourseCard
+              courseId={course.id}
+              courseCover={course.cover_photo}
+              courseName={course.title}
+              courseOwner={course.mentor_full_name}
+              courseProgress={course.progress}
+            />
+          ))}
         </div>
       </div>
     </div>

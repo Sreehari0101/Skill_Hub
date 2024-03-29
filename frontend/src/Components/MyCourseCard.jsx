@@ -1,11 +1,13 @@
 import React from "react";
 import "./css/MyCourseCard.css";
 import {Progress} from "@nextui-org/react";
+import { Link } from 'react-router-dom';
 
 
-function MyCourseCard({courseCover,courseName,courseOwner,courseProgress}) {
+function MyCourseCard({courseId,courseCover,courseName,courseOwner,courseProgress}) {
   return (
     <div className="MyCourse-card">
+     <Link to={`/student-mycourse-details/${courseId}`}>
     <div className="Course-icon-container">
       <img className="Course-icon" src={courseCover} alt="Icon" />
     </div>
@@ -29,6 +31,7 @@ function MyCourseCard({courseCover,courseName,courseOwner,courseProgress}) {
     />
       </div>
       </div>
+      </Link>
     </div>
 );
 }

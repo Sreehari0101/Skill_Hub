@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./css/CourseDetailCard.css";
 import Rating_icon from "./../assets/Rating_star_icon.png";
+import AuthContext from "../context/AuthContext";
+import axios from "axios";
 
-function CourseDetailCard({courseCover,courseName,courseOwner,courseRating,courseMembers,courseBio}) {
+function CourseDetailCard({ courseId, courseCover, courseName, courseOwner, courseRating, courseMembers, courseBio }) {
   const BASE_URL = "http://localhost:8000";
+  const { authTokens } = useContext(AuthContext);
+
+  const handleEnroll = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/mentor/enroll/',
+        { courseId },
+        {
+            headers: {
+                Authorization: `Bearer ${authTokens.access}`,
+            },
+        }
+    );
+      console.log(response.data.message);
+    } catch (error) {
+      console.error("Error enrolling in course:", error);
+    }
+  };
+
   return (
     <div className="Course-box">
       <div className="Course-description">
@@ -17,10 +38,8 @@ function CourseDetailCard({courseCover,courseName,courseOwner,courseRating,cours
             <p>{courseRating} ({courseMembers})</p>
           </div>
         </div>
-        <p>
-        {courseBio}
-        </p>
-        <button>
+        <p>{courseBio}</p>
+        <button onClick={handleEnroll}>
           <div className="Register-button">Enroll Now</div>
         </button>
       </div>

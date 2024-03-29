@@ -1,8 +1,9 @@
 from rest_framework import generics, status, serializers
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from .models import Course, Chapter
-from .serializers import CourseSerializer, ChapterSerializer
+from .serializers import CourseSerializer, ChapterSerializer, CourseEnrollSerializer
 
 class CourseListCreateAPIView(generics.CreateAPIView):
     queryset = Course.objects.all()
@@ -32,7 +33,8 @@ class CourseListAPIView(generics.ListCreateAPIView):
         if user_type == 'mentor':
             return Course.objects.filter(mentor=user)
         else:
-            return Course.objects.all()
+            enrolled_courses_ids = user.enrolled_courses.values_list('id', flat=True)
+            return Course.objects.exclude(id__in=enrolled_courses_ids)
 
 
 class ChapterCreateAPIView(generics.CreateAPIView):
@@ -73,3 +75,28 @@ class ChapterListAPIView(generics.ListAPIView):
         course_serializer = CourseSerializer(course)
         chapter_serializer = self.get_serializer(queryset, many=True)
         return Response({'course': course_serializer.data, 'chapters': chapter_serializer.data}, status=status.HTTP_200_OK)
+    
+class CourseEnroll(APIView):
+    def post(self, request):
+        serializer = CourseEnrollSerializer(data=request.data)
+        if serializer.is_valid():
+            course_id = serializer.validated_data['courseId']
+            try:
+                course = Course.objects.get(pk=course_id)
+                if request.user.is_authenticated:
+                    course.enrolled_users.add(request.user)
+                    return Response({'message': 'User enrolled in the course successfully.'}, status=status.HTTP_200_OK)
+                else:
+                    return Response({'error': 'User is not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
+            except Course.DoesNotExist:
+                return Response({'error': 'Course not found.'}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+class CourseEnrollList(generics.ListAPIView):
+    serializer_class = CourseSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.enrolled_courses.all() 

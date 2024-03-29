@@ -24,6 +24,7 @@ import MentorUpload from './pages/Mentor/MentorUpload';
 import TemplatedMentor from './Components/TemplatedMentor';
 import RecruitmentsView from './pages/Recruiter/RecruitmentsView';
 import CourseDetails from './pages/Student/CourseDetails';
+import MyCourseDetails from './pages/Student/MyCourseDetails';
 import MentorCourseDetails from './pages/Mentor/MentorCourseDetails';
 import PageNotFound from './pages/PageNotFound';
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="/student-courses" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <Courses/> </TemplatedStudent> </ProtectedRoute>} />
         <Route path="/discussions-join" element={ <JoinChat/>} />
         <Route path="/student-course-details/:courseId" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <CourseDetails/> </TemplatedStudent> </ProtectedRoute>} />
+        <Route path="/student-mycourse-details/:courseId" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <MyCourseDetails/> </TemplatedStudent> </ProtectedRoute>} />
         <Route path="/student-recruitments" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <Recruitments/> </TemplatedStudent> </ProtectedRoute>} />
         <Route path="/student-recruitments-apply/:jobId" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <RecruitmentsApply/> </TemplatedStudent> </ProtectedRoute>} />
         <Route path="/student-chatbot" element={<ProtectedRoute allowedRoles={["student"]}> <TemplatedStudent> <Chatbot/> </TemplatedStudent> </ProtectedRoute>} />
