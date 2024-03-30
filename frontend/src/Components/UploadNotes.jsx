@@ -5,11 +5,11 @@ import Upload_icon from "./../assets/Upload_icon.png";
 import Add_more from "./../assets/Add_more.png";
 import { useParams } from "react-router-dom";
 
-const UploadWidget = () => {
+const UploadNotes = () => {
   const { courseId } = useParams(); 
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
-  const [chapters, setChapters] = useState([{ title: "", video_url: "" }]);
+  const [notes, setNotes] = useState([{ title: "", file_url: "" }]);
 
   useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
@@ -21,47 +21,47 @@ const UploadWidget = () => {
       function (error, result) {
         if (!error && result && result.event === "success") {
           const { secure_url } = result.info;
-          const updatedChapters = [...chapters];
-          updatedChapters[updatedChapters.length - 1].video_url = secure_url;
-          setChapters(updatedChapters);
+          const updatedNotes = [...notes];
+          updatedNotes[updatedNotes.length - 1].file_url = secure_url;
+          setNotes(updatedNotes);
           console.log("Uploaded URL:", secure_url);
         }
       }
     );
-  }, [chapters]);
+  }, [notes]);
 
   const handleUploadClick = () => {
     widgetRef.current.open();
   };
 
-  const handleChapterNameChange = (e, index) => {
+  const handleNoteNameChange = (e, index) => {
     const { value } = e.target;
-    const updatedChapters = [...chapters];
-    updatedChapters[index].title = value;
-    setChapters(updatedChapters);
+    const updatedNotes = [...notes];
+    updatedNotes[index].title = value;
+    setNotes(updatedNotes);
   };
 
-  const handleAddChapter = () => {
-    setChapters([...chapters, { title: "", video_url: "" }]);
+  const handleAddNote = () => {
+    setNotes([...notes, { title: "", file_url: "" }]);
   };
 
-  const saveChapters = async () => {
+  const saveNotes = async () => {
     try {
-      console.log(chapters)
+      console.log(notes)
       const response = await fetch(
-        `http://localhost:8000/mentor/chapters/${courseId}/`,
+        `http://localhost:8000/mentor/notes/${courseId}/`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ chapters }),
+          body: JSON.stringify({ notes }),
         }
       );
       if (response.ok) {
-        console.log("Chapters saved successfully");
+        console.log("Notes saved successfully");
       } else {
-        console.error("Failed to save chapters:", response.statusText);
+        console.error("Failed to save notes:", response.statusText);
       }
     } catch (error) {
       console.error("An unexpected error occurred:", error);
@@ -70,14 +70,14 @@ const UploadWidget = () => {
 
   return (
     <div>
-      {chapters.map((chapter, index) => (
+      {notes.map((note, index) => (
         <div className="upload-widget" key={index}>
           <div className="w-full mb-10 mt-8">
             <Input
               type="text"
               label="Chapter Name"
-              value={chapter.title}
-              onChange={(e) => handleChapterNameChange(e, index)}
+              value={note.title}
+              onChange={(e) => handleNoteNameChange(e, index)}
             />
           </div>
           <div className="upload-button-container">
@@ -89,13 +89,13 @@ const UploadWidget = () => {
                   alt="Icon"
                 />
               </div>
-              <div className="upload-video-text">Upload Video</div>
+              <div className="upload-video-text">Upload File</div>
             </button>
           </div>
         </div>
       ))}
       <div className="add-more-container">
-        <button className="add-more-button" onClick={handleAddChapter}>
+        <button className="add-more-button" onClick={handleAddNote}>
           <div className="icon_container">
             <img className="add-more-icon" src={Add_more} alt="Icon" />
           </div>
@@ -106,7 +106,7 @@ const UploadWidget = () => {
         <Button
           color="default"
           className="py-5 px-10 rounded-lg bg-black text-white"
-          onClick={saveChapters}
+          onClick={saveNotes}
         >
           Submit
         </Button>
@@ -115,4 +115,4 @@ const UploadWidget = () => {
   );
 };
 
-export default UploadWidget;
+export default UploadNotes;

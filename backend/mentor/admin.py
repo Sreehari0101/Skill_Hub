@@ -21,6 +21,6 @@ class ChapterAdmin(admin.ModelAdmin):
 
 @admin.register(Note)
 class NoteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'content')
+    list_display = ('id', 'title', 'course', 'file_url')
     list_filter = ('course',)
     search_fields = ('title',)

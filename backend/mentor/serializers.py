@@ -1,6 +1,11 @@
 from rest_framework import serializers
-from .models import Course, Chapter
+from .models import Course, Chapter, Note
 from accounts.models import MentorProfile
+
+class NoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Note
+        fields = ['id','course', 'title', 'file_url']
 
 class ChapterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,5 +34,6 @@ class CourseSerializer(serializers.ModelSerializer):
             Chapter.objects.create(course=course, **chapter_data)  
 
         return course
+
 class CourseEnrollSerializer(serializers.Serializer):
     courseId = serializers.IntegerField()

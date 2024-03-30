@@ -21,6 +21,7 @@ import MentorDashboard from './pages/Mentor/MentorDashboard';
 import MentorCreate from './pages/Mentor/MentorCreate';
 import MentorProfile from './pages/Mentor/MentorProfile';
 import MentorUpload from './pages/Mentor/MentorUpload';
+import MentorUploadNotes from './pages/Mentor/MentorUploadNotes';
 import TemplatedMentor from './Components/TemplatedMentor';
 import RecruitmentsView from './pages/Recruiter/RecruitmentsView';
 import CourseDetails from './pages/Student/CourseDetails';
@@ -55,6 +56,7 @@ function App() {
         <Route path="/mentor-course-details/:courseId" element={<ProtectedRoute allowedRoles={["mentor"]}> <TemplatedMentor> <MentorCourseDetails/> </TemplatedMentor> </ProtectedRoute>} />
         <Route path="/mentor-create" element={<ProtectedRoute allowedRoles={["mentor"]}> <TemplatedMentor> <MentorCreate/> </TemplatedMentor> </ProtectedRoute>} />
         <Route path="/mentor-upload/:courseId" element={<ProtectedRoute allowedRoles={["mentor"]}> <TemplatedMentor> <MentorUpload/> </TemplatedMentor> </ProtectedRoute>} />
+        <Route path="/mentor-upload-notes/:courseId" element={<ProtectedRoute allowedRoles={["mentor"]}> <TemplatedMentor> <MentorUploadNotes/> </TemplatedMentor> </ProtectedRoute>} />
         <Route path="/mentor-profile" element={<ProtectedRoute allowedRoles={["mentor"]}> <TemplatedMentor> <MentorProfile/> </TemplatedMentor>  </ProtectedRoute> } />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>

@@ -19,4 +19,4 @@ class Chapter(models.Model):
 class Note(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='notes', null=True)
     title = models.CharField(max_length=100, null=True)
-    content = models.FileField(upload_to='chapter_notes/')
+    file_url = models.URLField(null=True)
