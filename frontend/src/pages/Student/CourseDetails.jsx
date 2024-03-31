@@ -7,8 +7,6 @@ import ProfileCard from "../../Components/ProfileCard";
 import "./css/CourseDetails.css";
 import profile_icon from "../../assets/Profile_icon.jpg";
 import CourseOverviewCard from "../../Components/CourseOverviewCard";
-import CourseContent from "../../Components/CourseContent";
-import RatingCard from "../../Components/RatingCard";
 
 function CourseDetails() {
   const { courseId } = useParams();
@@ -50,16 +48,13 @@ function CourseDetails() {
             courseId={courseId}
             courseCover={courseDetails.course.cover_photo}
             courseName={courseDetails.course.title}
-            courseOwner={courseDetails.course.mentor}
+            courseOwner={courseDetails.course.mentor_full_name}
             courseRating={4.5}
             courseMembers="10K" 
             courseBio={courseDetails.course.description}
           />
           <CourseOverviewCard />
 
-          <CourseContent chapters={courseDetails.chapters} />
-
-          <RatingCard />
         </div>
       )}
     </div>

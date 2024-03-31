@@ -25,6 +25,8 @@ urlpatterns = [
     path('chatbot/', include("chatbot.urls")),
     path('mentor/', include("mentor.urls")),
     path('recruiter/', include("recruiter.urls")),
+    path('student/', include("student.urls")),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -93,15 +93,24 @@ class ChapterListAPIView(generics.ListAPIView):
         return Chapter.objects.filter(course_id=course_id)
 
     def list(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
         course_id = self.kwargs.get('courseId')
         course = Course.objects.filter(id=course_id).first()
         if not course:
             return Response({'error': 'Course does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        
+        chapters_queryset = self.get_queryset()
+        notes_queryset = Note.objects.filter(course_id=course_id)
+        
         course_serializer = CourseSerializer(course)
-        chapter_serializer = self.get_serializer(queryset, many=True)
-        return Response({'course': course_serializer.data, 'chapters': chapter_serializer.data}, status=status.HTTP_200_OK)
+        chapter_serializer = self.get_serializer(chapters_queryset, many=True)
+        note_serializer = NoteSerializer(notes_queryset, many=True)
 
+        return Response({
+            'course': course_serializer.data,
+            'chapters': chapter_serializer.data,
+            'notes': note_serializer.data
+        }, status=status.HTTP_200_OK)
+    
 class CourseEnroll(APIView):
     def post(self, request):
         serializer = CourseEnrollSerializer(data=request.data)

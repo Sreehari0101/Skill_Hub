@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { Textarea } from "@nextui-org/react";
@@ -6,6 +7,7 @@ import { Select, SelectItem } from "@nextui-org/react";
 import AuthContext from "../context/AuthContext";
 
 function JobForm() {
+  const navigate = useNavigate();
   const { authTokens } = useContext(AuthContext);
   const [jobTitle, setJobTitle] = useState("");
   const [jobDescription, setJobDescription] = useState("");
@@ -14,6 +16,7 @@ function JobForm() {
   const [roundDetails, setRoundDetails] = useState("");
   const [salaryPackage, setSalaryPackage] = useState("");
   const [applicationDate, setApplicationDate] = useState("");
+  const swal = require("sweetalert2");
 
   const handleSaveClick = async () => {
     if (authTokens) {
@@ -45,6 +48,16 @@ function JobForm() {
         );
 
         if (response.ok) {
+          swal.fire({
+            title: "Successfully created",
+            icon: "success",
+            toast: true,
+            timer: 3000,
+            position: "top-right",
+            timerProgressBar: true,
+            showConfirmButton: false,
+          });
+          navigate("/recruiter-dashboard");
           console.log("Data saved successfully!");
         } else {
           console.error("Error saving data:", response.statusText);

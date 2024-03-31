@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import "./css/CourseDetailCard.css";
 import Rating_icon from "./../assets/Rating_star_icon.png";
 import AuthContext from "../context/AuthContext";
 import axios from "axios";
 
 function CourseDetailCard({ courseId, courseCover, courseName, courseOwner, courseRating, courseMembers, courseBio }) {
+  const navigate = useNavigate();
+  const swal = require("sweetalert2");
   const BASE_URL = "http://localhost:8000";
   const { authTokens } = useContext(AuthContext);
 
@@ -19,7 +22,18 @@ function CourseDetailCard({ courseId, courseCover, courseName, courseOwner, cour
             },
         }
     );
+    swal.fire({
+      title: "Enrolled Successfully",
+      icon: "success",
+      toast: true,
+      timer: 3000,
+      position: "top-right",
+      timerProgressBar: true,
+      showConfirmButton: false,
+    });
+      navigate("/student-courses");
       console.log(response.data.message);
+      
     } catch (error) {
       console.error("Error enrolling in course:", error);
     }

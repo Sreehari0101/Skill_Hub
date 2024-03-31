@@ -48,14 +48,17 @@ function MyCourseDetails() {
           <MyCourseDetailCard
             courseCover={courseDetails.course.cover_photo}
             courseName={courseDetails.course.title}
-            courseOwner={courseDetails.course.mentor}
+            courseOwner={courseDetails.course.mentor_full_name}
             courseRating={4.5}
             courseMembers="10K"
             courseBio={courseDetails.course.description}
           />
           <CourseOverviewCard />
 
-          <CourseContent chapters={courseDetails.chapters} />
+          <CourseContent
+            chapters={courseDetails.chapters}
+            notes={courseDetails.notes}
+          />
         </div>
       )}
     </div>

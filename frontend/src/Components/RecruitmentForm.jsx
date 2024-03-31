@@ -2,8 +2,10 @@ import React, { useState, useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { Input } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
+import { useNavigate } from "react-router-dom";
 
 function RecruitmentForm({ jobId }) {
+  const navigate = useNavigate();
   const { authTokens } = useContext(AuthContext);
   const [fullName, setFullName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -13,6 +15,7 @@ function RecruitmentForm({ jobId }) {
   const [address, setAddress] = useState("");
   const [resumeFile, setResumeFile] = useState(null);
   const [certificateFile, setCertificateFile] = useState(null);
+  const swal = require("sweetalert2");
 
   const handleSubmitClick = async () => {
     if (authTokens) {
@@ -44,6 +47,16 @@ function RecruitmentForm({ jobId }) {
         );
 
         if (response.ok) {
+          swal.fire({
+            title: "Application Successfully",
+            icon: "success",
+            toast: true,
+            timer: 3000,
+            position: "top-right",
+            timerProgressBar: true,
+            showConfirmButton: false,
+          });
+          navigate("/student-recruitments");
           console.log("Data saved successfully!");
         } else {
           console.error("Error saving data:", response.statusText);
