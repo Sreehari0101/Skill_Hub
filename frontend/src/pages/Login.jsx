@@ -3,10 +3,11 @@ import "./css/Login.css";
 import { Input } from "@nextui-org/react";
 import { EyeFilledIcon } from "../Components/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../Components/EyeSlashFilledIcon";
-import loginImage from "../assets/Login_Image.png";
+import loginImage from "../assets/Register_Image.jpg";
 import Logo from "./../assets/SkillHub_Sidebar_logo.png";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import Starfield from "../Components/Starfield";
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext);
@@ -24,6 +25,7 @@ const Login = () => {
   const toggleVisibility = () => setIsVisible(!isVisible);
   return (
     <div className="login-page">
+      <Starfield />
       <div className="top">
         <div className="logo-container">
           <Link to="/">
@@ -53,8 +55,10 @@ const Login = () => {
                     label="Enter your Email"
                     name="email"
                     required
+                    size="lg"
                   />
                   <Input
+                    size="lg"
                     label="Password"
                     variant="flat"
                     endContent={

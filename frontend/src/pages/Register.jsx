@@ -3,10 +3,12 @@ import "./css/Register.css";
 import { Input } from "@nextui-org/react";
 import { EyeFilledIcon } from "../Components/EyeFilledIcon";
 import { EyeSlashFilledIcon } from "../Components/EyeSlashFilledIcon";
-import registerImage from "../assets/Register_Image.png";
+import registerImage from "../assets/Register_Image.jpg";
 import Logo from "./../assets/SkillHub_Sidebar_logo.png";
 import AuthContext from "../context/AuthContext";
 import { Select, SelectItem } from "@nextui-org/react";
+import Starfield from "../Components/Starfield";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [full_name, setFull_name] = useState("");
@@ -38,12 +40,15 @@ const Register = () => {
   const toggleVisibility = () => setIsVisible(!isVisible);
   return (
     <div className="register-page">
+      <Starfield/>
       <div className="top">
         <div className="logo-container">
+        <Link to="/">
           <div className="logo-section">
             <img src={Logo} className="logo-image" alt="SkillHub-logo" />
             <div class="logo-description">EMPOWERING FUTURES</div>
           </div>
+          </Link>
         </div>
       </div>
       <div className="bottom">
@@ -59,6 +64,7 @@ const Register = () => {
                     name="full_name"
                     onChange={(e) => setFull_name(e.target.value)}
                     isRequired
+                    size="sm"
                   />
                   <Input
                     type="email"
@@ -66,6 +72,7 @@ const Register = () => {
                     name="email"
                     onChange={(e) => setEmail(e.target.value)}
                     isRequired
+                    size="sm"
                   />
                   <Input
                     type="text"
@@ -73,10 +80,12 @@ const Register = () => {
                     name="username"
                     onChange={(e) => setUsername(e.target.value)}
                     isRequired
+                    size="sm"
                   />
                   <Input
                     label="Password"
                     variant="flat"
+                    size="sm"
                     endContent={
                       <button
                         className="focus:outline-none"
@@ -99,6 +108,7 @@ const Register = () => {
                   <Input
                     label=" Confirm Password"
                     variant="flat"
+                    size="sm"
                     endContent={
                       <button
                         className="focus:outline-none"
@@ -120,10 +130,10 @@ const Register = () => {
                   />
 
                   <Select
+                    size="sm"
                     label="Role"
                     isRequired
                     selectedKeys={value}
-                    className="max-w-xs"
                     onSelectionChange={setValue}
                   >
                     <SelectItem value="student" key="student">

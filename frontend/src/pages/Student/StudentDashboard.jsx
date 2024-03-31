@@ -40,7 +40,7 @@ function StudentDashboard() {
       <div className="Content-top">
         <div className="title-content">
           <Input
-            variant="bordered"
+           
             placeholder="Type to search...."
             startContent={<BiSearch />}
             className="rounded-full"
