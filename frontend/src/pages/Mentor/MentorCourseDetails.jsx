@@ -55,7 +55,10 @@ function MentorCourseDetails() {
           />
           <CourseOverviewCard />
 
-          <CourseContent chapters={courseDetails.chapters} />
+          <CourseContent
+            chapters={courseDetails.chapters}
+            notes={courseDetails.notes}
+          />
         </div>
       )}
     </div>

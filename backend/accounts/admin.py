@@ -7,7 +7,7 @@ class UserAdmin(admin.ModelAdmin):
 
 class StudentProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'full_name', 'profile_photo']
-    list_editable = ['profile_photo']
+    list_editable = ['profile_photo', 'full_name']
 
 class MentorProfileAdmin(admin.ModelAdmin):
     list_display = ['user', 'full_name','profile_photo','tag_line','bio', 'education', 'subjects', 'experience']

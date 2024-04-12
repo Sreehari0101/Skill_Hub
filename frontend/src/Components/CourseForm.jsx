@@ -6,7 +6,7 @@ import { Textarea } from "@nextui-org/react";
 import AuthContext from "../context/AuthContext";
 
 function CourseForm() {
-  
+  const swal = require("sweetalert2");
   const { authTokens } = useContext(AuthContext);
   const [courseTitle, setCourseTitle] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
@@ -39,7 +39,15 @@ function CourseForm() {
         const data = await response.json();
         console.log(data);
         const courseId = data.id; 
-
+        swal.fire({
+          title: "Course created Successfully",
+          icon: "success",
+          toast: true,
+          timer: 3000,
+          position: "top-right",
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
         navigate(`/mentor-upload/${courseId}`);
       } else {
         console.error("Failed to save course:", response.statusText);

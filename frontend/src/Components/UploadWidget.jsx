@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Input, Button } from "@nextui-org/react";
 import "./css/UploadWidget.css";
+import { useNavigate } from "react-router-dom";
 import Upload_icon from "./../assets/Upload_icon.png";
 import Add_more from "./../assets/Add_more.png";
 import { useParams } from "react-router-dom";
 
 const UploadWidget = () => {
+  const swal = require("sweetalert2");
+  const navigate = useNavigate();
   const { courseId } = useParams(); 
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
@@ -59,7 +62,18 @@ const UploadWidget = () => {
         }
       );
       if (response.ok) {
+        
         console.log("Chapters saved successfully");
+        swal.fire({
+          title: "Chapters added Successfully",
+          icon: "success",
+          toast: true,
+          timer: 3000,
+          position: "top-right",
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
+        navigate(`/mentor-upload-notes/${courseId}`);
       } else {
         console.error("Failed to save chapters:", response.statusText);
       }

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input, Button } from "@nextui-org/react";
 import "./css/UploadWidget.css";
 import Upload_icon from "./../assets/Upload_icon.png";
@@ -7,6 +8,8 @@ import { useParams } from "react-router-dom";
 
 const UploadNotes = () => {
   const { courseId } = useParams(); 
+  const navigate = useNavigate();
+  const swal = require("sweetalert2");
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
   const [notes, setNotes] = useState([{ title: "", file_url: "" }]);
@@ -60,6 +63,16 @@ const UploadNotes = () => {
       );
       if (response.ok) {
         console.log("Notes saved successfully");
+        navigate("/mentor-dashboard")
+        swal.fire({
+          title: "Notes added Successfully",
+          icon: "success",
+          toast: true,
+          timer: 3000,
+          position: "top-right",
+          timerProgressBar: true,
+          showConfirmButton: false,
+        });
       } else {
         console.error("Failed to save notes:", response.statusText);
       }

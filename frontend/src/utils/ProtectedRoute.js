@@ -12,7 +12,7 @@ function PrivateRoute({ children, allowedRoles }) {
   }, [loading]);
 
   if (!contextLoaded) {
-    return null;
+    return null; 
   }
 
   if (!user_type || !user) {
