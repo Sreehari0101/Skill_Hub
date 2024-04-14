@@ -1,5 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, useCallback, useRef} from "react";
+import { exportComponentAsJPEG} from 'react-component-export-image';
 import "./css/CourseContent.css";
+import { Progress } from "@nextui-org/react";
+import { useParams } from "react-router-dom";
 import {
   Tabs,
   Tab,
@@ -11,18 +14,62 @@ import {
 import ReactPlayer from "react-player";
 import AuthContext from "../context/AuthContext";
 import axios from "axios";
+import Certificate from "./Certificate";
 
-function CourseContent({ chapters, notes }) {
+function CourseContent({ courseName, courseOwner, chapters, notes }) {
+  const componentRef = useRef();
+  let { courseId } = useParams();
   const { authTokens } = useContext(AuthContext);
   const [selected, setSelected] = useState("videos");
+  const [mediaProgress, setMediaProgress] = useState(0);
+  const [currentChapterId, setCurrentChapterId] = useState(null);
+
+
+  const updateChapterProgress = useCallback(
+    async (chapterId) => {
+      try {
+        await axios.post(
+          `http://localhost:8000/mentor/update-chapter-progress/${chapterId}/`,
+          { chapterId, progress: 100 },
+          {
+            headers: {
+              Authorization: `Bearer ${authTokens.access}`,
+            },
+          }
+        );
+        console.log("Chapter progress updated");
+      } catch (error) {
+        console.error("Error updating chapter progress:", error);
+      }
+    },
+    [authTokens.access]
+  );
+
+  useEffect(() => {
+    const handleProgressUpdate = () => {
+      if (mediaProgress >= 100 && currentChapterId !== null) {
+        updateChapterProgress(currentChapterId);
+      }
+    };
+
+    handleProgressUpdate();
+  }, [mediaProgress, currentChapterId, updateChapterProgress]);
+
+  const handleProgress = (chapterId, progress) => {
+    setCurrentChapterId(chapterId);
+    setMediaProgress(progress.played * 100);
+  };
 
   const handleVideoPlay = async () => {
     try {
-      await axios.get("http://localhost:8000/student/start-tracking/", {
-        headers: {
-          Authorization: `Bearer ${authTokens.access}`,
-        },
-      });
+      await axios.post(
+        `http://localhost:8000/student/start-tracking/${courseId}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        }
+      );
     } catch (error) {
       console.error("Error starting tracking:", error);
     }
@@ -30,11 +77,14 @@ function CourseContent({ chapters, notes }) {
 
   const handleVideoPause = async () => {
     try {
-      await axios.get("http://localhost:8000/student/pause-tracking/", {
-        headers: {
-          Authorization: `Bearer ${authTokens.access}`,
-        },
-      });
+      await axios.post(
+        `http://localhost:8000/student/pause-tracking/${courseId}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        }
+      );
       console.log("Tracking paused");
     } catch (error) {
       console.error("Error pausing tracking:", error);
@@ -43,16 +93,20 @@ function CourseContent({ chapters, notes }) {
 
   const handleVideoEnd = async () => {
     try {
-      await axios.get("http://localhost:8000/student/stop-tracking/", {
-        headers: {
-          Authorization: `Bearer ${authTokens.access}`,
-        },
-      });
+      await axios.post(
+        `http://localhost:8000/student/stop-tracking/${courseId}/`,
+        {
+          headers: {
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        }
+      );
       console.log("Tracking stopped");
     } catch (error) {
       console.error("Error stopping tracking:", error);
     }
   };
+  
 
   return (
     <div className="Course-content">
@@ -79,6 +133,19 @@ function CourseContent({ chapters, notes }) {
                       aria-label={`Accordion ${index + 1}`}
                       title={`Chapter ${index + 1} : ${chapter.title}`}
                     >
+                      <Progress
+                        size="md"
+                        radius="md"
+                        classNames={{
+                          base: "max-w-full mb-4",
+                          track: "drop-shadow-md border border-default",
+                          label: "tracking-wider font-medium text-default-600",
+                          value: "text-foreground/60",
+                        }}
+                        label="Progress"
+                        value={mediaProgress}
+                        showValueLabel={true}
+                      />
                       <ReactPlayer
                         url={chapter.video_url}
                         controls
@@ -87,6 +154,9 @@ function CourseContent({ chapters, notes }) {
                         onPlay={handleVideoPlay}
                         onPause={handleVideoPause}
                         onEnded={handleVideoEnd}
+                        onProgress={(progress) =>
+                          handleProgress(chapter.id, progress)
+                        }
                       />
                     </AccordionItem>
                   ))}
@@ -127,7 +197,19 @@ function CourseContent({ chapters, notes }) {
             className="p-5 font-montserrat text-2xl font-medium"
           >
             <Card>
-              <CardBody></CardBody>
+              <CardBody>
+                <Certificate
+                  courseName={courseName}
+                  courseOwner={courseOwner}
+                  ref={componentRef}
+                />
+                <button
+                  className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => exportComponentAsJPEG(componentRef)}
+                >
+                  Download Certificate
+                </button>
+              </CardBody>
             </Card>
           </Tab>
         </Tabs>

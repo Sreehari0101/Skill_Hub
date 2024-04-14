@@ -9,10 +9,12 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.7",
+    "cloudinary-video-player": "^1.11.1",
     "dayjs": "^1.11.10",
     "framer-motion": "^10.16.5",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
+    "react-component-export-image": "^1.0.6",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-icons": "^4.12.0",
@@ -48,6 +50,7 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^3.3.5"
+    "tailwindcss": "^3.3.5",
+    "video.js": "^8.10.0"
   }
 }

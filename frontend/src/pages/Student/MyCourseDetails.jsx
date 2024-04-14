@@ -56,6 +56,8 @@ function MyCourseDetails() {
           <CourseOverviewCard />
 
           <CourseContent
+            courseName={courseDetails.course.title}
+            courseOwner={courseDetails.course.mentor_full_name}
             chapters={courseDetails.chapters}
             notes={courseDetails.notes}
           />

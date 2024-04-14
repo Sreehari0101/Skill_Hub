@@ -1,13 +1,16 @@
 from scipy.spatial import distance as dist
 from imutils.video import VideoStream
 from imutils import face_utils
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 import imutils
 import time
 import dlib
 import cv2
 import os
 
-# Initialize global variables
+vs = None
 EYE_AR_THRESH = 1
 COUNTER = 0
 TOTAL = 0
@@ -20,23 +23,12 @@ def eye_aspect_ratio(eye):
     ear = (A + B) / (2.0 * C)
     return ear
 
-def getFPS():
-    video = cv2.VideoCapture(0)
-    num_frames = 60
-    start = time.time()
-    
-    for i in range(0, num_frames):
-        rst, frame = video.read()
-
-    end = time.time()
-    seconds = end - start
-    video.release()
-    return float(num_frames / seconds)
-
-def start_tracking(request):
+@csrf_exempt
+@require_POST
+def start_tracking(request, courseId):
     global EYE_AR_THRESH, COUNTER, TOTAL, LOOKDOWN_COUNTER
 
-    fps = getFPS()
+    fps = 10
     EYE_AR_CONSEC_FRAMES = 2 * fps
 
     detector = dlib.get_frontal_face_detector()
@@ -49,7 +41,7 @@ def start_tracking(request):
     (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
     vs = VideoStream(src=0).start()
-    time.sleep(1.0)
+    time.sleep(0.5)
 
     _sum = 0
     _counter = int(5 * fps)
@@ -58,7 +50,7 @@ def start_tracking(request):
 
     while True:
         frame = vs.read()
-        frame = imutils.resize(frame, width=500, height= 500)
+        frame = imutils.resize(frame, width=800, height= 800)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         rects = detector(gray, 0)
         
@@ -102,8 +94,16 @@ def start_tracking(request):
                
                 if disengaged:
                     print("Disengaged")
+                    cv2.putText(frame, "Disengaged",(10, 30),           # visual output
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
                 else:
                     print("Engaged")
+                    cv2.putText(frame, "Engaged",(10, 30),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+                cv2.putText(frame, "EAR: {:.2f}".format(ear), (300, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
+                cv2.putText(frame, "Total: {:.2f}".format(TOTAL/fps),(300, 70),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
 
                 print("EAR:", ear)
                 print("Total Disengaged:", TOTAL / fps)
@@ -118,9 +118,16 @@ def start_tracking(request):
 
             if disengaged:
                 print("Disengaged")
+                cv2.putText(frame, "Disengaged",(10, 30),           # visual output
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
             else:
                 print("Engaged")
-
+                cv2.putText(frame, "Engaged",(10, 30),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+            cv2.putText(frame, "EAR: {:.2f}".format(ear), (300, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
+            cv2.putText(frame, "Total: {:.2f}".format(TOTAL/fps),(300, 70),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
             print("EAR:", ear)
             print("Total Disengaged:", TOTAL / fps)
 
@@ -131,3 +138,40 @@ def start_tracking(request):
 
     cv2.destroyAllWindows()
     vs.stop()
+
+
+
+@csrf_exempt
+@require_POST
+def pause_tracking(request, courseId):
+    global vs
+    
+    if vs:
+        vs.stop()
+        vs = None
+        print("Tracking paused successfully")
+        return HttpResponse("Tracking paused successfully")
+    else:
+        print("Tracking is not running")
+        return HttpResponse("Tracking is not running")
+     
+    
+
+@csrf_exempt
+@require_POST
+def stop_tracking(request, courseId):
+    global vs, EYE_AR_THRESH, COUNTER, TOTAL, LOOKDOWN_COUNTER
+
+    if vs:
+        vs.stop()
+        vs = None
+        # Reset global variables
+        EYE_AR_THRESH = 1
+        COUNTER = 0
+        TOTAL = 0
+        LOOKDOWN_COUNTER = 0
+        print("Tracking stopped successfull")
+        return HttpResponse("Tracking stopped successfull")
+    else:
+        print("Tracking is not running")
+        return HttpResponse("Tracking is not running")

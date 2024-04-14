@@ -9,4 +9,5 @@ urlpatterns = [
     path('chapters-list/<int:courseId>/', ChapterListAPIView.as_view(), name='chapter-list'),
     path('enroll/', CourseEnroll.as_view(), name='enroll'),
     path('course-enroll-list/', CourseEnrollList.as_view(), name='course-enroll-list'),
+
 ]

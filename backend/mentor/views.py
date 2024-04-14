@@ -135,3 +135,4 @@ class CourseEnrollList(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return user.enrolled_courses.all()
+    

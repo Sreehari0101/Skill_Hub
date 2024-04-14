@@ -37,3 +37,4 @@ class CourseSerializer(serializers.ModelSerializer):
 
 class CourseEnrollSerializer(serializers.Serializer):
     courseId = serializers.IntegerField()
+
