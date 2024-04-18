@@ -1,5 +1,11 @@
-import React, { useState, useContext, useEffect, useCallback, useRef} from "react";
-import { exportComponentAsJPEG} from 'react-component-export-image';
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+  useRef,
+} from "react";
+import { exportComponentAsJPEG } from "react-component-export-image";
 import "./css/CourseContent.css";
 import { Progress } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
@@ -17,20 +23,22 @@ import axios from "axios";
 import Certificate from "./Certificate";
 
 function CourseContent({ courseName, courseOwner, chapters, notes }) {
+  
   const componentRef = useRef();
   let { courseId } = useParams();
   const { authTokens } = useContext(AuthContext);
   const [selected, setSelected] = useState("videos");
   const [mediaProgress, setMediaProgress] = useState(0);
   const [currentChapterId, setCurrentChapterId] = useState(null);
+  const [chapterProgress, setChapterProgress] = useState({});
 
 
-  const updateChapterProgress = useCallback(
-    async (chapterId) => {
+  const updateCourseProgress = useCallback(
+    async (courseId, chapterId) => {
       try {
         await axios.post(
-          `http://localhost:8000/mentor/update-chapter-progress/${chapterId}/`,
-          { chapterId, progress: 100 },
+          `http://localhost:8000/student/update-course-progress/${courseId}/${chapterId}/`,
+          { progress: 100 },
           {
             headers: {
               Authorization: `Bearer ${authTokens.access}`,
@@ -46,14 +54,31 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
   );
 
   useEffect(() => {
+    const fetchChapterProgress = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/student/chapter-progress/${courseId}/`
+        );
+        const progressData = {};
+        response.data.forEach((item) => {
+          progressData[item.chapter] = item.progress_percentage;
+        });
+        setChapterProgress(progressData);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching chapter progress:", error);
+      }
+    };
+
+    fetchChapterProgress();
     const handleProgressUpdate = () => {
       if (mediaProgress >= 100 && currentChapterId !== null) {
-        updateChapterProgress(currentChapterId);
+        updateCourseProgress(courseId, currentChapterId);
       }
     };
 
     handleProgressUpdate();
-  }, [mediaProgress, currentChapterId, updateChapterProgress]);
+  }, [mediaProgress, courseId, currentChapterId, updateCourseProgress]);
 
   const handleProgress = (chapterId, progress) => {
     setCurrentChapterId(chapterId);
@@ -61,7 +86,7 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
   };
 
   const handleVideoPlay = async () => {
-    console.log("Video Started")
+    console.log("Video Started");
     try {
       await axios.post(
         `http://localhost:8000/student/start-tracking/${courseId}/`,
@@ -76,10 +101,8 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
     }
   };
 
-  
-
   const handleVideoPause = async () => {
-    console.log("Video Ended")
+    console.log("Video Ended");
     try {
       await axios.post(
         `http://localhost:8000/student/stop-tracking/${courseId}/`,
@@ -94,7 +117,6 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
       console.error("Error stopping tracking:", error);
     }
   };
-  
 
   return (
     <div className="Course-content">
@@ -106,6 +128,7 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
           onSelectionChange={setSelected}
           color="secondary"
           className="flex-col w-full"
+          disabledKeys={["certificate"]}
         >
           <Tab
             key="videos"
@@ -131,7 +154,7 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
                           value: "text-foreground/60",
                         }}
                         label="Progress"
-                        value={mediaProgress}
+                        value={chapterProgress[chapter.id] || 0}
                         showValueLabel={true}
                       />
                       <ReactPlayer

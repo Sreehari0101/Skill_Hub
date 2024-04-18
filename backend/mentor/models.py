@@ -16,6 +16,9 @@ class Chapter(models.Model):
     title = models.CharField(max_length=100)
     video_url = models.URLField(null=True)
 
+    def __str__(self):
+        return self.title
+
 class Note(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='notes', null=True)
     title = models.CharField(max_length=100, null=True)

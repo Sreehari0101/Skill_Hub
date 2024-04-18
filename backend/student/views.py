@@ -8,8 +8,14 @@ from django.views.decorators.http import require_POST
 import imutils
 import time
 import dlib
-import os
-
+import os    
+from rest_framework.views import APIView
+from rest_framework import generics, status
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from .models import CourseProgress, ChapterProgress
+from mentor.models import Course, Chapter
+from .serializers import CourseProgressSerializer, ChapterProgressSerializer
 
 class VideoStreamManager:
     _instance = None
@@ -191,3 +197,45 @@ def stop_tracking(request, courseId):
     else:
         print("Tracking is not running")
         return HttpResponse("Tracking is not running")
+
+
+class CourseProgressUpdateAPIView(generics.UpdateAPIView):
+    queryset = CourseProgress.objects.all()
+    serializer_class = CourseProgressSerializer
+    permission_classes = [IsAuthenticated]
+
+class ChapterProgressUpdateAPIView(generics.UpdateAPIView):
+    queryset = ChapterProgress.objects.all()
+    serializer_class = ChapterProgressSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        progress_percentage = request.data.get('progress')
+        course_id = kwargs.get('course_id') 
+        chapter_id = kwargs.get('chapter_id')  
+
+        try:
+            course = Course.objects.get(pk=course_id)
+            chapter = Chapter.objects.get(pk=chapter_id)
+            chapter_progress, created = ChapterProgress.objects.update_or_create(
+                    user=user,
+                    course=course,
+                    chapter=chapter,
+                    defaults={'progress_percentage': progress_percentage}
+                )
+            return Response({'message': 'Chapter progress updated successfully'}, status=status.HTTP_200_OK)
+        except ChapterProgress.DoesNotExist:
+            return Response({'error': 'Chapter progress not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+
+class ChapterProgressAPIView(APIView):
+    def get(self, request, course_id):
+        try:
+            chapter_progress = ChapterProgress.objects.filter(course_id=course_id)
+            serializer = ChapterProgressSerializer(chapter_progress, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+

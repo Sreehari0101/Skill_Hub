@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 function RecruitmentForm({ jobId }) {
   const navigate = useNavigate();
-  const { authTokens } = useContext(AuthContext);
-  const [fullName, setFullName] = useState("");
+  const { authTokens, user } = useContext(AuthContext);
+  const [fullName, setFullName] = useState(user.full_name);
   const [contactNumber, setContactNumber] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
+  const [emailAddress, setEmailAddress] = useState(user.email);
   const [country, setCountry] = useState("");
   const [state, setState] = useState("");
   const [address, setAddress] = useState("");

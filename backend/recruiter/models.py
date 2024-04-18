@@ -38,6 +38,8 @@ class JobApplication(models.Model):
     address = models.TextField()
     resume_cv = models.FileField(upload_to='resumes/')
     skill_hub_certificate = models.FileField(upload_to='certificates/')
+    applied_users = models.ManyToManyField(User, related_name='applied_jobs', blank=True, verbose_name='Applied Users')
+    
 
     def __str__(self):
         return f"{self.full_name} - {self.job.title}"
