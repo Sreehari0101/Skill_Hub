@@ -1,3 +1,4 @@
+import cv2 
 from scipy.spatial import distance as dist
 from imutils.video import VideoStream
 from imutils import face_utils
@@ -7,10 +8,28 @@ from django.views.decorators.http import require_POST
 import imutils
 import time
 import dlib
-import cv2
 import os
 
-vs = None
+
+class VideoStreamManager:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance.vs = None  # Initialize VideoStream object
+        return cls._instance
+
+    def get_vs(self):
+        return self.vs
+
+    def set_vs(self, vs):
+        self.vs = vs
+
+# Create a global instance of the VideoStreamManager
+video_stream_manager = VideoStreamManager()
+
+global EYE_AR_THRESH, COUNTER, TOTAL, LOOKDOWN_COUNTER
 EYE_AR_THRESH = 1
 COUNTER = 0
 TOTAL = 0
@@ -40,8 +59,11 @@ def start_tracking(request, courseId):
     (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_IDXS["left_eye"]
     (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_IDXS["right_eye"]
 
-    vs = VideoStream(src=0).start()
-    time.sleep(0.5)
+    vs_manager = video_stream_manager.get_vs()
+    if vs_manager is None:
+        vs_manager = VideoStream(src=0, resolution=(640, 480), framerate=30).start()
+        video_stream_manager.set_vs(vs_manager)
+        print("Video capturing started")
 
     _sum = 0
     _counter = int(5 * fps)
@@ -49,7 +71,7 @@ def start_tracking(request, courseId):
     LOOKDOWN_COUNTER = 0
 
     while True:
-        frame = vs.read()
+        frame = vs_manager.read()
         frame = imutils.resize(frame, width=800, height= 800)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         rects = detector(gray, 0)
@@ -133,45 +155,29 @@ def start_tracking(request, courseId):
 
         cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
-        if key == ord("q"):  # Press 'q' to exit the loop
+        if not video_stream_manager.get_vs():  # Press 'q' to exit the loop
             break
 
     cv2.destroyAllWindows()
-    vs.stop()
+    vs_manager.stop()
+    print("Tracking stopped successfully")
+    return HttpResponse("Tracking stopped successfully")
 
-
-
-@csrf_exempt
-@require_POST
-def pause_tracking(request, courseId):
-    global vs
-    
-    if vs:
-        vs.stop()
-        vs = None
-        print("Tracking paused successfully")
-        return HttpResponse("Tracking paused successfully")
-    else:
-        print("Tracking is not running")
-        return HttpResponse("Tracking is not running")
-     
-    
 
 @csrf_exempt
 @require_POST
 def stop_tracking(request, courseId):
-    global vs, EYE_AR_THRESH, COUNTER, TOTAL, LOOKDOWN_COUNTER
-
-    if vs:
-        vs.stop()
-        vs = None
-        # Reset global variables
+    global EYE_AR_THRESH, COUNTER, TOTAL, LOOKDOWN_COUNTER
+    vs_manager = video_stream_manager.get_vs()
+    if vs_manager:
+       
+        video_stream_manager.set_vs(None)
         EYE_AR_THRESH = 1
         COUNTER = 0
         TOTAL = 0
         LOOKDOWN_COUNTER = 0
-        print("Tracking stopped successfull")
-        return HttpResponse("Tracking stopped successfull")
+        print("Requested to stop")
+        return HttpResponse("Requested to stop")
     else:
         print("Tracking is not running")
         return HttpResponse("Tracking is not running")

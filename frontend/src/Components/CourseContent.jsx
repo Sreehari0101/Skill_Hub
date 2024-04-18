@@ -61,6 +61,7 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
   };
 
   const handleVideoPlay = async () => {
+    console.log("Video Started")
     try {
       await axios.post(
         `http://localhost:8000/student/start-tracking/${courseId}/`,
@@ -75,23 +76,10 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
     }
   };
 
-  const handleVideoPause = async () => {
-    try {
-      await axios.post(
-        `http://localhost:8000/student/pause-tracking/${courseId}/`,
-        {
-          headers: {
-            Authorization: `Bearer ${authTokens.access}`,
-          },
-        }
-      );
-      console.log("Tracking paused");
-    } catch (error) {
-      console.error("Error pausing tracking:", error);
-    }
-  };
+  
 
-  const handleVideoEnd = async () => {
+  const handleVideoPause = async () => {
+    console.log("Video Ended")
     try {
       await axios.post(
         `http://localhost:8000/student/stop-tracking/${courseId}/`,
@@ -153,7 +141,7 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
                         height="auto"
                         onPlay={handleVideoPlay}
                         onPause={handleVideoPause}
-                        onEnded={handleVideoEnd}
+                        onEnded={handleVideoPause}
                         onProgress={(progress) =>
                           handleProgress(chapter.id, progress)
                         }
