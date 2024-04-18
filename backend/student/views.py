@@ -69,6 +69,8 @@ def start_tracking(request, courseId):
     _counter = int(5 * fps)
     disengaged = False
     LOOKDOWN_COUNTER = 0
+    total_frames = 0
+    engaged_frames = 0
 
     while True:
         frame = vs_manager.read()
@@ -102,6 +104,7 @@ def start_tracking(request, courseId):
                 
                 if COUNTER >= EYE_AR_CONSEC_FRAMES:
                     disengaged = True
+                    total_frames += 1
                     TOTAL += 1
                     if ear >= EYE_AR_THRESH:
                         COUNTER = 0
@@ -109,6 +112,8 @@ def start_tracking(request, courseId):
                         COUNTER += 1
                 elif COUNTER < EYE_AR_CONSEC_FRAMES:
                     disengaged = False
+                    total_frames += 1
+                    engaged_frames += 1
                     if ear < EYE_AR_THRESH:
                         COUNTER += 1
                     else:
@@ -137,6 +142,7 @@ def start_tracking(request, courseId):
             if LOOKDOWN_COUNTER >= EYE_AR_CONSEC_FRAMES:
                 disengaged = True
                 TOTAL += 1
+                total_frames += 1
 
             if disengaged:
                 print("Disengaged")
@@ -152,6 +158,10 @@ def start_tracking(request, courseId):
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
             print("EAR:", ear)
             print("Total Disengaged:", TOTAL / fps)
+
+        if total_frames > 0:
+            engagement_percentage = (engaged_frames / total_frames) * 100
+            print(f"Engagement Percentage: {int(engagement_percentage)}%")
 
         cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
