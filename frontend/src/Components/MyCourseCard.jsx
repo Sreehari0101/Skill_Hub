@@ -1,10 +1,34 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./css/MyCourseCard.css";
 import {Progress} from "@nextui-org/react";
 import { Link } from 'react-router-dom';
+import axios from "axios";
+import AuthContext from "../context/AuthContext";
 
 
-function MyCourseCard({courseId,courseCover,courseName,courseOwner,courseProgress}) {
+function MyCourseCard({courseId,courseCover,courseName,courseOwner}) {
+  const [courseProgress, setCourseProgress] = useState(0);
+  const { authTokens } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchCourseProgress = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/student/course-progress/${courseId}/`,
+          {
+            headers: {
+              Authorization: `Bearer ${authTokens.access}`,
+            },
+          }
+        );
+        setCourseProgress(response.data.course_progress);
+      } catch (error) {
+        console.error("Error fetching course progress:", error);
+      }
+    };
+
+    fetchCourseProgress();
+  }, [courseId, authTokens]);
   return (
     <div className="MyCourse-card">
      <Link to={`/student-mycourse-details/${courseId}`}>

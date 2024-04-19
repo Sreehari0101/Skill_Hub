@@ -57,7 +57,12 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
     const fetchChapterProgress = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/student/chapter-progress/${courseId}/`
+          `http://localhost:8000/student/chapter-progress/${courseId}/`,
+          {
+            headers: {
+              Authorization: `Bearer ${authTokens.access}`,
+            },
+          }
         );
         const progressData = {};
         response.data.forEach((item) => {
@@ -78,7 +83,7 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
     };
 
     handleProgressUpdate();
-  }, [mediaProgress, courseId, currentChapterId, updateCourseProgress]);
+  }, [mediaProgress, courseId, currentChapterId, authTokens.access, updateCourseProgress]);
 
   const handleProgress = (chapterId, progress) => {
     setCurrentChapterId(chapterId);

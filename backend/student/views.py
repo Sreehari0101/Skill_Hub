@@ -199,11 +199,52 @@ def stop_tracking(request, courseId):
         return HttpResponse("Tracking is not running")
 
 
-class CourseProgressUpdateAPIView(generics.UpdateAPIView):
+class CourseProgressAPIView(generics.UpdateAPIView):
     queryset = CourseProgress.objects.all()
     serializer_class = CourseProgressSerializer
     permission_classes = [IsAuthenticated]
 
+    def get(self, request, course_id):
+        try:
+            # Get the requested user
+            user = request.user
+
+            # Calculate completed chapters count for the requested user
+            completed_chapters_count = ChapterProgress.objects.filter(
+                user=user, course_id=course_id, progress_percentage=100
+            ).count()
+
+            # Get the total chapters count for the course
+            total_chapters_count = Course.objects.get(id=course_id).chapters.count()
+            
+            # Calculate course progress percentage
+            course_progress = (
+                (completed_chapters_count / total_chapters_count) * 100
+                if total_chapters_count > 0
+                else 0
+            )
+
+            # Update course progress or create if not exists
+            course_progress_instance, created = CourseProgress.objects.update_or_create(
+                user=user,
+                course_id=course_id,
+                defaults={"progress_percentage": course_progress},
+            )
+
+            return Response(
+                {
+                    "completed_chapters": completed_chapters_count,
+                    "total_chapters": total_chapters_count,
+                    "course_progress": course_progress,
+                    "message": "Course progress calculated and stored successfully",
+                },
+                status=status.HTTP_200_OK,
+            )
+        except Course.DoesNotExist:
+            return Response({"error": "Course not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
 class ChapterProgressUpdateAPIView(generics.UpdateAPIView):
     queryset = ChapterProgress.objects.all()
     serializer_class = ChapterProgressSerializer
@@ -232,10 +273,9 @@ class ChapterProgressUpdateAPIView(generics.UpdateAPIView):
 class ChapterProgressAPIView(APIView):
     def get(self, request, course_id):
         try:
-            chapter_progress = ChapterProgress.objects.filter(course_id=course_id)
+            user = request.user
+            chapter_progress = ChapterProgress.objects.filter(user=user, course_id=course_id)
             serializer = ChapterProgressSerializer(chapter_progress, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-
