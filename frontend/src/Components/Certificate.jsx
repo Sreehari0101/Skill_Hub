@@ -3,7 +3,7 @@ import "./css/Certificate.css";
 import AuthContext from "../context/AuthContext";
 import logo1 from "../assets/SkillHub_Homepage_logo.png";
 
-const Certificate= React.forwardRef(({courseName, courseOwner}, ref) => {
+const Certificate= React.forwardRef(({courseName, courseOwner,courseId}, ref) => {
     const { user } = useContext(AuthContext);
     const [userFullname, setUserFullname] = useState("");
   
@@ -28,7 +28,7 @@ const Certificate= React.forwardRef(({courseName, courseOwner}, ref) => {
         </div>
         <div className="credentials-container">
           <h3> Certificate no : UC-3308c41b-93cb-485a-9ee3-60623-1f8ef113</h3>
-          <h3> Reference no : 0002</h3>
+          <h3> Reference no : 000{courseId}</h3>
         </div>
       </div>
       <div className="middle">

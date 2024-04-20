@@ -1,11 +1,11 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from .models import CompanyProfile, Job, JobApplication
-from .serializers import CompanyProfileSerializer, JobSerializer, JobApplicationSerializer
+from .serializers import CompanyProfileSerializer, JobSerializer, JobApplicationSerializer,JobApplySerializer
 from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -111,3 +111,31 @@ class JobApplicationListCreateAPIView(ListCreateAPIView):
         if job_id:
             return JobApplication.objects.filter(job_id=job_id)
         return super().get_queryset()
+
+
+class JobApply(APIView):
+    def post(self, request):
+        serializer = JobApplySerializer(data=request.data)
+        if serializer.is_valid():
+            job_id = serializer.validated_data['jobId']
+            try:
+                job = Job.objects.get(pk=job_id)
+                if request.user.is_authenticated:
+                    job.applied_users.add(request.user)
+                    return Response({'message': 'User applied for the job successfully.'}, status=status.HTTP_200_OK)
+                else:
+                    return Response({'error': 'User is not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
+            except Job.DoesNotExist:
+                return Response({'error': 'Job not found.'}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class JobApplyList(generics.ListAPIView):
+    serializer_class = JobSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        applied_jobs_ids = user.applied_jobs.values_list('id', flat=True)
+        return Job.objects.exclude(id__in=applied_jobs_ids)
+    

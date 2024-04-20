@@ -9,8 +9,12 @@ class CompanyProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Job)
 class JobAdmin(admin.ModelAdmin):
-    list_display = ['title', 'user', 'company_profile', 'job_type', 'work_place', 'last_date_of_application']
+    list_display = ['title', 'user', 'company_profile', 'job_type', 'work_place', 'last_date_of_application','display_applied_users']
     search_fields = ['title', 'user__username', 'company_profile__name']
+    def display_applied_users(self, obj):
+        return ', '.join([user.username for user in obj.applied_users.all()])
+
+    display_applied_users.short_description = 'Applied Users'
 
 @admin.register(JobApplication)
 class JobApplicationAdmin(admin.ModelAdmin):

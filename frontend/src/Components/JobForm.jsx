@@ -57,6 +57,8 @@ function JobForm() {
             timerProgressBar: true,
             showConfirmButton: false,
           });
+
+
           navigate("/recruiter-dashboard");
           console.log("Data saved successfully!");
         } else {

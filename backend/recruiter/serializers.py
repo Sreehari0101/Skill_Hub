@@ -46,3 +46,6 @@ class JobApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobApplication
         fields = '__all__'
+
+class JobApplySerializer(serializers.Serializer):
+    jobId = serializers.IntegerField()

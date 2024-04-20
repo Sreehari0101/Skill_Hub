@@ -14,7 +14,7 @@ function Recruitments() {
     const fetchRecruitments = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/recruiter/jobs/",
+          "http://localhost:8000/recruiter/job-apply-list/",
           {
             headers: {
               Authorization: `Bearer ${authTokens.access}`,

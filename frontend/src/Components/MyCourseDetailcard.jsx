@@ -1,7 +1,6 @@
 import React from "react";
 import "./css/MyCourseDetailCard.css";
 import Rating_icon from "./../assets/Rating_star_icon.png";
-import { Link } from "react-router-dom";
 
 function MyCourseDetailCard({
   courseCover,
@@ -28,11 +27,7 @@ function MyCourseDetailCard({
           </div>
         </div>
         <p>{courseBio}</p>
-        <button>
-          <Link to="/discussions-join">
-            <div className="Register-button">Join Chat</div>
-          </Link>
-        </button>
+        
       </div>
       <div className="Course-image-container">
         <img

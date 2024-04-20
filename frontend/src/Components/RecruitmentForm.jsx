@@ -3,6 +3,7 @@ import AuthContext from "../context/AuthContext";
 import { Input } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function RecruitmentForm({ jobId }) {
   const navigate = useNavigate();
@@ -56,6 +57,21 @@ function RecruitmentForm({ jobId }) {
             timerProgressBar: true,
             showConfirmButton: false,
           });
+          try {
+            await axios.post(
+              'http://localhost:8000/recruiter/apply/',
+              { jobId },
+              {
+                  headers: {
+                      Authorization: `Bearer ${authTokens.access}`,
+                  },
+              }
+          );
+        
+          } catch (error) {
+            console.error("Error applying for job:", error);
+          }
+       
           navigate("/student-recruitments");
           console.log("Data saved successfully!");
         } else {

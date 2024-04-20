@@ -23,7 +23,7 @@ import axios from "axios";
 import Certificate from "./Certificate";
 
 function CourseContent({ courseName, courseOwner, chapters, notes }) {
-  
+  const [allChaptersCompleted, setAllChaptersCompleted] = useState(false);
   const componentRef = useRef();
   let { courseId } = useParams();
   const { authTokens } = useContext(AuthContext);
@@ -31,7 +31,6 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
   const [mediaProgress, setMediaProgress] = useState(0);
   const [currentChapterId, setCurrentChapterId] = useState(null);
   const [chapterProgress, setChapterProgress] = useState({});
-
 
   const updateCourseProgress = useCallback(
     async (courseId, chapterId) => {
@@ -68,8 +67,14 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
         response.data.forEach((item) => {
           progressData[item.chapter] = item.progress_percentage;
         });
+        console.log(progressData);
         setChapterProgress(progressData);
         console.log(response.data);
+        const allCompleted =
+          Object.keys(progressData).length > 0 &&
+          Object.values(progressData).every((progress) => progress === 100);
+        console.log(allCompleted);
+        setAllChaptersCompleted(allCompleted);
       } catch (error) {
         console.error("Error fetching chapter progress:", error);
       }
@@ -83,7 +88,13 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
     };
 
     handleProgressUpdate();
-  }, [mediaProgress, courseId, currentChapterId, authTokens.access, updateCourseProgress]);
+  }, [
+    mediaProgress,
+    courseId,
+    currentChapterId,
+    authTokens.access,
+    updateCourseProgress,
+  ]);
 
   const handleProgress = (chapterId, progress) => {
     setCurrentChapterId(chapterId);
@@ -133,7 +144,7 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
           onSelectionChange={setSelected}
           color="secondary"
           className="flex-col w-full"
-          disabledKeys={["certificate"]}
+          disabledKeys={allChaptersCompleted ? [] : ["certificate"]}
         >
           <Tab
             key="videos"
@@ -198,8 +209,9 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
                         href={note.file_url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center"
                       >
-                        {note.title}
+                        View notes
                       </a>
                     </AccordionItem>
                   ))}
@@ -218,6 +230,7 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
                   courseName={courseName}
                   courseOwner={courseOwner}
                   ref={componentRef}
+                  courseId={courseId}
                 />
                 <button
                   className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
