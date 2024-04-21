@@ -26,6 +26,7 @@ function MyCourseDetailCard({
             </p>
           </div>
         </div>
+      
         <p>{courseBio}</p>
         
       </div>

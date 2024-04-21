@@ -4,9 +4,9 @@ import axios from "axios";
 import TitleCard from "../../Components/TitleCard";
 import ProfileCard from "../../Components/ProfileCard";
 import "./css/MyCourseDetails.css";
-import CourseOverviewCard from "../../Components/CourseOverviewCard";
 import CourseContent from "../../Components/CourseContent";
 import MyCourseDetailCard from "../../Components/MyCourseDetailcard";
+import Statistics from "../../Components/Statistics";
 
 function MyCourseDetails() {
   const { courseId } = useParams();
@@ -53,8 +53,7 @@ function MyCourseDetails() {
             courseMembers="10K"
             courseBio={courseDetails.course.description}
           />
-          <CourseOverviewCard />
-
+          <Statistics courseId={courseId} />
           <CourseContent
             courseName={courseDetails.course.title}
             courseOwner={courseDetails.course.mentor_full_name}

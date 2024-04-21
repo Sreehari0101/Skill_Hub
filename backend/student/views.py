@@ -1,3 +1,4 @@
+from accounts.models import User
 import cv2 
 from scipy.spatial import distance as dist
 from imutils.video import VideoStream
@@ -13,8 +14,9 @@ from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .models import CourseProgress, ChapterProgress
+from .models import CourseProgress, ChapterProgress, EngagementProgress
 from mentor.models import Course, Chapter
+from django.db.models import F
 from .serializers import CourseProgressSerializer, ChapterProgressSerializer
 
 class VideoStreamManager:
@@ -50,7 +52,7 @@ def eye_aspect_ratio(eye):
 
 @csrf_exempt
 @require_POST
-def start_tracking(request, courseId):
+def start_tracking(request, courseId, userId):
     global EYE_AR_THRESH, COUNTER, TOTAL, LOOKDOWN_COUNTER
 
     fps = 10
@@ -171,7 +173,16 @@ def start_tracking(request, courseId):
 
         cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
-        if not video_stream_manager.get_vs():  # Press 'q' to exit the loop
+        if not video_stream_manager.get_vs():
+            print(total_frames)
+            print(engaged_frames)
+            user = User.objects.get(pk=userId) 
+            course = Course.objects.get(pk=courseId)
+            engagement_instance, created = EngagementProgress.objects.get_or_create(user=user, course=course)
+            engagement_instance.engaged_frames = F('engaged_frames') + engaged_frames
+            engagement_instance.total_frames = F('total_frames') + total_frames
+            engagement_instance.save()
+            print("stopped finally") 
             break
 
     cv2.destroyAllWindows()
@@ -182,7 +193,7 @@ def start_tracking(request, courseId):
 
 @csrf_exempt
 @require_POST
-def stop_tracking(request, courseId):
+def stop_tracking(request, courseId, userId):
     global EYE_AR_THRESH, COUNTER, TOTAL, LOOKDOWN_COUNTER
     vs_manager = video_stream_manager.get_vs()
     if vs_manager:
@@ -279,3 +290,26 @@ class ChapterProgressAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+class EngagementPercentageAPIView(APIView):
+    def get(self, request, course_id):
+        try:
+            user = request.user
+            engagement_instance = EngagementProgress.objects.get(user=user, course_id=course_id)
+            engagement_percentage = (
+                (engagement_instance.engaged_frames / engagement_instance.total_frames) * 100
+                if engagement_instance.total_frames > 0
+                else 0
+            )
+            response_data = {
+                "engaged_frames": engagement_instance.engaged_frames,
+                "total_frames": engagement_instance.total_frames,
+                "engagement_percentage": engagement_percentage,
+                "message": "Engagement percentage calculated successfully",
+            }
+
+            return Response(response_data, status=status.HTTP_200_OK)
+        except EngagementProgress.DoesNotExist:
+            return Response({"error": "Engagement progress not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

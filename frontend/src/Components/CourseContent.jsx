@@ -26,11 +26,12 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
   const [allChaptersCompleted, setAllChaptersCompleted] = useState(false);
   const componentRef = useRef();
   let { courseId } = useParams();
-  const { authTokens } = useContext(AuthContext);
+  const { authTokens, user } = useContext(AuthContext);
   const [selected, setSelected] = useState("videos");
   const [mediaProgress, setMediaProgress] = useState(0);
   const [currentChapterId, setCurrentChapterId] = useState(null);
   const [chapterProgress, setChapterProgress] = useState({});
+  console.log(user)
 
   const updateCourseProgress = useCallback(
     async (courseId, chapterId) => {
@@ -105,7 +106,7 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
     console.log("Video Started");
     try {
       await axios.post(
-        `http://localhost:8000/student/start-tracking/${courseId}/`,
+        `http://localhost:8000/student/start-tracking/${courseId}/${user.user_id}/`,
         {
           headers: {
             Authorization: `Bearer ${authTokens.access}`,
@@ -121,7 +122,7 @@ function CourseContent({ courseName, courseOwner, chapters, notes }) {
     console.log("Video Ended");
     try {
       await axios.post(
-        `http://localhost:8000/student/stop-tracking/${courseId}/`,
+        `http://localhost:8000/student/stop-tracking/${courseId}/${user.user_id}/`,
         {
           headers: {
             Authorization: `Bearer ${authTokens.access}`,
