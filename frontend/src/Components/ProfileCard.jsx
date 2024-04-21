@@ -110,6 +110,7 @@ function ProfileCard() {
         console.error("An unexpected error occurred:", error);
       }
     }
+    console.log(profileURL)
   };
 
   return (

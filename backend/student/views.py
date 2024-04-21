@@ -1,5 +1,9 @@
-from accounts.models import User
+from deepface import DeepFace
+from django.conf import settings 
+from accounts.models import User, StudentProfile
+from django.shortcuts import get_object_or_404
 import cv2 
+import json
 from scipy.spatial import distance as dist
 from imutils.video import VideoStream
 from imutils import face_utils
@@ -53,11 +57,12 @@ def eye_aspect_ratio(eye):
 @csrf_exempt
 @require_POST
 def start_tracking(request, courseId, userId):
+    print(DeepFace.__version__)
     global EYE_AR_THRESH, COUNTER, TOTAL, LOOKDOWN_COUNTER
 
     fps = 10
     EYE_AR_CONSEC_FRAMES = 2 * fps
-
+    VERIFY_INTERVAL_FRAMES = 60
     detector = dlib.get_frontal_face_detector()
     current_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
@@ -79,12 +84,17 @@ def start_tracking(request, courseId, userId):
     LOOKDOWN_COUNTER = 0
     total_frames = 0
     engaged_frames = 0
+    verification_frames = 0 
 
     while True:
         frame = vs_manager.read()
         frame = imutils.resize(frame, width=800, height= 800)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         rects = detector(gray, 0)
+        BASE_URL = getattr(settings, 'BASE_URL', 'http://localhost:8000')
+        user = get_object_or_404(User, id=userId)
+        profile_instance = get_object_or_404(StudentProfile, user=user)
+        profile_photo_path = profile_instance.profile_photo.url if profile_instance else None
         
         if len(rects) != 0:
             LOOKDOWN_COUNTER = 0
@@ -104,7 +114,25 @@ def start_tracking(request, courseId, userId):
                     EYE_AR_THRESH = _sum / int(5 * fps) * 0.9
                     start = int(time.time())
             
-            if _counter == 0:       
+            if _counter == 0:
+                verification_frames += 1
+                if verification_frames >= VERIFY_INTERVAL_FRAMES:
+                    print("starting face verification")
+                    if profile_photo_path:
+                        profile_photo_url = BASE_URL + profile_photo_path  
+                        temp_img_path = "temp_frame.jpg"
+                        cv2.imwrite(temp_img_path, frame)
+                        result = DeepFace.verify(
+                            img1_path=temp_img_path,
+                            img2_path=profile_photo_url,
+                            model_name="VGG-Face",
+                            enforce_detection=False
+                        )
+                        if result["verified"]:
+                            print("Face verified successfully")
+                        else:
+                            print("Face verification failed")
+                    verification_frames = 0  
                 leftEyeHull = cv2.convexHull(leftEye)
                 rightEyeHull = cv2.convexHull(rightEye)
                 cv2.drawContours(frame, [leftEyeHull], -1, (0, 255, 0), 1)

@@ -119,7 +119,7 @@ function Statistics({courseId}) {
                   track: "stroke-white/10",
                   value: "text-3xl font-semibold text-white",
                 }}
-                value={70}
+                value={100}
                 strokeWidth={4}
                 showValueLabel={true}
               />
