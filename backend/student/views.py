@@ -18,7 +18,7 @@ from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .models import CourseProgress, ChapterProgress, EngagementProgress
+from .models import CourseProgress, ChapterProgress, EngagementProgress, VerificationProgress
 from mentor.models import Course, Chapter
 from django.db.models import F
 from .serializers import CourseProgressSerializer, ChapterProgressSerializer
@@ -40,7 +40,6 @@ class VideoStreamManager:
 
 # Create a global instance of the VideoStreamManager
 video_stream_manager = VideoStreamManager()
-
 global EYE_AR_THRESH, COUNTER, TOTAL, LOOKDOWN_COUNTER
 EYE_AR_THRESH = 1
 COUNTER = 0
@@ -85,6 +84,7 @@ def start_tracking(request, courseId, userId):
     total_frames = 0
     engaged_frames = 0
     verification_frames = 0 
+    verification_percentage = 100
 
     while True:
         frame = vs_manager.read()
@@ -126,12 +126,16 @@ def start_tracking(request, courseId, userId):
                             img1_path=temp_img_path,
                             img2_path=profile_photo_url,
                             model_name="VGG-Face",
-                            enforce_detection=False
+                            enforce_detection=False,
                         )
-                        if result["verified"]:
+                        #if result["verified"]:
+                        if result["distance"] <= 0.8:
                             print("Face verified successfully")
+                            
                         else:
                             print("Face verification failed")
+                            verification_percentage = 100 
+                        print(json.dumps(result))
                     verification_frames = 0  
                 leftEyeHull = cv2.convexHull(leftEye)
                 rightEyeHull = cv2.convexHull(rightEye)
@@ -202,6 +206,7 @@ def start_tracking(request, courseId, userId):
         cv2.imshow("Frame", frame)
         key = cv2.waitKey(1) & 0xFF
         if not video_stream_manager.get_vs():
+            print(verification_percentage)
             print(total_frames)
             print(engaged_frames)
             user = User.objects.get(pk=userId) 
@@ -210,6 +215,9 @@ def start_tracking(request, courseId, userId):
             engagement_instance.engaged_frames = F('engaged_frames') + engaged_frames
             engagement_instance.total_frames = F('total_frames') + total_frames
             engagement_instance.save()
+            verification_instance, created = VerificationProgress.objects.get_or_create(user=user, course=course)
+            verification_instance.verification_percentage = verification_percentage
+            verification_instance.save()
             print("stopped finally") 
             break
 
@@ -339,5 +347,22 @@ class EngagementPercentageAPIView(APIView):
             return Response(response_data, status=status.HTTP_200_OK)
         except EngagementProgress.DoesNotExist:
             return Response({"error": "Engagement progress not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+class VerificationPercentageAPIView(APIView):
+    def get(self, request, course_id):
+        try:
+            user = request.user
+            verification_instance = VerificationProgress.objects.get(user=user, course_id=course_id)
+            verification_percentage = verification_instance.verification_percentage
+            print(verification_percentage)
+            response_data = {
+                "verification_percentage": verification_percentage ,
+            }
+            print(response_data)
+            return Response(response_data, status=status.HTTP_200_OK)
+        except VerificationProgress.DoesNotExist:
+            return Response({"error": "Verification progress not found"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

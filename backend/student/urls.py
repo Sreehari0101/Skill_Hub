@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import start_tracking, stop_tracking, ChapterProgressUpdateAPIView, ChapterProgressAPIView, CourseProgressAPIView, EngagementPercentageAPIView
+from .views import start_tracking, stop_tracking, ChapterProgressUpdateAPIView, ChapterProgressAPIView, CourseProgressAPIView, VerificationPercentageAPIView, EngagementPercentageAPIView
 
 urlpatterns = [
     path('start-tracking/<int:courseId>/<int:userId>/', start_tracking, name='start_tracking'),
@@ -8,4 +8,5 @@ urlpatterns = [
     path('chapter-progress/<int:course_id>/', ChapterProgressAPIView.as_view(), name='chapter_progress'),
     path('course-progress/<int:course_id>/', CourseProgressAPIView.as_view(), name='chapter_progress'),
     path('student-progress/<int:course_id>/', EngagementPercentageAPIView.as_view(), name='student_progress'),
+    path('student-verify-progress/<int:course_id>/', VerificationPercentageAPIView.as_view(), name='student_verify_progress'),
 ]

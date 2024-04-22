@@ -14,6 +14,7 @@ function Statistics({courseId}) {
     const { authTokens } = useContext(AuthContext);
     const [courseProgress, setCourseProgress] = useState(0);
     const [engagementProgress, setEngagementProgress] = useState(0);
+    const [verificationProgress, setVerificationProgress] = useState(0);
     useEffect(() => {
         const fetchCourseProgress = async () => {
           try {
@@ -46,9 +47,30 @@ function Statistics({courseId}) {
               console.error("Error fetching course progress:", error);
             }
           };
+        
+          const fetchVerificationProgress = async () => {
+            try {
+              const response = await axios.get(
+                `http://localhost:8000/student/student-verify-progress/${courseId}/`,
+                {
+                  headers: {
+                    Authorization: `Bearer ${authTokens.access}`,
+                  },
+                }
+              );
+              console.log(response.data)
+              console.log(response.verification_percentage)
+              setVerificationProgress(response.data.verification_percentage);
+              console.log(verificationProgress)
+            } catch (error) {
+              console.error("Error fetching course progress:", error);
+            }
+          };
+          fetchVerificationProgress();
         fetchCourseProgress();
         fetchEngagementProgress();
-      }, [courseId, authTokens]);
+        
+      }, [courseId, authTokens, verificationProgress, courseProgress, engagementProgress ]);
   return (
     <div className="statistics">
       <h1>Statistics</h1>
@@ -119,7 +141,7 @@ function Statistics({courseId}) {
                   track: "stroke-white/10",
                   value: "text-3xl font-semibold text-white",
                 }}
-                value={100}
+                value={verificationProgress}
                 strokeWidth={4}
                 showValueLabel={true}
               />
