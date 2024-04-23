@@ -63,7 +63,7 @@ function ProfileCard() {
     };
 
     fetchUserProfile();
-  }, [authTokens, user_type, profileEndpoint , user]);
+  }, [authTokens, user_type, profileEndpoint, user]);
   const fileInputRef = useRef(null);
 
   const handleProfileChange = (event) => {
@@ -110,7 +110,7 @@ function ProfileCard() {
         console.error("An unexpected error occurred:", error);
       }
     }
-    console.log(profileURL)
+    console.log(profileURL);
   };
 
   return (
@@ -132,7 +132,7 @@ function ProfileCard() {
             </div>
           </button>
         </PopoverTrigger>
-        <PopoverContent className="w-[350px] h-[450px] ">
+        <PopoverContent className="w-[350px] h-[500px] ">
           <input
             type="file"
             accept="image/*"
@@ -145,6 +145,10 @@ function ProfileCard() {
             size="sm"
             className="w-20 h-20 text-large mx-auto mb-2"
           />
+
+          <div className="text-xs text-center text-red-600 mb-4">
+            Note : Upload only passport-size photo for verification purposes.
+          </div>
           <Button
             className=" bg-black text-white"
             size="sm"
