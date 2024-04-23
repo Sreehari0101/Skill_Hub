@@ -61,7 +61,7 @@ def start_tracking(request, courseId, userId):
 
     fps = 10
     EYE_AR_CONSEC_FRAMES = 2 * fps
-    VERIFY_INTERVAL_FRAMES = 60
+    VERIFY_INTERVAL_FRAMES = 150
     detector = dlib.get_frontal_face_detector()
     current_dir = os.path.dirname(os.path.abspath(__file__))
     parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
@@ -84,9 +84,9 @@ def start_tracking(request, courseId, userId):
     total_frames = 0
     engaged_frames = 0
     verification_frames = 0 
-    verification_percentage = 100
+    verification_percentage = 0
 
-    while True:
+    while video_stream_manager.get_vs():
         frame = vs_manager.read()
         frame = imutils.resize(frame, width=800, height= 800)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -99,6 +99,7 @@ def start_tracking(request, courseId, userId):
         if len(rects) != 0:
             LOOKDOWN_COUNTER = 0
             shape = predictor(gray, rects[0])
+            print("shape detected")
             shape = face_utils.shape_to_np(shape)
             leftEye = shape[lStart:lEnd]
             rightEye = shape[rStart:rEnd]
@@ -130,11 +131,11 @@ def start_tracking(request, courseId, userId):
                         )
                         #if result["verified"]:
                         if result["distance"] <= 0.8:
+                            verification_percentage = 100
                             print("Face verified successfully")
                             
                         else:
-                            print("Face verification failed")
-                            verification_percentage = 100 
+                            print("Face verification failed") 
                         print(json.dumps(result))
                     verification_frames = 0  
                 leftEyeHull = cv2.convexHull(leftEye)
@@ -176,6 +177,7 @@ def start_tracking(request, courseId, userId):
                 print("Total Disengaged:", TOTAL / fps)
 
         elif EYE_AR_THRESH != 1:
+            print("No face detected")
             LOOKDOWN_COUNTER += 1
             ear = 0
 
@@ -240,6 +242,7 @@ def stop_tracking(request, courseId, userId):
         TOTAL = 0
         LOOKDOWN_COUNTER = 0
         print("Requested to stop")
+        vs_manager.stop()
         return HttpResponse("Requested to stop")
     else:
         print("Tracking is not running")
