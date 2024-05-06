@@ -1,4 +1,4 @@
 djvenv/
 backend/.env
-backend/temp_frame
+backend/temp_frame.jpg
 backend/dlib-19.24.1-cp311-cp311-win_amd64
