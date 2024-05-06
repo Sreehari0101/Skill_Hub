@@ -45,6 +45,7 @@ function StudentDashboard() {
             startContent={<BiSearch />}
             className="rounded-full"
           />
+          
         </div>
 
         <div className="profile-content">

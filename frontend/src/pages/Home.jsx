@@ -9,7 +9,6 @@ import {
   DropdownItem,
   Button,
 } from "@nextui-org/react";
-
 import logo1 from "../assets/SkillHub_Sidebar_logo.png";
 import Starfield from "../Components/Starfield";
 
@@ -88,7 +87,9 @@ function Home() {
         <div className="Home-content-container">
           <div className="Home-content">
             <h1 className="Home-heading">Elevate Your Potential</h1>
-            <h1 className="Home-heading">With <span style={{ color: "#113ca5" }}>Skill Hub</span></h1>
+            <h1 className="Home-heading">
+              With <span style={{ color: "#113ca5" }}>Skill Hub</span>
+            </h1>
             <h4 className="Home-description">
               Dive into SkillHub, the dynamic platform where innovative learning
               methodologies and interactive content merge to cultivate a rich
