@@ -256,25 +256,19 @@ class CourseProgressAPIView(generics.UpdateAPIView):
 
     def get(self, request, course_id):
         try:
-            # Get the requested user
             user = request.user
-
-            # Calculate completed chapters count for the requested user
             completed_chapters_count = ChapterProgress.objects.filter(
                 user=user, course_id=course_id, progress_percentage=100
             ).count()
 
-            # Get the total chapters count for the course
             total_chapters_count = Course.objects.get(id=course_id).chapters.count()
             
-            # Calculate course progress percentage
             course_progress = (
                 (completed_chapters_count / total_chapters_count) * 100
                 if total_chapters_count > 0
                 else 0
             )
 
-            # Update course progress or create if not exists
             course_progress_instance, created = CourseProgress.objects.update_or_create(
                 user=user,
                 course_id=course_id,
