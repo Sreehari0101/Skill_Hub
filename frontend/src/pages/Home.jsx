@@ -88,7 +88,7 @@ function Home() {
           <div className="Home-content">
             <h1 className="Home-heading">Elevate Your Potential</h1>
             <h1 className="Home-heading">
-              With <span style={{ color: "#113ca5" }}>Skill Hub</span>
+              With <span style={{ color: "#113ca5" }}>SkillHub</span>
             </h1>
             <h4 className="Home-description">
               Dive into SkillHub, the dynamic platform where innovative learning
